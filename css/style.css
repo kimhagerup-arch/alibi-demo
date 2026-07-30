@@ -852,15 +852,15 @@ html.inne .dor-scene { display: none; }
   color: var(--kritt);
 }
 
-.taakt-nevnt { color: var(--messing); }
-
-/* Som lenke: skal ikke skrike, bare være der for den som leter */
-a.taakt-nevnt {
+/* Søsterstedene (Tåkt, Raus) i løpende tekst:
+   skal ikke skrike, bare være der for den som leter */
+.soster-lenke {
+  color: var(--messing);
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-color: var(--messing-morket);
 }
-a.taakt-nevnt:hover { text-decoration-color: var(--messing); }
+.soster-lenke:hover { text-decoration-color: var(--messing); }
 
 /* ---------- Praktisk ---------- */
 
