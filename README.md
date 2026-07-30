@@ -1,8 +1,19 @@
 # Alibi – nettside
 
-Nettsiden til **Alibi**, speakeasy i kjelleren i Sentrumsparken 2, Alta. Drevet av Æventyr (samme eiere som Tåkt).
+Nettsiden til **Alibi**, speakeasy-pub i kjelleren i Sentrumsparken 2, Alta. Drevet av Æventyr (samme eiere som nattklubben Tåkt, vegg i vegg).
 
 Ren statisk side: HTML + CSS + vanilla JavaScript. Ingen rammeverk, ingen byggesteg, ingen avhengigheter utover Google Fonts.
+
+## Dokumentasjon
+
+Denne fila dekker kjøring, deploy og plassholdere. Resten ligger i egne dokumenter (uten duplisering):
+
+- **[CLAUDE.md](CLAUDE.md)** – prosjektets regelbok: føringer, commit-konvensjon og sporbarhetsregler. Leses automatisk av Claude Code.
+- **[docs/ONBOARDING.md](docs/ONBOARDING.md)** – start her hvis du er ny.
+- **[docs/CHANGELOG.md](docs/CHANGELOG.md)** – hva som er gjort, runde for runde.
+- **[docs/DECISIONS.md](docs/DECISIONS.md)** – hvorfor det er gjort slik (beslutningslogg).
+- **[docs/PROMPTS.md](docs/PROMPTS.md)** – logg over AI-kjøringer, med promptene arkivert i [docs/prompts/](docs/prompts/).
+- **[docs/TODO.md](docs/TODO.md)** – alt som gjenstår, inkludert komplett plassholder-tabell.
 
 ## Kjøre lokalt
 
