@@ -151,3 +151,16 @@ usikre rekonstruksjoner er merket «(antatt)».
 - **Begrunnelse:** Full sporbarhet av både menneskelige beslutninger og
   AI-kjøringer; `CLAUDE.md` er filen Claude Code leser uoppfordret.
 - **Status:** Gjeldende.
+
+## #13 – Æventyr-logoens gull beholdes uendret
+- **Dato:** 2026-07-30 (runde 4)
+- **Beslutning:** Logoen (`assets/aeventyr-gold.svg`) beholder merkevarens
+  gull `#CA9F68` selv om det avviker fra sidens messing `#C9A227`.
+  Filnavnet er ASCII (`aeventyr-gold.svg`) fordi «Æ» i filnavn/URL kan
+  feile på enkelte webservere.
+- **Begrunnelse:** Merkevarefargen eies av Æventyr, ikke av denne siden –
+  eksplisitt føring i runde 4-bestillingen. Avviket er lite og leses ikke
+  som feil på den mørke bunnen.
+- **Alternativer vurdert:** Omfarge SVG-en til sidens messing (forkastet:
+  tukler med merkevaren).
+- **Status:** Gjeldende.

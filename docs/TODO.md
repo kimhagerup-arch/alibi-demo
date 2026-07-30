@@ -4,7 +4,7 @@ Restanseliste i tre deler. **Plassholder-tabellen skal alltid stemme med
 koden** – verifiser med søk på `PLACEHOLDER` i repoet. Lukkede punkter
 markeres med dato, ikke slettes.
 
-Sist verifisert mot koden: 2026-07-30 (12 `PLACEHOLDER`-merker i `index.html`).
+Sist verifisert mot koden: 2026-07-30, runde 4 (11 `PLACEHOLDER`-merker i `index.html`).
 
 ## 1. Plassholdere
 
@@ -21,18 +21,21 @@ Sist verifisert mot koden: 2026-07-30 (12 `PLACEHOLDER`-merker i `index.html`).
 | P9 | Aldersgrense | `#praktisk` | Reell aldersgrense (18/20 år?) | Åpen |
 | P10 | Kontaktinfo | `#praktisk` | E-post og/eller telefon | Åpen |
 | P11 | Sosiale medier-lenker | `#praktisk`, `.some-ikon` | Instagram-/Facebook-URL-er → bytt `<span>` til `<a>` | Åpen |
-| P12 | Lenke til Tåkt | Footer, `.bunn-taakt` | Tåkt sin nettside-URL → bytt `<span>` til `<a class="tekstlenke">` | Åpen |
+| P12 | Lenke til Tåkt | Footer + «Finn oss» | ~~Tåkt sin nettside-URL~~ | **Lukket 2026-07-30** (runde 4: raussocial.no/no/takt i footer og «Finn oss», HTTP 200 verifisert) |
 | P13 | Ekte logo | `#velkommen`, `.logotype` | Logotypen er satt i typografi (Limelight); bytt til SVG/bilde når logo er klar. Ikke kommentar-merket i koden – dokumentert her og i `README.md` | Åpen |
 
 ## 2. Kjente svakheter / gjeld
 
-- **Lighthouse er ikke faktisk målt.** Målet 95+ er designet for (ingen
-  biblioteker, transform/opacity, `font-display: swap`), men ingen måling er
-  kjørt. Kjør Lighthouse i Chrome DevTools mot en lokal server og noter
-  resultatet her.
-- **Google Fonts lastes fra tredjepart.** Vurder selvhosting av Limelight og
-  Cormorant Garamond (personvern/GDPR + én mindre tilkobling). Se
-  beslutning #4 i [DECISIONS.md](DECISIONS.md).
+- **Performance 86 – under 95-målet.** Målt 2026-07-30 (runde 4, lokal
+  server, emulert mobil): Performance **86**, Accessibility **100**,
+  Best Practices **100**, SEO **100**. TBT 0 ms og CLS 0 – flaskehalsen er
+  FCP/LCP på 3,1 s fordi Google Fonts-CSS-en render-blokkerer (~900 ms).
+  Fiks: selvhost fontene (punktet under). Mål på nytt med:
+  `python -m http.server 8000` + `npx lighthouse http://localhost:8000 --quiet --chrome-flags="--headless=new"`.
+- **Google Fonts lastes fra tredjepart.** Selvhosting av Limelight og
+  Cormorant Garamond (woff2 + `@font-face` i egen CSS) løser både
+  personvern/GDPR og ytelsespunktet over. Se beslutning #4 i
+  [DECISIONS.md](DECISIONS.md).
 - **Ingen automatiske tester** – all verifisering er manuell (dør med
   tastatur, Bakrommets tre veier, reduced motion). En enkel sjekkliste
   ligger i [ONBOARDING.md](ONBOARDING.md).

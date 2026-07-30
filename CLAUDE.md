@@ -40,6 +40,8 @@ bonus: «Bakrommet» – en passordlåst del av menyen.
   messing `#C9A227`, oksblod `#5E1F24`, røykgrønn `#3A4A3F`, kritt `#E8E0D0`.
   Typografi: Limelight (display, med måtehold) + Cormorant Garamond (brødtekst).
   Aldri ren svart bakgrunn med neonaksent, aldri blank «Gatsby-glamour».
+  Æventyr-logoen i footeren beholder merkevarens gull `#CA9F68` – ikke
+  «harmoniser» den med sidens messing (beslutning #13).
 - **Tone:** norsk bokmål, lavmælt, konspiratorisk, glimt i øyet
   («Du fant oss.»). Aldri ropende salgstekst, ingen utropstegn-hype.
 - **Døra:** forblir et overlay – ALT innhold skal ligge i DOM-en bak og være

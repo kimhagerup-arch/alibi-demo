@@ -5,6 +5,26 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 4 – 2026-07-30 – Logo og ekte lenker
+
+### Lagt til
+- Æventyr-logoen (`assets/aeventyr-gold.svg`, merkevaregull #CA9F68) i
+  footeren som lenke til aeventyr.no – inline i «Et [logo]-sted»,
+  `clamp(90px, 26vw, 110px)` bred, med sr-only «(åpnes i ny fane)».
+- Ekte Tåkt-lenker (raussocial.no/no/takt) i footer og «Finn oss»
+  (diskret understreking på `.taakt-nevnt` som lenke). Begge URL-er
+  verifisert med HTTP 200.
+- **Lighthouse målt for første gang** (lokal server, emulert mobil):
+  Performance **86**, Accessibility **100**, Best Practices **100**,
+  SEO **100**. TBT 0 ms, CLS 0; FCP/LCP 3,1 s pga. render-blokkerende
+  Google Fonts-CSS (~900 ms) – ført som gjeld i TODO.
+
+### Endret
+- Ubrukt `.aeventyr`-tekstregel i CSS erstattet med logostiler.
+
+### Fjernet
+- PLACEHOLDER-kommentaren for Tåkt-lenken i footeren (P12 lukket i TODO).
+
 ## Runde 3 – 2026-07-30 – Dokumentasjon og sporbarhet
 
 ### Lagt til

@@ -6,6 +6,27 @@ Nyeste øverst.
 
 ---
 
+## Runde 4 – 2026-07-30 – Logo og ekte lenker
+**Prompt:** [`prompts/runde-4-logo-og-lenker.md`](prompts/runde-4-logo-og-lenker.md)
+
+**Bestilt:** (1) Æventyr-logoen inn i footeren som lenke til aeventyr.no
+(ASCII-filnavn, merkevaregull #CA9F68 uendret, 90–120 px, «Et [logo]-sted»
+hvis pent). (2) Ekte Tåkt-lenker (raussocial.no/no/takt) i footer og
+«Finn oss», lukke TODO-rader. (3) Kjøre Lighthouse og loggføre faktiske
+tall. (4) Kontroller: `node --check`, lenke-status, 360 px-skalering.
+
+**Levert:** Alt det bestilte. Inline-varianten «Et [logo]-sted» fungerte
+(bokstavhøyden i logoen matcher brødteksten ved 110 px bredde). Begge
+URL-er verifisert med HTTP 200. Lighthouse kjørt: Performance 86,
+Accessibility 100, Best Practices 100, SEO 100 – ytelsestallet loggført
+som gjeld i TODO med årsak (render-blokkerende Google Fonts-CSS, ~900 ms).
+
+**Avvik:** Ingen. Ytelsesgapet (86 < 95) er dokumentert, ikke fikset –
+fiksen (selvhosting av fonter) lå allerede som gjeldspunkt og var utenfor
+rundens bestilling.
+
+---
+
 ## Runde 3 – 2026-07-30 – Dokumentasjon og full sporbarhet
 **Prompt:** [`prompts/runde-3-dokumentasjon.md`](prompts/runde-3-dokumentasjon.md)
 
