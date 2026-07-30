@@ -6,6 +6,26 @@ Nyeste øverst.
 
 ---
 
+## Runde 6 – 2026-07-30 – Raus og noindex
+**Prompt:** [`prompts/runde-6-raus-og-noindex.md`](prompts/runde-6-raus-og-noindex.md)
+
+**Bestilt:** (1) Restaurant Raus (gateplan, samme eiere) inn som veiviser i
+«Finn oss» og i footerens familielinje, med diskrete lenker; geografien må
+stemme (Raus oppe, Tåkt og Alibi i kjelleren under); vurdere JSON-LD.
+(2) `noindex`-meta på previewen (alibi-demo.vercel.app) med TODO-rad
+«MÅ fjernes ved lansering». (3) Kontroller + push til origin main.
+
+**Levert:** Alt det bestilte. «Finn oss» leder nå fra Raus på gata ned til
+kjelleren; footeren sier «Tåkt og Raus bor i samme hus»; JSON-LD-
+beskrivelsen angir «i kjelleren under restaurant Raus». Klassen
+`.taakt-nevnt` døpt om til `.soster-lenke` (promptens eget forslag).
+noindex inne som P14. Begge URL-er svarer HTTP 200. Pushet til origin
+main (remote fantes allerede, i synk med runde 5).
+
+**Avvik:** Ingen.
+
+---
+
 ## Runde 5 – 2026-07-30 – Selvhost fontene
 **Prompt:** [`prompts/runde-5-selvhost-fontene.md`](prompts/runde-5-selvhost-fontene.md)
 

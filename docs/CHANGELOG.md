@@ -5,6 +5,25 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 6 – 2026-07-30 – Raus og noindex
+
+### Lagt til
+- Restaurant Raus (gateplan, samme eiere) som veiviser i «Finn oss»:
+  Raus ses fra gata, Tåkt og Alibi deler kjelleren under. Raus-lenke
+  (raussocial.no/no) i både «Finn oss» og footeren («Tåkt og Raus bor i
+  samme hus»), begge verifisert HTTP 200.
+- `<meta name="robots" content="noindex">` på previewen
+  (alibi-demo.vercel.app) – ført som P14 i TODO: **MÅ fjernes ved
+  lansering**.
+
+### Endret
+- JSON-LD-beskrivelsen angir beliggenheten «i kjelleren under restaurant
+  Raus».
+- Klassen `.taakt-nevnt` døpt om til `.soster-lenke` – brukes nå om både
+  Tåkt og Raus.
+- Pushet til origin main (github.com/kimhagerup-arch/alibi-demo) –
+  Vercel-previewen bygger fra main.
+
 ## Runde 5 – 2026-07-30 – Selvhostede fonter
 
 ### Lagt til

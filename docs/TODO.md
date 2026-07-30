@@ -4,7 +4,7 @@ Restanseliste i tre deler. **Plassholder-tabellen skal alltid stemme med
 koden** – verifiser med søk på `PLACEHOLDER` i repoet. Lukkede punkter
 markeres med dato, ikke slettes.
 
-Sist verifisert mot koden: 2026-07-30, runde 4 (11 `PLACEHOLDER`-merker i `index.html`).
+Sist verifisert mot koden: 2026-07-30, runde 6 (12 `PLACEHOLDER`-merker i `index.html`).
 
 ## 1. Plassholdere
 
@@ -23,6 +23,7 @@ Sist verifisert mot koden: 2026-07-30, runde 4 (11 `PLACEHOLDER`-merker i `index
 | P11 | Sosiale medier-lenker | `#praktisk`, `.some-ikon` | Instagram-/Facebook-URL-er → bytt `<span>` til `<a>` | Åpen |
 | P12 | Lenke til Tåkt | Footer + «Finn oss» | ~~Tåkt sin nettside-URL~~ | **Lukket 2026-07-30** (runde 4: raussocial.no/no/takt i footer og «Finn oss», HTTP 200 verifisert) |
 | P13 | Ekte logo | `#velkommen`, `.logotype` | Logotypen er satt i typografi (Limelight); bytt til SVG/bilde når logo er klar. Ikke kommentar-merket i koden – dokumentert her og i `README.md` | Åpen |
+| P14 | **noindex på previewen** | `index.html` `<head>` (rett under viewport) | **MÅ fjernes ved lansering** på ekte domene – ellers indekseres ikke siden. Fjern meta-taggen og PLACEHOLDER-kommentaren | Åpen |
 
 ## 2. Kjente svakheter / gjeld
 
