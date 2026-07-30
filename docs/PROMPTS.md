@@ -6,6 +6,26 @@ Nyeste øverst.
 
 ---
 
+## Runde 7 – 2026-07-30 – Finpuss i ventetiden
+**Prompt:** [`prompts/runde-7-finpuss.md`](prompts/runde-7-finpuss.md)
+
+**Bestilt:** Lukke to punkter fra «Kjente svakheter» uten kundeinnhold:
+(1) `404.html` i husets stil (uten dør, uten JS, permanent noindex),
+(2) PNG-fallback for faviconen (32×32 + apple-touch 180×180), koblet i
+`<head>`. Verifisere lokalt, lukke TODO-punkter, pushe.
+
+**Levert:** Alt det bestilte. PNG-ene rendret fra SVG-en med headless
+Chrome i miljøet (ingen manuell instruks nødvendig). 404-siden verifisert
+med HTTP-sjekk og skjermbilder.
+
+**Avvik:** Headless Chrome viste seg å ha en minimums-layoutbredde rundt
+500 px, som først ga feilrendrede PNG-er og et misvisende 360 px-
+skjermbilde – løst med eksplisitt piksel-forankring for ikonene, og
+360 px-oppførselen verifisert via CSS-analyse + 500 px-kontrollbilde i
+stedet for direkte skjermbilde.
+
+---
+
 ## Runde 6 – 2026-07-30 – Raus og noindex
 **Prompt:** [`prompts/runde-6-raus-og-noindex.md`](prompts/runde-6-raus-og-noindex.md)
 

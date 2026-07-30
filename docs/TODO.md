@@ -42,10 +42,14 @@ Sist verifisert mot koden: 2026-07-30, runde 6 (12 `PLACEHOLDER`-merker i `index
   ligger i [ONBOARDING.md](ONBOARDING.md).
 - **`og:url` mangler** i Open Graph-settet – legges til sammen med P2 når
   domenet er klart.
-- **Ingen 404-side** – lag en enkel i samme stil («Denne døra finnes
-  ikke.») når hosting er valgt.
-- **Kun SVG-favicon** – eldre nettlesere og enkelte verktøy foretrekker
-  `favicon.ico`/PNG-fallback. Lav prioritet.
+- ~~**Ingen 404-side**~~ – **Lukket 2026-07-30** (runde 7): `404.html` i
+  rota, husets stil, uten dør og uten JS, med permanent noindex (skal IKKE
+  fjernes ved lansering – ikke det samme som P14). Vercel plukker den opp
+  automatisk; verifisert visuelt lokalt.
+- ~~**Kun SVG-favicon**~~ – **Lukket 2026-07-30** (runde 7):
+  `assets/favicon-32.png` (32×32) og `assets/apple-touch-icon.png`
+  (180×180, full-bleed) rendret fra SVG-en og koblet i `<head>` på begge
+  sider. SVG er fortsatt primær.
 - **Tåkt-krysslenking** er énveis inntil Tåkt lenker tilbake (utenfor dette
   repoet, men verdt å huske for SEO).
 

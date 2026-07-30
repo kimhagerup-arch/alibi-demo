@@ -5,6 +5,22 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 7 – 2026-07-30 – 404-side og favicon-fallback
+
+### Lagt til
+- `404.html` i husets stil: «Denne døra finnes ikke. Men vår gjør.» med
+  «Tilbake til døra»-lenke. Uten dør-overlay og uten JS; gjenbruker
+  `style.css` (egen 404-seksjon der). Permanent noindex – kommentert i
+  koden så den ikke forveksles med P14. Verifisert visuelt lokalt
+  (desktop + smal viewport) og med HTTP-sjekk.
+- PNG-fallback for faviconen: `assets/favicon-32.png` (32×32, transparent
+  avrundet) og `assets/apple-touch-icon.png` (180×180, full-bleed – iOS
+  runder hjørnene selv), rendret fra deco-A-SVG-en med headless Chrome og
+  koblet i `<head>` på begge sider. SVG fortsatt primær.
+
+### Endret
+- To punkter lukket i «Kjente svakheter» i TODO (404-side, favicon-fallback).
+
 ## Runde 6 – 2026-07-30 – Raus og noindex
 
 ### Lagt til
