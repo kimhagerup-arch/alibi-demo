@@ -810,6 +810,14 @@ html.inne .dor-scene { display: none; }
 
 .taakt-nevnt { color: var(--messing); }
 
+/* Som lenke: skal ikke skrike, bare være der for den som leter */
+a.taakt-nevnt {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--messing-morket);
+}
+a.taakt-nevnt:hover { text-decoration-color: var(--messing); }
+
 /* ---------- Praktisk ---------- */
 
 .praktisk-liste {
@@ -931,10 +939,14 @@ html.fane-skjult .stov-korn {
   letter-spacing: 0.15em;
 }
 
-.aeventyr {
-  font-family: var(--font-display);
-  color: var(--messing);
-  letter-spacing: 0.1em;
+/* Æventyr-logoen: merkevarens gull (#CA9F68) beholdes selv om den
+   avviker litt fra sidens messing – se beslutning #13 */
+.aeventyr-lenke { display: inline-block; }
+
+.aeventyr-logo {
+  width: clamp(90px, 26vw, 110px);
+  height: auto;
+  vertical-align: middle;
 }
 
 /* ==========================================================================
