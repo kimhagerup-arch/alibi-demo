@@ -1,0 +1,980 @@
+/* ==========================================================================
+   ALIBI – speakeasy i Alta
+   Palett og typografi styres av variablene under. Innhold som skal byttes
+   ut er merket med PLACEHOLDER i index.html.
+   ========================================================================== */
+
+:root {
+  /* Palett */
+  --brunsort: #141110;
+  --brunsort-lys: #1d1815;
+  --brunsort-panel: #241d18;
+  --messing: #c9a227;
+  --messing-dus: #a9862a;
+  --messing-morket: #6e5a1e;
+  --oksblod: #5e1f24;
+  --oksblod-dyp: #3d1417;
+  --roykgronn: #3a4a3f;
+  --kritt: #e8e0d0;
+  --kritt-dus: #bdb4a2;
+
+  /* Typografi */
+  --font-display: "Limelight", "Georgia", serif;
+  --font-tekst: "Cormorant Garamond", "Georgia", serif;
+
+  /* Skala */
+  --tekst-s: 0.9rem;
+  --tekst-m: 1.2rem;
+  --tekst-l: 1.45rem;
+  --tekst-xl: clamp(1.6rem, 4vw, 2.3rem);
+  --tekst-logotype: clamp(3.2rem, 12vw, 7rem);
+
+  --maks-bredde: 62rem;
+  --luft: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* ---------- Grunnlag ---------- */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--brunsort);
+  color: var(--kritt);
+  font-family: var(--font-tekst);
+  font-size: var(--tekst-m);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Korn og vignett over hele flaten – det analoge laget */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50; /* over alt, også døra – kornet skal ligge på hele bildet */
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+::selection { background: var(--oksblod); color: var(--kritt); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--messing);
+  letter-spacing: 0.06em;
+}
+
+p { max-width: 38rem; }
+
+a { color: var(--messing); }
+
+:focus-visible {
+  outline: 2px solid var(--messing);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-lenke {
+  position: absolute;
+  top: -4rem;
+  left: 1rem;
+  z-index: 40;
+  padding: 0.6rem 1rem;
+  background: var(--brunsort-panel);
+  border: 1px solid var(--messing);
+  color: var(--kritt);
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-lenke:focus { top: 1rem; }
+
+/* ==========================================================================
+   DØRA – inngangsoverlayet
+   ========================================================================== */
+
+.dor-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(201, 162, 39, 0.09), transparent 60%),
+    linear-gradient(180deg, #0d0b0a, var(--brunsort) 60%, #0a0808);
+  transition: transform 1.1s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.9s ease;
+}
+
+/* Lyset i gangen utenfor døra – statisk; kammerlyset i hero-en er
+   sidens ene flimrende lyskilde */
+.dor-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 18%, rgba(201, 162, 39, 0.12), transparent 55%);
+  opacity: 0.85;
+}
+
+.dor-scene[data-state="aapner"] {
+  transform: translateY(-100%);
+}
+.dor-scene[data-state="borte"] { display: none; }
+
+html.inne .dor-scene { display: none; }
+
+.dor-vegg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem;
+}
+
+.dor-ramme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+/* Selve døra er en knapp – Enter/Space banker */
+.dor {
+  position: relative;
+  width: min(17rem, 62vw, 31vh); /* 31vh holder døra (høyde = bredde × 1,8) innenfor korte skjermer */
+  aspect-ratio: 5 / 9;
+  border: none;
+  padding: 0.55rem;
+  cursor: pointer;
+  background: linear-gradient(160deg, #3b2c20, #241a12);
+  border-radius: 3px 3px 0 0;
+  box-shadow:
+    0 0 0 1px #0a0806,
+    0 30px 60px rgba(0, 0, 0, 0.7),
+    inset 0 0 18px rgba(0, 0, 0, 0.8);
+}
+
+.dor-blad {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.14) 0 2px, transparent 2px 26px),
+    linear-gradient(175deg, #4a382a 0%, #33261b 45%, #2a1e14 100%);
+  border-radius: 2px 2px 0 0;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.55);
+  transform-origin: left center;
+  transition: transform 1s cubic-bezier(0.6, 0, 0.3, 1);
+}
+
+.dor:active .dor-blad { transform: translateX(1px); }
+
+.dor.banker .dor-blad { animation: banking 0.28s ease; }
+
+@keyframes banking {
+  0% { transform: translate(0, 0); }
+  30% { transform: translate(-2px, 1px); }
+  60% { transform: translate(2px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Passord-åpningen: døra svinger opp med et gyllent gløtt */
+.dor-scene[data-state="hemmelig"] .dor-blad {
+  transform: perspective(900px) rotateY(-72deg);
+}
+.dor-scene[data-state="hemmelig"] .dor {
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(201, 162, 39, 0.5), rgba(59, 44, 32, 0.9) 70%),
+    linear-gradient(160deg, #3b2c20, #241a12);
+}
+.dor-scene[data-state="hemmelig"] {
+  opacity: 0;
+  transition-delay: 0s, 0.7s;
+}
+
+/* Dørfyllinger */
+.dor-fylling {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(232, 224, 208, 0.06),
+    inset 0 0 14px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(170deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.34));
+  border-radius: 1px;
+}
+.dor-fylling-topp { top: 34%; height: 22%; }
+.dor-fylling-bunn { top: 62%; height: 28%; }
+
+.dor-handtak {
+  position: absolute;
+  top: 55%;
+  right: 7%;
+  width: 0.55rem;
+  height: 2.6rem;
+  border-radius: 0.3rem;
+  background: linear-gradient(90deg, var(--messing-dus), var(--messing-morket));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(232, 224, 208, 0.4);
+}
+
+.dor-skilt {
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.15rem 0.8rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  text-indent: 0.35em; /* kompenserer for letter-spacing på siste tegn */
+  color: #2a1e12;
+  background: linear-gradient(175deg, #d9b545, var(--messing-dus));
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 1px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 245, 210, 0.5);
+}
+
+/* ---------- Dørluka og øyet ---------- */
+
+.luke {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 58%;
+  aspect-ratio: 3 / 1;
+  overflow: hidden;
+  border: 2px solid var(--messing-morket);
+  border-radius: 2px;
+  background: #0c0908;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.luke-deksel {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0 2px, transparent 2px 18px),
+    linear-gradient(170deg, #453425, #2d2115);
+  transition: transform 0.6s cubic-bezier(0.6, 0, 0.3, 1);
+}
+
+.dor-scene[data-state="vurderer"] .luke-deksel,
+.dor-scene[data-state="aapner"] .luke-deksel {
+  transform: translateX(-101%);
+}
+
+.luke-aapning {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #241a14, #0c0908 75%);
+}
+
+.oye { width: 82%; height: auto; }
+
+.oye-hvitt { fill: #d8cdb6; }
+.oye-iris { fill: var(--roykgronn); }
+.oye-pupill { fill: #0d0b0a; }
+.oye-glimt { fill: rgba(232, 224, 208, 0.85); }
+.oye-lokk { fill: #100c0a; transform-origin: 60px 24px; }
+
+.dor-scene[data-state="vurderer"] .oye-iris-gruppe {
+  animation: myser 1.6s ease-in-out;
+}
+.dor-scene[data-state="vurderer"] .oye-lokk {
+  animation: blunker 1.6s ease-in-out;
+}
+
+@keyframes myser {
+  0%, 15% { transform: translateX(0); }
+  35% { transform: translateX(-13px); }
+  60% { transform: translateX(11px); }
+  80%, 100% { transform: translateX(0); }
+}
+
+@keyframes blunker {
+  0% { transform: scaleY(1.9); }
+  10% { transform: scaleY(1); }
+  88% { transform: scaleY(1); }
+  94% { transform: scaleY(1.9); }
+  100% { transform: scaleY(1); }
+}
+
+/* ---------- Tekst og valg under døra ---------- */
+
+.dor-status {
+  min-height: 1.6em;
+  font-size: var(--tekst-l);
+  font-style: italic;
+  color: var(--kritt-dus);
+  text-align: center;
+}
+
+.bank-spor { display: flex; gap: 0.6rem; }
+
+.bank-prikk {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  border: 1px solid var(--messing-morket);
+  transition: background 0.2s ease;
+}
+.bank-prikk.tent { background: var(--messing); border-color: var(--messing); }
+
+.dor-valg {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: var(--tekst-s);
+  letter-spacing: 0.08em;
+}
+
+.dor-valg-skille { color: var(--messing-morket); }
+
+.dor-hopp,
+.dor-passord-knapp,
+.dor-lyd {
+  background: none;
+  border: none;
+  padding: 0.3rem 0.2rem;
+  font-family: var(--font-tekst);
+  font-size: inherit;
+  letter-spacing: inherit;
+  color: var(--kritt-dus);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--messing-morket);
+  cursor: pointer;
+}
+.dor-hopp:hover,
+.dor-passord-knapp:hover,
+.dor-lyd:hover { color: var(--messing); }
+
+.passord-felt-wrap { margin-top: 0.2rem; }
+
+/* Delt mellom dørens felt og Bakrommets felt */
+.passord-input {
+  width: 13rem;
+  padding: 0.5rem 0.8rem;
+  background: var(--brunsort-lys);
+  border: 1px solid var(--messing-morket);
+  border-radius: 2px;
+  color: var(--kritt);
+  font-family: var(--font-tekst);
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-align: center;
+}
+.passord-input::placeholder { color: var(--kritt-dus); opacity: 0.6; font-style: italic; }
+
+.passord-input.feil { animation: rister 0.3s ease; }
+
+@keyframes rister {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ==========================================================================
+   TOPPLINJE
+   ========================================================================== */
+
+.topplinje {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(20, 17, 16, 0.92);
+  border-bottom: 1px solid var(--messing-morket);
+  backdrop-filter: blur(6px);
+  transition: transform 0.35s ease;
+}
+
+/* Skjules ved scroll ned, glir inn ved scroll opp (styres i main.js) */
+.topplinje.topplinje-skjult { transform: translateY(-100%); }
+
+.topplinje nav {
+  max-width: var(--maks-bredde);
+  margin: 0 auto;
+  padding: 0.7rem var(--luft);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.topplinje-merke {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--messing);
+}
+
+.topplinje-lenker {
+  display: flex;
+  gap: clamp(0.8rem, 3vw, 1.8rem);
+  list-style: none;
+}
+
+.topplinje-lenker a {
+  font-size: var(--tekst-s);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kritt-dus);
+  text-decoration: none;
+}
+.topplinje-lenker a:hover { color: var(--messing); }
+
+/* Scroll-spy: seksjonen man står i */
+.topplinje-lenker a.aktiv {
+  color: var(--messing);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--messing-morket);
+}
+
+/* ==========================================================================
+   SEKSJONER
+   ========================================================================== */
+
+.seksjon {
+  max-width: var(--maks-bredde);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 9vh, 6rem) var(--luft);
+  scroll-margin-top: 4.5rem; /* topplinjas høyde + litt luft, så ankere ikke klippes */
+}
+
+.seksjon h2 {
+  font-size: var(--tekst-xl);
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Tynn messinglinje som løper ut fra overskriften */
+.seksjon h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--messing-morket), transparent);
+}
+
+.skille {
+  border: none;
+  height: 1px;
+  max-width: min(28rem, 70%);
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, var(--messing-morket), transparent);
+}
+
+.seksjon-ingress {
+  font-style: italic;
+  color: var(--kritt-dus);
+  margin-top: -1rem;
+  margin-bottom: 2.2rem;
+}
+
+.prosa p + p { margin-top: 1.1rem; }
+
+.to-spalter {
+  display: grid;
+  gap: 2.5rem;
+  align-items: start;
+}
+@media (min-width: 46rem) {
+  .to-spalter { grid-template-columns: 3fr 2fr; }
+}
+
+.tekstlenke {
+  color: var(--messing);
+  text-underline-offset: 4px;
+  text-decoration-color: var(--messing-morket);
+}
+.tekstlenke:hover { text-decoration-color: var(--messing); }
+
+/* ---------- Velkommen ---------- */
+
+.seksjon-velkommen {
+  position: relative;
+  overflow: hidden; /* holder kammerlyset og støvet innenfor */
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.4rem;
+}
+
+/* Kammerlyset: sidens ene ambient-lyskilde – et rom-lys, ikke en effekt */
+.seksjon-velkommen::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: min(48rem, 95vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.13), rgba(201, 162, 39, 0.05) 45%, transparent 68%);
+  animation: kammerlys 8s ease-in-out infinite;
+}
+
+@keyframes kammerlys {
+  0%, 100% { opacity: 0.75; transform: translate(-50%, -50%) scale(1); }
+  17% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.02); }
+  31% { opacity: 0.66; transform: translate(-50%, -49.6%) scale(0.99); }
+  46% { opacity: 0.84; transform: translate(-50.3%, -50%) scale(1.01); }
+  62% { opacity: 0.7; transform: translate(-49.8%, -50.2%) scale(1); }
+  81% { opacity: 0.88; transform: translate(-50%, -50%) scale(1.02); }
+}
+
+.overtekst {
+  font-size: var(--tekst-s);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--kritt-dus);
+}
+
+.logotype {
+  font-size: var(--tekst-logotype);
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+}
+
+.velkomst-linje {
+  font-size: var(--tekst-l);
+  font-style: italic;
+  color: var(--kritt-dus);
+}
+
+/* ---------- Medieplassholdere ---------- */
+
+.medie-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 50% 40%, var(--brunsort-panel), var(--brunsort-lys) 80%),
+    var(--brunsort-lys);
+  border: 1px solid var(--messing-morket);
+  outline: 1px solid rgba(201, 162, 39, 0.15);
+  outline-offset: 5px;
+}
+
+.medie-slot-tekst {
+  font-size: var(--tekst-s);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--messing-dus);
+}
+
+.medie-slot-hero {
+  width: min(100%, 46rem);
+  aspect-ratio: 16 / 9;
+  margin-top: 1.5rem;
+}
+
+.medie-slot-staaende {
+  aspect-ratio: 4 / 5;
+  max-height: 24rem; /* balanserer mot tekstspalten ved siden av */
+}
+
+/* ---------- Menyen ---------- */
+
+.meny-liste {
+  list-style: none;
+  display: grid;
+  gap: 1.4rem;
+}
+@media (min-width: 46rem) {
+  .meny-liste { grid-template-columns: 1fr 1fr; }
+}
+
+/* Art deco-ramme: dobbel hårlinje + diamant i toppen */
+.meny-kort {
+  position: relative;
+  border: 1px solid var(--messing-morket);
+  box-shadow: inset 0 0 0 4px var(--brunsort), inset 0 0 0 5px rgba(201, 162, 39, 0.25);
+  background: linear-gradient(170deg, var(--brunsort-panel), var(--brunsort-lys) 70%);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.meny-kort:hover,
+.meny-kort:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--messing);
+}
+
+/* Indre wrapper: bærer padding og klipper lysstreifet,
+   så diamanten på kortkanten ikke klippes av overflow */
+.meny-kort-indre {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  padding: 1.6rem 1.5rem 1.4rem;
+}
+
+/* Lysstreif som glir diskret over kortet én gang ved hover/fokus */
+.meny-kort-indre::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 34%;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(232, 224, 208, 0.08), transparent);
+  transform: translateX(-160%) skewX(-16deg);
+}
+
+.meny-kort:hover .meny-kort-indre::after,
+.meny-kort:focus-within .meny-kort-indre::after {
+  animation: streif 0.9s ease 0.08s forwards;
+}
+
+@keyframes streif {
+  to { transform: translateX(360%) skewX(-16deg); }
+}
+
+.meny-kort::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--brunsort);
+  border: 1px solid var(--messing-dus);
+}
+
+.meny-kort-topp {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.meny-kort h3,
+.meny-kort h4 {
+  font-size: 1.15rem;
+  letter-spacing: 0.1em;
+}
+
+.meny-pris {
+  font-size: var(--tekst-s);
+  color: var(--kritt-dus);
+  white-space: nowrap;
+}
+
+.meny-kort p {
+  font-size: 1.05rem;
+  color: var(--kritt-dus);
+}
+
+.meny-fotnote {
+  margin-top: 2rem;
+  font-size: var(--tekst-s);
+  font-style: italic;
+  color: var(--kritt-dus);
+}
+
+/* ---------- Bakrommet ---------- */
+
+.bakrom-inngang { margin-top: 2.6rem; }
+
+.bakrom-linje {
+  font-size: var(--tekst-s);
+  font-style: italic;
+  color: var(--kritt-dus);
+}
+
+/* Skal ikke se ut som en vanlig lenke – bare et ord med en nøkkel */
+.bakrom-utloser {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--messing-dus);
+  border-bottom: 1px dotted var(--messing-morket);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3em;
+}
+.bakrom-utloser:hover {
+  color: var(--messing);
+  border-bottom-color: var(--messing);
+}
+
+.nokkel {
+  width: 0.85em;
+  height: 0.85em;
+  align-self: center;
+}
+
+.bakrom-laas { margin-top: 1rem; }
+
+.bakrom-status {
+  min-height: 1.5em;
+  margin-top: 0.5rem;
+  font-size: var(--tekst-s);
+  font-style: italic;
+  color: var(--kritt-dus);
+}
+
+.bakrom {
+  margin-top: 2.6rem;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.bakrom.aapen {
+  opacity: 1;
+  transform: none;
+}
+
+.bakrom-tittel {
+  font-size: 1.5rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 1.2rem;
+}
+
+.bakrom .seksjon-ingress {
+  margin-top: 0;
+  margin-bottom: 1.8rem;
+}
+
+/* Invertert kortstil: messing bunn, mørk tekst */
+.meny-kort-invers {
+  background: linear-gradient(170deg, #d8b23a, var(--messing-dus) 80%);
+  border-color: #2a1e12;
+  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0), inset 0 0 0 5px rgba(20, 17, 16, 0.4);
+}
+.meny-kort-invers::before {
+  background: var(--messing-dus);
+  border-color: #2a1e12;
+}
+/* Solid mørk tekst hele veien – gjennomsiktighet mot messingen
+   faller under WCAG AA på den mørkeste delen av gradienten */
+.meny-kort-invers h3,
+.meny-kort-invers h4,
+.meny-kort-invers p,
+.meny-kort-invers .meny-pris { color: #2a1e12; }
+.meny-kort-invers:hover,
+.meny-kort-invers:focus-within { border-color: #0d0b0a; }
+.meny-kort-invers .meny-kort-indre::after {
+  background: linear-gradient(105deg, transparent, rgba(20, 17, 16, 0.1), transparent);
+}
+
+/* ---------- Finn oss ---------- */
+
+.adresse-linje {
+  font-size: var(--tekst-l);
+  color: var(--kritt);
+}
+
+.taakt-nevnt { color: var(--messing); }
+
+/* ---------- Praktisk ---------- */
+
+.praktisk-liste {
+  display: grid;
+  gap: 1.6rem;
+  max-width: 34rem;
+}
+
+.praktisk-rad {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+  padding-bottom: 1rem;
+}
+@media (max-width: 26rem) {
+  .praktisk-rad { grid-template-columns: 1fr; gap: 0.2rem; }
+}
+
+.praktisk-rad dt {
+  font-size: var(--tekst-s);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--messing);
+}
+
+.praktisk-rad dd { color: var(--kritt-dus); }
+
+.some-ikon {
+  display: inline-flex;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-right: 0.7rem;
+  color: var(--kritt-dus);
+  opacity: 0.7;
+}
+.some-ikon svg { width: 100%; height: 100%; }
+
+/* ==========================================================================
+   BEVEGELSE – scroll-avsløring, linjetrekk og støv.
+   Alt gates bak html.js-klar, som main.js kun setter når JS kjører,
+   IntersectionObserver finnes og brukeren ikke har bedt om mindre
+   bevegelse. Uten den klassen vises alt statisk.
+   ========================================================================== */
+
+html.js-klar .avslor {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+html.js-klar .avslor.avslort {
+  opacity: 1;
+  transform: none;
+}
+/* Etter avsløring: rask hover-respons på kortene igjen */
+html.js-klar .meny-kort.avslor.i-ro {
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+/* Messinglinjen trekkes ut fra overskriften når den avsløres */
+html.js-klar .seksjon h2::after {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.1s cubic-bezier(0.25, 0, 0.2, 1) 0.2s;
+}
+html.js-klar .seksjon h2.avslort::after { transform: scaleX(1); }
+
+/* Støv i lyset – partiklene lages i main.js, kun uten redusert bevegelse */
+.stov {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.stov-korn {
+  position: absolute;
+  top: 103%;
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: var(--messing);
+  opacity: 0;
+  animation: stovdriv var(--dur) linear var(--delay) infinite;
+}
+
+@keyframes stovdriv {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  12% { opacity: var(--o); }
+  80% { opacity: var(--o); }
+  100% { transform: translate3d(var(--drift), -80vh, 0); opacity: 0; }
+}
+
+/* Ambient-animasjonene pauses når fanen ikke er synlig (settes i main.js) */
+html.fane-skjult .seksjon-velkommen::before,
+html.fane-skjult .stov-korn {
+  animation-play-state: paused;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.bunn {
+  border-top: 1px solid var(--messing-morket);
+  padding: 2.5rem var(--luft) 3rem;
+  text-align: center;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+  font-size: var(--tekst-s);
+  color: var(--kritt-dus);
+}
+
+.bunn-merke {
+  font-size: 1.05rem;
+  letter-spacing: 0.15em;
+}
+
+.aeventyr {
+  font-family: var(--font-display);
+  color: var(--messing);
+  letter-spacing: 0.1em;
+}
+
+/* ==========================================================================
+   REDUSERT BEVEGELSE – døra fader i stedet for å animere
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .dor.banker .dor-blad,
+  .dor-scene[data-state="vurderer"] .oye-iris-gruppe,
+  .dor-scene[data-state="vurderer"] .oye-lokk,
+  .passord-input.feil {
+    animation: none;
+  }
+
+  .dor-scene,
+  .dor-blad,
+  .luke-deksel {
+    transition: none;
+  }
+
+  .dor-scene[data-state="aapner"],
+  .dor-scene[data-state="hemmelig"] {
+    transform: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .dor-scene[data-state="hemmelig"] .dor-blad { transform: none; }
+
+  /* Bevegelseslaget: alt vises statisk, ingenting skjules */
+  .seksjon-velkommen::before { animation: none; }
+
+  .meny-kort,
+  .topplinje,
+  .bakrom {
+    transition: none;
+  }
+  .meny-kort:hover,
+  .meny-kort:focus-within { transform: none; }
+  .meny-kort:hover .meny-kort-indre::after,
+  .meny-kort:focus-within .meny-kort-indre::after { animation: none; }
+}

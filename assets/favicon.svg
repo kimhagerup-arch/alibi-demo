@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Alibi-favicon: «A» i deco-stil på brunsort bunn -->
+  <rect width="64" height="64" rx="8" fill="#141110"/>
+  <rect x="5" y="5" width="54" height="54" rx="5" fill="none" stroke="#6e5a1e" stroke-width="1.5"/>
+  <g stroke="#c9a227" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M17 50 L32 13 L47 50"/>
+    <path d="M23.5 37 L40.5 37"/>
+  </g>
+  <circle cx="32" cy="55" r="1.8" fill="#c9a227"/>
+</svg>

@@ -1,0 +1,9 @@
+# OS-støy
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor/verktøy
+*.log
+node_modules/
+.vscode/
