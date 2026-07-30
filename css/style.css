@@ -994,6 +994,47 @@ html.fane-skjult .stov-korn {
 }
 
 /* ==========================================================================
+   404-SIDEN (404.html – uten dør, uten JS)
+   ========================================================================== */
+
+.feil-scene {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.4rem;
+  padding: var(--luft);
+}
+
+.feil-kode {
+  font-size: clamp(4rem, 18vw, 8rem);
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+}
+
+.feil-tekst {
+  font-size: var(--tekst-l);
+  font-style: italic;
+  color: var(--kritt-dus);
+}
+
+.feil-lenke {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.6rem;
+  border: 1px solid var(--messing-morket);
+  color: var(--messing);
+  text-decoration: none;
+  font-size: var(--tekst-s);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.feil-lenke:hover { border-color: var(--messing); }
+
+/* ==========================================================================
    REDUSERT BEVEGELSE – døra fader i stedet for å animere
    ========================================================================== */
 
