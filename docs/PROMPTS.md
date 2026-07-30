@@ -6,6 +6,27 @@ Nyeste øverst.
 
 ---
 
+## Runde 5 – 2026-07-30 – Selvhost fontene
+**Prompt:** [`prompts/runde-5-selvhost-fontene.md`](prompts/runde-5-selvhost-fontene.md)
+
+**Bestilt:** Selvhoste Limelight (400) og Cormorant Garamond (400/500/600 +
+kursiv 400) som latin-subset woff2 i `assets/fonts/` med LICENSE-notis,
+`@font-face` med `font-display: swap`, preload på de to over-folden-filene,
+fjerne Google Fonts-link/preconnects, måle Lighthouse på nytt og lukke
+gjeldspunktene.
+
+**Levert:** Alt det bestilte. 5 filer, 156 kB på disk (~82 kB lastes i
+praksis). **Performance 86 → 99** (FCP 3,1 → 1,4 s, LCP 3,1 → 2,0 s,
+render-blokkering borte). Begge gjeldspunktene lukket. CLAUDE.md og README
+rettet der de fortsatt omtalte Google Fonts som avhengighet.
+
+**Avvik:** Vektene 500/600 er deklarert i `@font-face` men brukes ikke av
+dagens CSS – nettleseren henter dem derfor ikke (verifisert i
+nettverksloggen: kun 400, 400 italic og Limelight lastes). Beholdt per
+bestillingens «behold nøyaktig disse», som fremtidssikring uten kostnad.
+
+---
+
 ## Runde 4 – 2026-07-30 – Logo og ekte lenker
 **Prompt:** [`prompts/runde-4-logo-og-lenker.md`](prompts/runde-4-logo-og-lenker.md)
 

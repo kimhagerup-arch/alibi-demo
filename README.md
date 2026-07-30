@@ -2,7 +2,7 @@
 
 Nettsiden til **Alibi**, speakeasy-pub i kjelleren i Sentrumsparken 2, Alta. Drevet av Æventyr (samme eiere som nattklubben Tåkt, vegg i vegg).
 
-Ren statisk side: HTML + CSS + vanilla JavaScript. Ingen rammeverk, ingen byggesteg, ingen avhengigheter utover Google Fonts.
+Ren statisk side: HTML + CSS + vanilla JavaScript. Ingen rammeverk, ingen byggesteg, ingen eksterne avhengigheter – fontene selvhostes i `assets/fonts/`.
 
 ## Dokumentasjon
 
@@ -117,5 +117,6 @@ assets/           – favicon.svg + fremtidige bilder/video
 ## Design-referanse
 
 - Palett: brunsort `#141110`, messing `#C9A227`, oksblod `#5E1F24`, røykgrønn `#3A4A3F`, kritt `#E8E0D0` – definert i `:root` i `css/style.css`.
-- Typografi: Limelight (display) + Cormorant Garamond (brødtekst), via Google Fonts med `font-display: swap`.
+- Typografi: Limelight (display) + Cormorant Garamond (brødtekst), selvhostet som latin-subset woff2 i `assets/fonts/` (SIL OFL, se `assets/fonts/LICENSE.txt`) med `font-display: swap`.
 - Kontrast: messing på brunsort måler ca. 7,7:1 og består WCAG AA (også AAA for stor tekst).
+- Lighthouse (målt 2026-07-30, emulert mobil): Performance 99, Accessibility 100, Best Practices 100, SEO 100.

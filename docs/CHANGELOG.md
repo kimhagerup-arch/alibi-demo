@@ -5,6 +5,27 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 5 – 2026-07-30 – Selvhostede fonter
+
+### Lagt til
+- `assets/fonts/`: Limelight 400 + Cormorant Garamond 400/500/600/400
+  kursiv som latin-subset woff2 (156 kB på disk; ~82 kB lastes i praksis –
+  500/600 er deklarert, men hentes ikke før de brukes), med
+  `LICENSE.txt` (SIL OFL 1.1).
+- `@font-face`-regler øverst i `css/style.css`; preload av de to
+  over-folden-filene i `<head>`.
+
+### Endret
+- **Lighthouse: Performance 86 → 99** (Accessibility/Best Practices/SEO
+  fortsatt 100). FCP 3,1 → 1,4 s, LCP 3,1 → 2,0 s, ingen
+  render-blokkerende ressurser igjen. 95+-målet er nådd og verifisert.
+- CLAUDE.md og README rettet: siden har nå ingen eksterne avhengigheter
+  overhodet (tidligere «utover Google Fonts»).
+
+### Fjernet
+- Google Fonts `<link>` og begge preconnect-hintene i `index.html` –
+  fontene er 100 % lokale (verifisert: alle woff2 serveres fra eget domene).
+
 ## Runde 4 – 2026-07-30 – Logo og ekte lenker
 
 ### Lagt til

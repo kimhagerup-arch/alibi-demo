@@ -17,8 +17,9 @@ bonus: «Bakrommet» – en passordlåst del av menyen.
 ## Teknisk stack og drift
 
 - **Ren HTML + CSS + vanilla JS.** Ingen rammeverk, ingen byggesteg, ingen
-  avhengigheter utover Google Fonts. Dette er et bevisst valg – ikke innfør
-  npm, bundlere eller biblioteker uten eksplisitt beskjed.
+  eksterne avhengigheter overhodet (fontene selvhostes i `assets/fonts/`,
+  se beslutning #14). Dette er et bevisst valg – ikke innfør npm, bundlere,
+  CDN-er eller biblioteker uten eksplisitt beskjed.
 - Kjøre lokalt: åpne `index.html`, eller `python -m http.server 8000`.
 - Deploy: statisk hosting hvor som helst (Netlify/Vercel/GitHub Pages/one.com) –
   se `README.md`.

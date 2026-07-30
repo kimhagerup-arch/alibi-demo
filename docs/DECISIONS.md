@@ -51,7 +51,8 @@ usikre rekonstruksjoner er merket «(antatt)».
 - **Alternativer vurdert:** Poiret One (forkastet: for spinkel i messing på
   mørk bunn), Jost som brødtekst (forkastet: serif kler konseptet bedre)
   (antatt).
-- **Status:** Gjeldende. Selvhosting av fontene ligger som gjeld i `TODO.md`.
+- **Status:** Gjeldende for fontvalget; leveringen via Google Fonts er
+  erstattet av #14 (selvhosting).
 
 ## #5 – Bankelyd generert med WebAudio, av som standard
 - **Dato:** 2026-07-30 (runde 1)
@@ -164,3 +165,19 @@ usikre rekonstruksjoner er merket «(antatt)».
 - **Alternativer vurdert:** Omfarge SVG-en til sidens messing (forkastet:
   tukler med merkevaren).
 - **Status:** Gjeldende.
+
+## #14 – Fontene selvhostes som latin-subset woff2
+- **Dato:** 2026-07-30 (runde 5)
+- **Beslutning:** Limelight og Cormorant Garamond selvhostes fra
+  `assets/fonts/` (latin-subset woff2, kun woff2-format) med `@font-face`
+  øverst i `style.css` og preload på de to over-folden-filene. Google
+  Fonts-link og preconnects er fjernet. Vektene 500/600 er deklarert som
+  fremtidssikring, men hentes ikke av nettleseren før CSS-en bruker dem.
+- **Begrunnelse:** Google Fonts-CSS-en render-blokkerte ~900 ms og holdt
+  Performance på 86 (målt i runde 4); selvhosting ga 99 og fjernet siste
+  tredjepartsavhengighet (personvern/GDPR). Latin-subsettet dekker æ/ø/å.
+- **Alternativer vurdert:** Beholde Google Fonts med `media=print`-triks
+  (forkastet: hack, løser ikke GDPR), egen `fonts.css` (forkastet: én
+  ekstra request uten gevinst), woff-fallback (forkastet: woff2-dekningen
+  er total i 2026).
+- **Status:** Gjeldende. Erstatter leveringsdelen av #4.

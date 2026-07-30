@@ -26,16 +26,16 @@ Sist verifisert mot koden: 2026-07-30, runde 4 (11 `PLACEHOLDER`-merker i `index
 
 ## 2. Kjente svakheter / gjeld
 
-- **Performance 86 – under 95-målet.** Målt 2026-07-30 (runde 4, lokal
-  server, emulert mobil): Performance **86**, Accessibility **100**,
-  Best Practices **100**, SEO **100**. TBT 0 ms og CLS 0 – flaskehalsen er
-  FCP/LCP på 3,1 s fordi Google Fonts-CSS-en render-blokkerer (~900 ms).
-  Fiks: selvhost fontene (punktet under). Mål på nytt med:
-  `python -m http.server 8000` + `npx lighthouse http://localhost:8000 --quiet --chrome-flags="--headless=new"`.
-- **Google Fonts lastes fra tredjepart.** Selvhosting av Limelight og
-  Cormorant Garamond (woff2 + `@font-face` i egen CSS) løser både
-  personvern/GDPR og ytelsespunktet over. Se beslutning #4 i
-  [DECISIONS.md](DECISIONS.md).
+- ~~**Performance 86 – under 95-målet.**~~ **Lukket 2026-07-30** (runde 5):
+  fontene selvhostes nå, render-blokkeringen er borte. Ny måling (samme
+  oppsett – lokal server, emulert mobil): Performance **99**, Accessibility
+  **100**, Best Practices **100**, SEO **100**; FCP 1,4 s, LCP 2,0 s.
+  Mål på nytt ved behov med: `python -m http.server 8000` +
+  `npx lighthouse http://localhost:8000 --quiet --chrome-flags="--headless=new"`.
+- ~~**Google Fonts lastes fra tredjepart.**~~ **Lukket 2026-07-30**
+  (runde 5): Limelight og Cormorant Garamond selvhostes som latin-subset
+  woff2 i `assets/fonts/` (SIL OFL, se `LICENSE.txt`). Ingen eksterne
+  avhengigheter gjenstår. Se beslutning #14 i [DECISIONS.md](DECISIONS.md).
 - **Ingen automatiske tester** – all verifisering er manuell (dør med
   tastatur, Bakrommets tre veier, reduced motion). En enkel sjekkliste
   ligger i [ONBOARDING.md](ONBOARDING.md).
