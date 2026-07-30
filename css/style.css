@@ -4,6 +4,50 @@
    ut er merket med PLACEHOLDER i index.html.
    ========================================================================== */
 
+/* ---------- Selvhostede fonter (SIL OFL – se assets/fonts/LICENSE.txt) ----------
+   Kun woff2, latin-subset (dekker æ/ø/å). Vektene 500/600 er deklarert,
+   men lastes bare hvis CSS-en faktisk tar dem i bruk. */
+
+@font-face {
+  font-family: "Limelight";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/limelight-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/cormorant-garamond-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/cormorant-garamond-400-italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/cormorant-garamond-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/cormorant-garamond-600.woff2") format("woff2");
+}
+
 :root {
   /* Palett */
   --brunsort: #141110;

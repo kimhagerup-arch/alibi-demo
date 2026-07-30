@@ -1,0 +1,16 @@
+Fonter i denne mappen
+=====================
+
+Limelight
+  Designet av Sorkin Type Co (Eben Sorkin).
+  Lisens: SIL Open Font License 1.1
+  Kilde: https://fonts.google.com/specimen/Limelight
+
+Cormorant Garamond
+  Designet av Christian Thalmann (Catharsis Fonts).
+  Lisens: SIL Open Font License 1.1
+  Kilde: https://fonts.google.com/specimen/Cormorant+Garamond
+
+Begge fontene er hentet som latin-subset woff2 fra Google Fonts og
+selvhostes her. SIL OFL 1.1 tillater fri bruk, innbygging og
+distribusjon, også kommersielt: https://openfontlicense.org
