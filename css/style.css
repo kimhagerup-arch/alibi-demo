@@ -928,6 +928,7 @@ html.inne .dor-scene { display: none; }
 .meny-kort-invers h3,
 .meny-kort-invers h4,
 .meny-kort-invers p,
+.meny-kort-invers .meny-ingredienser,
 .meny-kort-invers .meny-pris { color: #2a1e12; }
 .meny-kort-invers:hover,
 .meny-kort-invers:focus-within { border-color: #0d0b0a; }
