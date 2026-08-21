@@ -469,18 +469,27 @@ html.inne .dor-scene { display: none; }
   margin: 0 auto;
   padding: 0.7rem var(--luft);
   display: flex;
-  align-items: baseline;
+  align-items: center; /* logotypen er et bilde – baseline gir ingen mening lenger */
   justify-content: space-between;
   gap: 1rem;
 }
 
 .topplinje-merke {
+  display: inline-flex;
+  align-items: center;
+  /* Fallback-stil for alt-teksten om logofila ikke laster */
   font-family: var(--font-display);
   font-size: 1.15rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--messing);
+}
+
+.topplinje-merke img {
+  display: block;
+  height: 1.9rem;
+  width: auto;
 }
 
 .topplinje-lenker {
@@ -610,11 +619,21 @@ html.inne .dor-scene { display: none; }
   color: var(--kritt-dus);
 }
 
+/* Logotypen er en SVG-fil (assets/alibi-logo.svg). Font-reglene står igjen
+   som fallback for alt-teksten om bildet ikke laster. Skråstreken i A-en
+   stikker med vilje ut over og under bokstavene – den ligger innenfor
+   SVG-ens viewBox og skal aldri klippes. */
 .logotype {
   font-size: var(--tekst-logotype);
   line-height: 1;
   letter-spacing: 0.12em;
   text-indent: 0.12em;
+}
+
+.logotype img {
+  display: block;
+  width: clamp(13rem, 56vw, 22rem);
+  height: auto;
 }
 
 .velkomst-linje {
