@@ -34,6 +34,9 @@ Sist verifisert mot koden: 2026-08-21, runde 8 (20 `PLACEHOLDER`-merker i `index
   fontene selvhostes nå, render-blokkeringen er borte. Ny måling (samme
   oppsett – lokal server, emulert mobil): Performance **99**, Accessibility
   **100**, Best Practices **100**, SEO **100**; FCP 1,4 s, LCP 2,0 s.
+  *(Merknad 2026-08-21: SEO 100 gjaldt før noindex kom i runde 6 – på
+  previewen viser tallet 60 så lenge P14 står. Se P14; dette punktet er
+  historikk, ikke gjeldende status.)*
   Mål på nytt ved behov med: `python -m http.server 8000` +
   `npx lighthouse http://localhost:8000 --quiet --chrome-flags="--headless=new"`.
 - ~~**Google Fonts lastes fra tredjepart.**~~ **Lukket 2026-07-30**
