@@ -5,6 +5,20 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Justering – 2026-08-21 – «for stor header» (rett etter runde 9)
+
+### Rettet
+- Symbol-SVG-en med glasstegningene (runde 9) brukte `hidden`-attributtet,
+  som ikke gjelder for SVG-elementer (SVG-navnerommet treffes ikke av
+  UA-regelen `[hidden]{display:none}`). Blokka rendret derfor som en tom
+  boks i standardstørrelse (~300×150) over topplinja – det så ut som en
+  altfor høy header. Nå `style="display:none"`; `<use>`-referansene virker
+  fortsatt (verifisert med skjermbilde av menyen).
+
+### Endret
+- Topplinja slanket i samme slengen: logoen 1,9 → 1,4 rem, padding
+  0,7 → 0,45 rem, mobil `scroll-margin-top` 6,5 → 5,5 rem.
+
 ## Runde 9 – 2026-08-21 – Ekte meny, Bakrommet og delingsbilde
 
 ### Lagt til
