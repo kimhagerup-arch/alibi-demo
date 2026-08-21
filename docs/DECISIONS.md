@@ -181,3 +181,73 @@ usikre rekonstruksjoner er merket «(antatt)».
   ekstra request uten gevinst), woff-fallback (forkastet: woff2-dekningen
   er total i 2026).
 - **Status:** Gjeldende. Erstatter leveringsdelen av #4.
+
+## #15 – Runde-nummerering: bestillingen «runde 7» ble runde 8
+- **Dato:** 2026-08-21 (runde 8)
+- **Beslutning:** Bestillingen for logo/familiebånd omtalte seg selv som
+  runde 7, men repoet hadde allerede en runde 7 (404-side og
+  favicon-fallback, tag `runde-7`). Økten er derfor gjennomført og
+  dokumentert som **runde 8** (prompt arkivert som
+  `runde-8-logo-og-familie.md`, tag `runde-8`).
+- **Begrunnelse:** To runder med samme nummer ødelegger sporbarheten, og
+  git-taggen `runde-7` kan ikke gjenbrukes.
+- **Alternativer vurdert:** Følge bestillingen bokstavelig (forkastet:
+  kollisjon i changelog, promptlogg og tags).
+- **Status:** Gjeldende.
+
+## #16 – Norske /no-URL-er i stedet for bestillingens tabell-URL-er
+- **Dato:** 2026-08-21 (runde 8)
+- **Beslutning:** Alle lenker til søstersidene bruker de norske stiene
+  `raussocial.no/no`, `/no/takt`, `/no/terms` og `/no/privacy`.
+- **Begrunnelse:** Bestillingens tabell oppga `raussocial.no/` osv. som
+  «norske» URL-er, men målt 2026-08-21 redirigerer de (307) til
+  `/en`-versjonene. `/no`-stiene svarer 200 direkte. Bestillingens eget
+  prinsipp («ikke lenk til /en-versjoner fra en norsk side») veier tyngre
+  enn tabellen. Kim fikk avviket rapportert før gjennomføring.
+- **Status:** Gjeldende. NB: `aeventyr.no/nb/` (beholdt som bestilt) ender
+  i dag via redirect på kampanjesiden `/nb/summer`.
+
+## #17 – Logotypen som selvstendig SVG-fil; favicon med kvadratisk viewBox
+- **Dato:** 2026-08-21 (runde 8)
+- **Beslutning:** `assets/alibi-logo.svg` (levert fil, bokstaver som
+  kurver) brukes uendret i hero og topplinje via `<img>` med `alt="Alibi"`
+  og faste bredde/høyde-attributter; optisk størrelse styres med `clamp()`
+  i CSS. Faviconet bruker bestillingens A-geometri, men viewBoxen er
+  utvidet til kvadrat (`-60 -10 290 290`) med brunsort bunn og avrundede
+  hjørner.
+- **Begrunnelse:** `<img>` + alt bevarer h1-ens tekstverdi for søk og
+  skjermlesere og holder CLS på 0. Bestillingens favicon-viewBox var
+  stående (198×290); i en kvadratisk fane-rute ville merket blitt
+  letterboxet og mindre. Geometrien er identisk – bare flaten er utvidet.
+- **Alternativer vurdert:** Inline-SVG i h1 (forkastet: dupliserer
+  geometri, mer markup uten gevinst), stående favicon som bestilt
+  (forkastet: mindre merke i fanen).
+- **Status:** Gjeldende.
+
+## #18 – Stedsbytteren: egen rad for ankerlenkene på smale skjermer
+- **Dato:** 2026-08-21 (runde 8)
+- **Beslutning:** På skjermer smalere enn 46 rem brytes topplinja: merke og
+  stedsbytter (Raus/Tåkt) på første rad, ankerlenkene på egen rad under,
+  med litt mindre skrift. `scroll-margin-top` økes tilsvarende. Full tekst
+  beholdes – ingen ikon-forkorting.
+- **Begrunnelse:** Fem ankerlenker + to stedslenker får ikke plass på én
+  rad ved 360 px. Egen rad holder alt lesbart og tastaturnavigerbart;
+  topplinja viker uansett ved scroll ned, så den ekstra høyden koster lite.
+- **Alternativer vurdert:** Ikon + navn (forkastet: to ekstra SVG-er og
+  mindre tydelighet for null plassgevinst), skjule stedsbytteren på mobil
+  (forkastet: den er rundens poeng).
+- **Status:** Gjeldende.
+
+## #19 – Dørplata beholder messingskiltet med tekst
+- **Dato:** 2026-08-21 (runde 8)
+- **Beslutning:** Skiltet på døra i inngangsoverlayet (`.dor-skilt`)
+  beholder dagens graverte «Alibi» i Limelight – logofila settes ikke inn
+  der.
+- **Begrunnelse:** Logoen er messing (#C9A227) på en messingplate – den
+  ville vært nær usynlig, og i skiltets størrelse (under 1 rem bokstavhøyde)
+  er skråstrek-detaljen ulesbar. Bestillingen åpnet eksplisitt for dette
+  valget.
+- **Alternativer vurdert:** Mørk omfarging av logoen i egen fil (forkastet:
+  én sannhet for logogeometrien er mer verdt enn en tredje favicon-variant
+  av samme merke på ei dørplate få ser).
+- **Status:** Gjeldende.

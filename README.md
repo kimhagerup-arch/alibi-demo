@@ -87,10 +87,11 @@ Alt som skal byttes er merket med `<!-- PLACEHOLDER -->` i `index.html`. Søk p�
 | Åpningstider | Seksjonen `#praktisk` | |
 | Aldersgrense | Seksjonen `#praktisk` | |
 | Kontaktinfo | Seksjonen `#praktisk` | E-post og/eller telefon |
-| Sosiale medier | Seksjonen `#praktisk` | Bytt `<span class="some-ikon">` til `<a href="…">` med lenkene |
-| Lenke til Tåkt | Footer | Sett inn URL i `href` |
+| Sosiale medier | Seksjonen `#praktisk` og footerens «Følg oss» | Bytt `<span>` til `<a href="…">` når Alibis egne kontoer finnes |
+| Adresse | `#finn-oss`, `#praktisk` og JSON-LD i `<head>` | Må bekreftes: siden sier Sentrumsparken 2, Raus/Tåkt oppgir Markedsgata 6 (TODO P15) |
+| Foto til «Huset»-kortene | Seksjonen `#huset` | `assets/raus.jpg`, `assets/taakt.jpg` + foto av Alibi |
 | Open Graph-bilde | `<head>` | Legg til `og:image` når foto foreligger |
-| Logo | Seksjonen `#velkommen` | Logotypen er satt i typografi; bytt til SVG/bilde når ekte logo er klar |
+| Logo | `assets/alibi-logo.svg` | Ekte logotype er på plass; leverer kunden en egen fil senere, er det ett filbytte |
 
 ## Medier som forventes (i `assets/`)
 
@@ -101,6 +102,8 @@ Plassholder-flatene («Foto kommer» / «Film kommer») i `index.html` viser hvo
 | `assets/hero.mp4` | `#velkommen` – bytt ut `.medie-slot-hero` med en `<video autoplay muted loop playsinline>` | MP4 (H.264), 1920×1080, < 8 MB, uten lyd |
 | `assets/interior-1.jpg` | `#historien` – bytt ut `.medie-slot-staaende` med `<img>` | JPG/WebP, 1200×1600 (3:4) |
 | `assets/inngang.jpg` | `#finn-oss` – bytt ut `.medie-slot-staaende` med `<img>` | JPG/WebP, 1200×1600 (3:4) |
+| `assets/raus.jpg` | `#huset` – Raus-kortet, bytt ut `.medie-slot-hus` med `<img>` | JPG/WebP, 1200×800 (3:2) |
+| `assets/taakt.jpg` | `#huset` – Tåkt-kortet, bytt ut `.medie-slot-hus` med `<img>` | JPG/WebP, 1200×800 (3:2) |
 | `assets/og-image.jpg` | `<head>` – `og:image` | JPG, 1200×630 |
 
 Husk `alt`-tekst på norsk på alle bilder, og `loading="lazy"` på bilder under folden.
@@ -119,4 +122,4 @@ assets/           – favicon.svg + fremtidige bilder/video
 - Palett: brunsort `#141110`, messing `#C9A227`, oksblod `#5E1F24`, røykgrønn `#3A4A3F`, kritt `#E8E0D0` – definert i `:root` i `css/style.css`.
 - Typografi: Limelight (display) + Cormorant Garamond (brødtekst), selvhostet som latin-subset woff2 i `assets/fonts/` (SIL OFL, se `assets/fonts/LICENSE.txt`) med `font-display: swap`.
 - Kontrast: messing på brunsort måler ca. 7,7:1 og består WCAG AA (også AAA for stor tekst).
-- Lighthouse (målt 2026-07-30, emulert mobil): Performance 99, Accessibility 100, Best Practices 100, SEO 100.
+- Lighthouse (målt 2026-08-21, emulert mobil): Performance 99, Accessibility 100, Best Practices 100, SEO 60 – SEO-tallet skyldes previewens midlertidige `noindex` (TODO P14) og går tilbake til 100 når den fjernes ved lansering.

@@ -5,6 +5,67 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 8 – 2026-08-21 – Logo og familiebånd
+
+Bestillingen omtalte seg selv som «runde 7», men repoet hadde allerede en
+runde 7 (404-side/favicon-fallback) – denne økten er derfor nummerert 8.
+
+### Lagt til
+- **Logotypen** (`assets/alibi-logo.svg`, levert av Kim): A-en med forlenget
+  skråstrek uten tverrstrek (Æventyr-familiens kjennetegn), resten Limelight
+  som kurver. Inn i hero-en (`<img>` i h1 med alt="Alibi", bredde/høyde-
+  attributter mot CLS, `clamp()`-styrt bredde) og i topplinja i liten
+  størrelse. Skråstreken stikker ut over og under – ingenting klipper den.
+- **Stedsbytter i topplinja:** Raus og Tåkt som eksterne lenker bak en tynn
+  messing-skillestrek, i messing så de skiller seg fra ankerlenkene. På
+  smale skjermer legger ankerlenkene seg på egen rad under (beslutning #18).
+- **Ny seksjon «Huset»** mellom Historien og Menyen (anker `#huset`, med i
+  ankernavigasjon og scroll-spy): motto «Spis oppe. Dans ved siden av.
+  Snakk her.», ingress om ett hus/tre steder, og tre kort i menykortenes
+  deco-språk men uten lysstreif – Raus (åpningstider + lenke), Tåkt
+  (åpningstider + lenke), Alibi («Du er her.», `aria-current="page"`,
+  dempet, uten lenke). Medieplassholdere i alle tre kort (P16).
+- **Footer i familiestil:** tre lenkespalter (Alibi-ankere / Huset:
+  Raus–Tåkt–Æventyr / Følg oss-plassholder), deretter «Alibi – et
+  [Æventyr-logo]-sted» med lenker til vilkår og personvern
+  (`raussocial.no/no/terms` og `/no/privacy`, begge HTTP 200), og
+  «© 2026 Alibi – en del av Æventyr.»
+- **Praktisk i husets struktur:** Beliggenhet (ny, med adresse), deretter
+  Åpningstider, Aldersgrense, Kontakt, Sosiale medier – samme rekkefølge og
+  overskrifter som søstersidene. Plassholderne står som før.
+- `twitter:card` (`summary_large_image`) i `<head>`; `url` på
+  `parentOrganization` i JSON-LD; plassholder-kommentar for `sameAs`.
+- **P15 – adressekonflikt** ført inn: siden sier Sentrumsparken 2, Raus/Tåkt
+  oppgir Markedsgata 6. Merket med PLACEHOLDER i «Finn oss», «Praktisk» og
+  ved JSON-LD; ikke endret på egen hånd.
+
+### Endret
+- Faviconet byttet til A-merket alene (samme geometri som logofila) på
+  brunsort bunn, kvadratisk viewBox; PNG-fallbackene (32 px + apple-touch
+  180 px) rendret på nytt fra samme geometri.
+- «Finn oss» trimmet til ren veiviser (Raus over, Tåkts bass, vår rolige
+  dør) – familiepresentasjonen bor nå i «Huset».
+- Scroll-avsløringen hopper over medieplassholdere som ligger inni kort, så
+  Huset-kortene ikke dobbelt-animeres; `.huset-motto` med i avsløringen.
+- Topplinje-nav justert fra baseline- til senterjustering (logoen er nå et
+  bilde).
+- README: plassholder-tabell, medie-tabell og Lighthouse-notis ajourført.
+
+### Rettet
+- Logofila lå som `Alibi-logo.svg` og var aldri blitt committet (`git add`
+  med små bokstaver feilet stille på Windows) – omdøpt til
+  `alibi-logo.svg` og committet, så referansene holder på case-sensitiv
+  hosting.
+
+### Målt
+- Lighthouse (lokal server, emulert mobil), **før** runden:
+  Performance 99 / Accessibility 100 / Best Practices 100 / SEO 60
+  (FCP 1,1 s, LCP 2,0 s, TBT 10 ms, CLS 0,011).
+- **Etter** runden: Performance 99 / Accessibility 100 /
+  Best Practices 100 / SEO 60 (FCP 1,2 s, LCP 1,9 s, TBT 0 ms, CLS 0,012).
+- SEO 60 skyldes previewens bevisste `noindex` (P14) og var 60 også før
+  runden – går tilbake til 100 ved lansering. Ingen ytelsesregresjon.
+
 ## Runde 7 – 2026-07-30 – 404-side og favicon-fallback
 
 ### Lagt til

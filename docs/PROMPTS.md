@@ -6,6 +6,41 @@ Nyeste øverst.
 
 ---
 
+## Runde 8 – 2026-08-21 – Logo og familiebånd
+**Prompt:** [`prompts/runde-8-logo-og-familie.md`](prompts/runde-8-logo-og-familie.md)
+
+**Bestilt:** (0) Forarbeid: verifisere at logofila finnes og at
+søstersidenes URL-er svarer 200. (1) Ny logotype inn i hero, topplinje,
+ev. dørplata, og favicon med A-merket. (2) Stedsbytter (Raus/Tåkt) i
+topplinja. (3) Ny seksjon «Huset» med tre kort. (4) Footer med tre
+lenkespalter i familiestil. (5) «Praktisk» i husets informasjonsstruktur +
+adressekonflikt som P15. (6) og:-meta/twitter:card/JSON-LD-utvidelser.
+Kvalitetsgulv: Lighthouse ≥ 95, WCAG AA, ingen nye avhengigheter.
+
+**Levert:** Alt det bestilte, i to omganger: første kjøring stoppet i
+oppgave 0 fordi logofila manglet (som bestillingen krevde); Kim la inn
+fila og runden ble fullført. Verifisert med skjermbilder (desktop + 500 px,
+inkl. redusert bevegelse), funksjonell headless-test av dør (tre bank →
+åpner, fokus, inert) og Bakrommet, HTTP-sjekk av alle eksterne lenker og
+Lighthouse før/etter (99/100/100/60 begge – SEO 60 er previewens noindex).
+
+**Avvik:**
+- Bestillingen kalte seg runde 7; repoet hadde alt en runde 7 → nummerert
+  som runde 8 (beslutning #15).
+- Tabellens «norske» URL-er redirigerer til `/en` – brukte `/no`-stiene i
+  stedet (beslutning #16); dagens footer-URL-er var altså riktige og ble
+  beholdt.
+- Favicon-viewBoxen gjort kvadratisk, geometrien uendret (beslutning #17).
+- Dørplata beholder tekstskiltet – logoen er messing-på-messing og
+  ulesbar i den størrelsen (beslutning #19, forankret i bestillingen).
+- `meta name="twitter:card"` lagt til; `og:type/locale/site_name` fantes
+  allerede fra runde 1 og ble beholdt som de var.
+- Logofila lå som `Alibi-logo.svg`; `git add` med små bokstaver feilet
+  stille og fila manglet i første commit – oppdaget i sluttkontrollen,
+  omdøpt og committet (egen fix-commit).
+
+---
+
 ## Runde 7 – 2026-07-30 – Finpuss i ventetiden
 **Prompt:** [`prompts/runde-7-finpuss.md`](prompts/runde-7-finpuss.md)
 
