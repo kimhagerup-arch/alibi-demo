@@ -19,6 +19,15 @@ datoene for runde 1–2 er antatt.
 - Topplinja slanket i samme slengen: logoen 1,9 → 1,4 rem, padding
   0,7 → 0,45 rem, mobil `scroll-margin-top` 6,5 → 5,5 rem.
 
+### Etterpå
+- Runde 8, 9 og justeringen pushet til origin main av Kim. Verifisert på
+  previewen: `og-image.png` svarer HTTP 200 (delingsbildet kan nå testes i
+  Facebook/LinkedIn-debuggerne) og glass-symbolene ligger i utrullet HTML.
+- Docs-ajourføring i etterkant: README (Bakroms-cocktailene er ekte,
+  adresseforbehold P15, assets-beskrivelse), ONBOARDING og CLAUDE.md
+  (assets-beskrivelse, adresseforbehold), promptlogg-oppføring for
+  header-justeringen.
+
 ## Runde 9 – 2026-08-21 – Ekte meny, Bakrommet og delingsbilde
 
 ### Lagt til

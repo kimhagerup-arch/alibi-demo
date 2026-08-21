@@ -5,7 +5,9 @@ Prosjektets hukommelse og regelbok. Leses automatisk av Claude Code i hver økt.
 
 ## Hva dette er
 
-Nettsiden til **Alibi** – en speakeasy-pub i en kjeller i Sentrumsparken 2, 9510 Alta,
+Nettsiden til **Alibi** – en speakeasy-pub i en kjeller i Alta sentrum
+(adressen er under avklaring: siden sier Sentrumsparken 2, søstersidene
+Markedsgata 6 – se TODO P15, skal løses før lansering),
 drevet av **Æventyr** (samme eiere som nattklubben **Tåkt**, som ligger vegg i vegg
 i samme kjeller – Tåkt er nattklubben, Alibi er puben). Målgruppen er et voksent
 publikum som vil ha god samtale og gode cocktails i lavt tempo.
@@ -32,7 +34,7 @@ bonus: «Bakrommet» – en passordlåst del av menyen.
 | `index.html` | Alt innhold. Plassholdere merket `<!-- PLACEHOLDER -->` |
 | `css/style.css` | All stil. Palett/typografi som variabler i `:root` øverst |
 | `js/main.js` | Døra, Bakrommet, bevegelseslaget. Passordet: `ALIBI_PASSORD` øverst |
-| `assets/` | Favicon + fremtidige bilder/video (spesifisert i `README.md`) |
+| `assets/` | Logo, favicon (SVG + PNG), og-image, fonter i `fonts/`; foto/video kommer (spesifisert i `README.md`) |
 | `docs/` | Changelog, beslutninger, promptlogg, TODO, onboarding |
 
 ## Føringer som IKKE endres uten eksplisitt beskjed

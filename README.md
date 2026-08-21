@@ -1,6 +1,6 @@
 # Alibi – nettside
 
-Nettsiden til **Alibi**, speakeasy-pub i kjelleren i Sentrumsparken 2, Alta. Drevet av Æventyr (samme eiere som nattklubben Tåkt, vegg i vegg).
+Nettsiden til **Alibi**, speakeasy-pub i en kjeller i Alta sentrum. Drevet av Æventyr (samme eiere som nattklubben Tåkt, vegg i vegg). NB: gateadressen er under avklaring – siden sier Sentrumsparken 2, søstersidene sier Markedsgata 6 (se TODO P15).
 
 Ren statisk side: HTML + CSS + vanilla JavaScript. Ingen rammeverk, ingen byggesteg, ingen eksterne avhengigheter – fontene selvhostes i `assets/fonts/`.
 
@@ -59,7 +59,7 @@ Bakrommet låses opp på tre måter:
 2. **Døra** – den som kom inn med passord ved døra, får Bakrommet ferdig opplåst.
 3. **Tastaturet** – å taste passordet hvor som helst på siden (utenfor et skrivefelt) låser også opp.
 
-`sessionStorage`-nøkkelen `alibi-bakrom` husker opplåsingen ut økten. Bakroms-cocktailene er merket `<!-- PLACEHOLDER -->` i `index.html` og byttes på samme måte som hovedmenyen.
+`sessionStorage`-nøkkelen `alibi-bakrom` husker opplåsingen ut økten. Bakroms-cocktailene (Mandaquiri og Adventure) er ekte siden runde 9 – det som gjenstår der er priser (P5) og glass/mengde (P18).
 
 ### Bytte passord
 
@@ -115,7 +115,7 @@ Husk `alt`-tekst på norsk på alle bilder, og `loading="lazy"` på bilder under
 index.html        – alt innhold (one-page med ankernavigasjon)
 css/style.css     – all stil; palett og typografi som variabler øverst i :root
 js/main.js        – dørmekanikken; ingenting annet krever JavaScript
-assets/           – favicon.svg + fremtidige bilder/video
+assets/           – logo, favicon (SVG + PNG), og-image, selvhostede fonter; bilder/video kommer
 ```
 
 ## Design-referanse

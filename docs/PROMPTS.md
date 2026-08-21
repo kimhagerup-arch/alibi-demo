@@ -6,6 +6,21 @@ Nyeste øverst.
 
 ---
 
+## Justering – 2026-08-21 – «header ble for stor» (etter runde 9)
+**Prompt:** [`prompts/justering-2026-08-21-header.md`](prompts/justering-2026-08-21-header.md)
+
+**Bestilt:** «header ble for stor, fiks det.»
+
+**Levert:** Rot-årsaken var ikke topplinja, men runde 9-symbolblokka:
+`hidden`-attributtet gjelder ikke SVG-elementer, så den rendret som en tom
+~300×150-boks over topplinja. Byttet til `style="display:none"`
+(`<use>`-referansene virker fortsatt, verifisert). Topplinja i tillegg
+slanket (logo 1,9 → 1,4 rem, mindre padding).
+
+**Avvik:** Ingen.
+
+---
+
 ## Runde 9 – 2026-08-21 – Ekte meny, Bakrommet og delingsbilde
 **Prompt:** [`prompts/runde-9-ekte-meny.md`](prompts/runde-9-ekte-meny.md)
 
