@@ -470,7 +470,6 @@ html.inne .dor-scene { display: none; }
   padding: 0.7rem var(--luft);
   display: flex;
   align-items: center; /* logotypen er et bilde – baseline gir ingen mening lenger */
-  justify-content: space-between;
   gap: 1rem;
 }
 
@@ -496,6 +495,7 @@ html.inne .dor-scene { display: none; }
   display: flex;
   gap: clamp(0.8rem, 3vw, 1.8rem);
   list-style: none;
+  margin-left: auto; /* skyver ankerlenker + stedsbytter mot høyre */
 }
 
 .topplinje-lenker a {
@@ -513,6 +513,46 @@ html.inne .dor-scene { display: none; }
   text-decoration: underline;
   text-underline-offset: 6px;
   text-decoration-color: var(--messing-morket);
+}
+
+/* Stedsbytteren: Raus og Tåkt – lavmælt, men i messing og bak en
+   skillestrek, så det leses som «resten av huset», ikke som ankere */
+.topplinje-steder {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 2.5vw, 1.4rem);
+  list-style: none;
+  padding-left: clamp(0.8rem, 2.5vw, 1.4rem);
+  border-left: 1px solid var(--messing-morket);
+}
+
+.topplinje-steder a {
+  font-size: var(--tekst-s);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--messing);
+  text-decoration: none;
+}
+.topplinje-steder a:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--messing-morket);
+}
+
+/* Smale skjermer: merke + stedsbytter på første rad, ankerlenkene på
+   egen rad under – topplinja skal ikke bli trang (se beslutningslogg) */
+@media (max-width: 46rem) {
+  .topplinje nav { flex-wrap: wrap; row-gap: 0.4rem; }
+  .topplinje-steder { order: 2; margin-left: auto; }
+  .topplinje-lenker {
+    order: 3;
+    flex-basis: 100%;
+    margin-left: 0;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.9rem;
+  }
+  .topplinje-lenker a { font-size: 0.8rem; letter-spacing: 0.08em; }
+  .seksjon { scroll-margin-top: 6.5rem; } /* topplinja er to rader høy her */
 }
 
 /* ==========================================================================
