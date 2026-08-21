@@ -804,6 +804,37 @@ html.inne .dor-scene { display: none; }
   white-space: nowrap;
 }
 
+/* Glassrad: strektegning + glassnavn/mengde. Tegningen er dekorativ
+   (aria-hidden) og underordnet drinknavnet. Full messing (≈ 6,9:1 mot
+   kortbunnen) holder strekene godt over AA-kravet for grafikk (3:1). */
+.meny-glass {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.2rem 0 0.5rem;
+  color: var(--messing);
+}
+
+.glass-ikon {
+  width: 2rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+}
+
+.meny-glass-tekst {
+  font-size: var(--tekst-s);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--kritt-dus);
+}
+
+.meny-ingredienser {
+  font-size: var(--tekst-s);
+  font-style: italic;
+  color: var(--kritt-dus);
+  margin-bottom: 0.4rem;
+}
+
 .meny-kort p {
   font-size: 1.05rem;
   color: var(--kritt-dus);

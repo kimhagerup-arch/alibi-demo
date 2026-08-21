@@ -68,6 +68,35 @@
 </head>
 <body>
 
+<!-- Glasstegningene til menyen – samme strekstil som Æventyr-ikonene og den
+     trykte menyen. Definert én gang her, brukt med <use> i menykortene. -->
+<svg hidden aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="glass-vin" viewBox="0 0 100 120">
+    <path d="M34,16 L66,16"/>
+    <path d="M34,16 C34,38 37,57 50,58 C63,57 66,38 66,16"/>
+    <path d="M50,58 L50,99"/>
+    <path d="M35,103 L65,103"/>
+  </symbol>
+  <symbol id="glass-highball" viewBox="0 0 100 120">
+    <path d="M27,16 L73,16"/>
+    <path d="M27,16 L29,96 C29,100 32,102 35,102 L65,102 C68,102 71,100 71,96 L73,16"/>
+  </symbol>
+  <symbol id="glass-rocks" viewBox="0 0 100 120">
+    <path d="M24,42 L76,42"/>
+    <path d="M24,42 L27,94 C27,98 30,100 33,100 L67,100 C70,100 73,98 73,94 L76,42"/>
+  </symbol>
+  <symbol id="glass-margarita" viewBox="0 0 100 120">
+    <path d="M20,24 L80,24"/>
+    <path d="M20,24 L50,62 L80,24"/>
+    <path d="M50,62 L50,96"/>
+    <path d="M31,100 L69,100"/>
+    <path d="M38,50 L70,14"/>
+    <circle cx="73.5" cy="10.5" r="4.5"/>
+    <circle cx="41" cy="33" r="1.9"/>
+    <circle cx="57" cy="35" r="1.9"/>
+  </symbol>
+</svg>
+
 <a class="skip-lenke" href="#hoved">Hopp til innholdet</a>
 
 <!-- ============================================================
@@ -231,50 +260,85 @@
   <!-- ============ MENYEN ============ -->
   <section id="menyen" class="seksjon">
     <h2>Menyen</h2>
-    <p class="seksjon-ingress">Klassikere fra tiden da oppskriftene måtte huskes, ikke skrives ned.</p>
+    <p class="seksjon-ingress">Vår egen håndskrift. Noen av dem har vi funnet på selv.</p>
 
-    <!-- PLACEHOLDER: erstattes med ekte meny. Priser står som «kr —» inntil videre. -->
+    <!-- PLACEHOLDER: priser står som «kr —» til de er levert (TODO P5) -->
     <ul class="meny-liste">
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Bee’s Knees</h3><span class="meny-pris">kr —</span></div>
-          <p>Gin, sitron og honning – søtt nok til å skjule det meste.</p>
+          <div class="meny-kort-topp"><h3>Æventonic</h3><span class="meny-pris">kr —</span></div>
+          <div class="meny-glass">
+            <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-vin"/></svg>
+            <span class="meny-glass-tekst">Vinglass · 30 cl</span>
+          </div>
+          <p class="meny-ingredienser">Gin Mare · Fever-Tree Mediterranean Tonic · rosmarin</p>
+          <p>Husets egen. Middelhavsgin, tonic med urter, og en rosmarinkvist som lukter av et varmere sted.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Sidecar</h3><span class="meny-pris">kr —</span></div>
-          <p>Cognac, appelsinlikør og sitron, med sukkerkant om du ber pent.</p>
+          <div class="meny-kort-topp"><h3>Aurora Fizz</h3><span class="meny-pris">kr —</span></div>
+          <div class="meny-glass">
+            <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-highball"/></svg>
+            <span class="meny-glass-tekst">Highball · 25 cl</span>
+          </div>
+          <p class="meny-ingredienser">Gin · blå curaçao · sitron · sukkerlake · soda · sitronskall</p>
+          <p>Nordlys i kjelleren. Den lyser blått uten å rope om det.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Old Fashioned</h3><span class="meny-pris">kr —</span></div>
-          <p>Whiskey, sukker og bitter. Eldre enn forbudet, og har overlevd verre.</p>
+          <div class="meny-kort-topp"><h3>Basil Smash</h3><span class="meny-pris">kr —</span></div>
+          <div class="meny-glass">
+            <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-rocks"/></svg>
+            <span class="meny-glass-tekst">Rocks · 15 cl</span>
+          </div>
+          <p class="meny-ingredienser">Gin · sitron · sukkerlake · fersk basilikum</p>
+          <p>Basilikum knust i bunnen, gin over. Grønn, frisk og litt uhøflig.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>French 75</h3><span class="meny-pris">kr —</span></div>
-          <p>Gin og champagne. Oppkalt etter en kanon, oppfører seg deretter.</p>
+          <div class="meny-kort-topp"><h3>Manito</h3><span class="meny-pris">kr —</span></div>
+          <div class="meny-glass">
+            <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-highball"/></svg>
+            <span class="meny-glass-tekst">Highball · 25 cl</span>
+          </div>
+          <p class="meny-ingredienser">Hvit rom · Mannsverk jordbær · mynte · lime · sukkerlake · soda · jordbær</p>
+          <p>Mojitoens jordbærglade slektning. Mynten er plukket her inne.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Mary Pickford</h3><span class="meny-pris">kr —</span></div>
-          <p>Rom, ananas og grenadine – Havanna, dit alle dro da det stengte hjemme.</p>
+          <div class="meny-kort-topp"><h3>Mezcalita</h3><span class="meny-pris">kr —</span></div>
+          <div class="meny-glass">
+            <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-margarita"/></svg>
+            <span class="meny-glass-tekst">Margarita · 15 cl</span>
+          </div>
+          <p class="meny-ingredienser">Mezcal · triple sec · lime · sukkerlake · salt · flambert lime</p>
+          <p>Margarita med røyk i. Limebåten har vært innom flammen på veien.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Boulevardier</h3><span class="meny-pris">kr —</span></div>
-          <p>Whiskey, vermut og Campari. En Negroni som har vært ute en vinternatt.</p>
+          <div class="meny-kort-topp"><h3>Maltfassioned</h3><span class="meny-pris">kr —</span></div>
+          <div class="meny-glass">
+            <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-rocks"/></svg>
+            <span class="meny-glass-tekst">Rocks · 10 cl</span>
+          </div>
+          <p class="meny-ingredienser">Single malt · Angostura · sukkerbit · appelsin</p>
+          <p>En Old Fashioned som tok feil avkjøring og havnet i Skottland.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Southside</h3><span class="meny-pris">kr —</span></div>
-          <p>Gin, mynte og lime. Ryktene sier Chicago; vi sier ingenting.</p>
+          <div class="meny-kort-topp"><h3>Canyon Tea</h3><span class="meny-pris">kr —</span></div>
+          <div class="meny-glass">
+            <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-highball"/></svg>
+            <span class="meny-glass-tekst">Highball · 25 cl</span>
+          </div>
+          <p class="meny-ingredienser">Vodka · triple sec · gin · hvit rom · mezcal · sitron · sukkerlake · Coca-Cola · appelsin</p>
+          <p>Fem flasker og en cola. Vi sier ikke mer.</p>
         </div>
       </li>
     </ul>
