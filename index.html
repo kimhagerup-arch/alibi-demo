@@ -15,6 +15,7 @@
   <meta property="og:description" content="En kjeller i Alta. En dør uten skilt – nesten. Bank på.">
   <meta property="og:locale" content="nb_NO">
   <meta property="og:site_name" content="Alibi">
+  <meta name="twitter:card" content="summary_large_image">
   <!-- PLACEHOLDER: legg inn og:image når foto foreligger, f.eks. assets/og-image.jpg (1200x630) -->
   <!-- PLACEHOLDER: <link rel="canonical" href="https://…"> når domenet er klart -->
 
@@ -39,6 +40,8 @@
   <!-- PLACEHOLDER: adresse må bekreftes – se TODO P15. Gjelder «address» i
        JSON-LD-en under (JSON kan ikke bære kommentaren selv). Feil adresse her
        ender i Google Maps/Business – skal avklares FØR lansering. -->
+  <!-- PLACEHOLDER: «sameAs» legges inn i JSON-LD-en når Alibis egne
+       SoMe-kontoer finnes (se TODO P17) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,7 +57,8 @@
     },
     "parentOrganization": {
       "@type": "Organization",
-      "name": "Æventyr"
+      "name": "Æventyr",
+      "url": "https://aeventyr.no/nb/"
     },
     "servesCuisine": "Cocktails"
   }
