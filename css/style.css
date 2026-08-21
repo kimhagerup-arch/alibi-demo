@@ -846,6 +846,7 @@ html.inne .dor-scene { display: none; }
   font-style: italic;
   color: var(--kritt-dus);
 }
+.meny-fotnote + .meny-fotnote { margin-top: 0.4rem; }
 
 /* ---------- Bakrommet ---------- */
 
