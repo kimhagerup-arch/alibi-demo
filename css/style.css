@@ -467,7 +467,7 @@ html.inne .dor-scene { display: none; }
 .topplinje nav {
   max-width: var(--maks-bredde);
   margin: 0 auto;
-  padding: 0.7rem var(--luft);
+  padding: 0.45rem var(--luft);
   display: flex;
   align-items: center; /* logotypen er et bilde – baseline gir ingen mening lenger */
   gap: 1rem;
@@ -487,7 +487,7 @@ html.inne .dor-scene { display: none; }
 
 .topplinje-merke img {
   display: block;
-  height: 1.9rem;
+  height: 1.4rem;
   width: auto;
 }
 
@@ -552,7 +552,7 @@ html.inne .dor-scene { display: none; }
     gap: 0.5rem 0.9rem;
   }
   .topplinje-lenker a { font-size: 0.8rem; letter-spacing: 0.08em; }
-  .seksjon { scroll-margin-top: 6.5rem; } /* topplinja er to rader høy her */
+  .seksjon { scroll-margin-top: 5.5rem; } /* topplinja er to rader høy her */
 }
 
 /* ==========================================================================

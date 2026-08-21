@@ -75,8 +75,10 @@
 <body>
 
 <!-- Glasstegningene til menyen – samme strekstil som Æventyr-ikonene og den
-     trykte menyen. Definert én gang her, brukt med <use> i menykortene. -->
-<svg hidden aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+     trykte menyen. Definert én gang her, brukt med <use> i menykortene.
+     display:none i stil, ikke hidden-attributtet – det gjelder ikke for
+     SVG-elementer og lot blokka rendre som en tom boks over topplinja. -->
+<svg style="display:none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
   <symbol id="glass-vin" viewBox="0 0 100 120">
     <path d="M34,16 L66,16"/>
     <path d="M34,16 C34,38 37,57 50,58 C63,57 66,38 66,16"/>
