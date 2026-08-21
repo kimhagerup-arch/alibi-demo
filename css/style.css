@@ -1076,18 +1076,64 @@ html.fane-skjult .stov-korn {
 
 .bunn {
   border-top: 1px solid var(--messing-morket);
-  padding: 2.5rem var(--luft) 3rem;
-  text-align: center;
-  display: grid;
-  gap: 0.5rem;
-  justify-items: center;
+  padding: 3rem var(--luft) 2.5rem;
   font-size: var(--tekst-s);
   color: var(--kritt-dus);
+}
+
+/* Tre lenkespalter – samme mønster som Raus og Tåkt */
+.bunn-spalter {
+  max-width: var(--maks-bredde);
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+}
+@media (min-width: 46rem) {
+  .bunn-spalter { grid-template-columns: repeat(3, 1fr); }
+}
+
+.bunn-tittel {
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+
+.bunn-spalte ul {
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.bunn-spalte a {
+  color: var(--kritt-dus);
+  text-decoration: none;
+}
+.bunn-spalte a:hover { color: var(--messing); }
+
+.bunn-kommer { font-style: italic; }
+
+.bunn-linje {
+  max-width: var(--maks-bredde);
+  margin: 0 auto;
+  padding-top: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem 2rem;
 }
 
 .bunn-merke {
   font-size: 1.05rem;
   letter-spacing: 0.15em;
+}
+
+.bunn-c {
+  max-width: var(--maks-bredde);
+  margin: 0.8rem auto 0;
 }
 
 /* Æventyr-logoen: merkevarens gull (#CA9F68) beholdes selv om den
