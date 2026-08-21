@@ -904,6 +904,54 @@ html.inne .dor-scene { display: none; }
   background: linear-gradient(105deg, transparent, rgba(20, 17, 16, 0.1), transparent);
 }
 
+/* ---------- Huset ---------- */
+
+/* Mottolinjen: husets parseksjon-mønster, i Alibis stemme */
+.huset-motto {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+  letter-spacing: 0.08em;
+  color: var(--messing);
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+}
+
+/* Tre kort på desktop, én kolonne på mobil (meny-listens 2 kolonner overstyres) */
+@media (min-width: 46rem) {
+  .hus-liste { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Samme kortspråk som menykortene, men uten lysstreif – effekttallet holdes nede */
+.hus-kort .meny-kort-indre::after { content: none; }
+
+.medie-slot-hus {
+  aspect-ratio: 3 / 2;
+  margin-bottom: 1.1rem;
+}
+
+.hus-kort h3 { margin-bottom: 0.3rem; }
+
+.hus-fakta {
+  margin-top: 0.5rem;
+  font-size: var(--tekst-s);
+  color: var(--kritt-dus);
+  white-space: nowrap;
+}
+
+.hus-handling {
+  margin-top: 0.7rem;
+  font-size: var(--tekst-s);
+  letter-spacing: 0.08em;
+}
+
+/* Gjeldende sted: dempet – ingen lenke, ingen hover-respons */
+.hus-her { font-style: italic; color: var(--kritt-dus); }
+.hus-kort-her:hover,
+.hus-kort-her:focus-within {
+  transform: none;
+  border-color: var(--messing-morket);
+}
+
 /* ---------- Finn oss ---------- */
 
 .adresse-linje {

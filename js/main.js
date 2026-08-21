@@ -343,9 +343,11 @@ var ALIBI_PASSORD = "æventyr";
   var maal = [];
   document.querySelectorAll(".seksjon:not(.seksjon-velkommen)").forEach(function (seksjon) {
     seksjon
-      .querySelectorAll("h2, .seksjon-ingress, .prosa, .medie-slot, .meny-kort, .meny-fotnote, .praktisk-rad, .bakrom-inngang")
+      .querySelectorAll("h2, .huset-motto, .seksjon-ingress, .prosa, .medie-slot, .meny-kort, .meny-fotnote, .praktisk-rad, .bakrom-inngang")
       .forEach(function (el) {
         if (el.closest(".bakrom")) return; // Bakrommet har sin egen entré
+        // Medieplassholdere inni kort (Huset) avsløres med kortet sitt, ikke dobbelt
+        if (!el.classList.contains("meny-kort") && el.closest(".meny-kort")) return;
         maal.push(el);
       });
   });
