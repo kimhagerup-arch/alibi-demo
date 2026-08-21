@@ -5,6 +5,52 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 9 – 2026-08-21 – Ekte meny, Bakrommet og delingsbilde
+
+### Lagt til
+- **De sju ekte drinkene** fra eierne i `#menyen` (Æventonic, Aurora Fizz,
+  Basil Smash, Manito, Mezcalita, Maltfassioned, Canyon Tea), hver med
+  glasstegning, glassnavn + totalmengde, ingredienslinje uten mengder og
+  beskrivelse. Priser står som `kr —` til de leveres (P5).
+- **Fire glasstegninger** (vin, highball, rocks, margarita) fra den trykte
+  menyen, som `<symbol>` i én skjult SVG-blokk øverst i `<body>` og
+  `<use>` i kortene – highball og rocks gjenbrukes på tvers av kort.
+  `stroke="currentColor"`, `aria-hidden`/`focusable="false"` (glassnavnet
+  står som tekst ved siden av). Full messing mot kortbunnen ≈ 6,9:1 –
+  godt over AA-kravet 3:1 for grafikk.
+- **Bakrommet:** Mandaquiri og Adventure erstatter Mørketid/Midnattssol.
+  Glass/mengde er ikke oppgitt av eierne – ingen tegning der, ført som P18.
+- **Allergen- og urtelinjer** under menyen: rå eggehvite opplyst generelt
+  (synlig uten opplåsing, uten å røpe Bakrommet) og «Mynte, basilikum og
+  rosmarin dyrker vi selv.»
+- **Delingsbilde** `assets/og-image.png` (1200×630, 19 kB) rendret fra
+  logofila med headless Chrome; `og:image` + width/height/alt og
+  `twitter:image` med absolutt URL mot previewdomenet (P1 lukket, byttes
+  til endelig domene via P2).
+
+### Endret
+- Meny-ingressen: «Vår egen håndskrift. Noen av dem har vi funnet på selv.»
+  (de gamle klassikerne var «klassikere fra forbudstiden» – det stemmer
+  ikke lenger).
+- Footerens to Æventyr-lenker (logoen i «et …-sted» og Huset-spalten) går
+  nå til `aeventyr.no/nb/about` (HTTP 200) – `/nb/` redirigerer til
+  sesongkampanjen `/nb/summer`. JSON-LD beholder `/nb/` som org-URL.
+- P2 i TODO omgjort til samlepunkt «bytt domene ved lansering»
+  (canonical + og:url + og:image-URL-ene).
+- Merknad ved runde 5-punktet i TODO om at «SEO 100» der er historikk
+  (previewen viser 60 pga. noindex, se P14).
+
+### Målt
+- Lighthouse (lokal server, emulert mobil), **før**: Performance 99 /
+  Accessibility 100 / Best Practices 100 / SEO 60 (FCP 1,2 s, LCP 2,0 s,
+  TBT 11 ms, CLS 0,012).
+- **Etter**: Performance 99 / Accessibility 100 / Best Practices 100 /
+  SEO 60 (FCP 1,2 s, LCP 2,0 s, TBT 13 ms, CLS 0,010). De sju inline-
+  SVG-ene koster ingenting målbart. SEO 60 = previewens noindex (P14).
+- Funksjonstest i headless Chrome: Bakrommets tre veier inn (inline-felt,
+  passord ved døra, taste-easter-egget) verifisert grønne; `ALIBI_PASSORD`
+  urørt.
+
 ## Runde 8 – 2026-08-21 – Logo og familiebånd
 
 Bestillingen omtalte seg selv som «runde 7», men repoet hadde allerede en

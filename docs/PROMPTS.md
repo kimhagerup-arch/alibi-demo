@@ -6,6 +6,35 @@ Nyeste øverst.
 
 ---
 
+## Runde 9 – 2026-08-21 – Ekte meny, Bakrommet og delingsbilde
+**Prompt:** [`prompts/runde-9-ekte-meny.md`](prompts/runde-9-ekte-meny.md)
+
+**Bestilt:** (1) Sju ekte drinker inn i `#menyen` med glasstegning,
+glassnavn/mengde, ingredienslinje og beskrivelse; ny ingress. (2) Fire
+glasstegninger som `<symbol>`/`<use>`, dekorative, kontrastsjekket.
+(3) Mandaquiri og Adventure inn i Bakrommet – uten glass/mengde (P18,
+ikke oppgitt). (4) Generell allergilinje for rå eggehvite (synlig uten
+opplåsing) + urtelinje. (5) `assets/og-image.png` 1200×630 + og:image-
+meta med absolutt preview-URL (P1 lukkes, «bytt domene» samles i P2).
+(6) Æventyr-lenken → `/nb/about`; merknad ved TODO-ens gamle «SEO 100».
+Passordet urørt; Bakrommets tre veier testes; Lighthouse før/etter.
+
+**Levert:** Alt det bestilte. Lighthouse 99/100/100/60 både før og etter
+(SVG-ene koster ingenting målbart; SEO 60 = noindex/P14). Bakrommets tre
+veier verifisert grønne i headless funksjonstest. og-image.png ble 19 kB.
+Alle nye/endrede lenker HTTP-verifisert.
+
+**Avvik:**
+- Footeren har to Æventyr-lenker (logoen og Huset-spalten) – begge byttet
+  til `/nb/about` for konsistens; JSON-LD beholder `/nb/` som org-URL
+  (beslutning #21).
+- Strekattributtene ligger på instans-SVG-ene, ikke i symbolene, og fargen
+  er full messing (≈ 6,9:1; AA-kravet 3:1 var uansett oppfylt) – se
+  beslutning #20. `stroke-width` uendret 4.6 som bestilt.
+- Ingressforslaget og allergiformuleringen brukt ordrett.
+
+---
+
 ## Runde 8 – 2026-08-21 – Logo og familiebånd
 **Prompt:** [`prompts/runde-8-logo-og-familie.md`](prompts/runde-8-logo-og-familie.md)
 

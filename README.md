@@ -83,14 +83,15 @@ Alt som skal byttes er merket med `<!-- PLACEHOLDER -->` i `index.html`. Søk p�
 
 | Hva | Hvor i `index.html` | Merknad |
 |---|---|---|
-| Cocktailmeny og priser | Seksjonen `#menyen` | Bytt navn/beskrivelser, erstatt `kr —` med reelle priser |
+| Priser i menyen | Seksjonen `#menyen` (også Bakrommet) | Menyen er ekte fra runde 9; erstatt `kr —` med reelle priser når de leveres |
+| Glass/mengde i Bakrommet | `#menyen`, `.bakrom-liste` | Ikke oppgitt av eierne ennå (TODO P18) |
 | Åpningstider | Seksjonen `#praktisk` | |
 | Aldersgrense | Seksjonen `#praktisk` | |
 | Kontaktinfo | Seksjonen `#praktisk` | E-post og/eller telefon |
 | Sosiale medier | Seksjonen `#praktisk` og footerens «Følg oss» | Bytt `<span>` til `<a href="…">` når Alibis egne kontoer finnes |
 | Adresse | `#finn-oss`, `#praktisk` og JSON-LD i `<head>` | Må bekreftes: siden sier Sentrumsparken 2, Raus/Tåkt oppgir Markedsgata 6 (TODO P15) |
 | Foto til «Huset»-kortene | Seksjonen `#huset` | `assets/raus.jpg`, `assets/taakt.jpg` + foto av Alibi |
-| Open Graph-bilde | `<head>` | Legg til `og:image` når foto foreligger |
+| Open Graph-bilde | `<head>` | Generert (`assets/og-image.png`); bytt domenet i URL-en ved lansering (TODO P2) |
 | Logo | `assets/alibi-logo.svg` | Ekte logotype er på plass; leverer kunden en egen fil senere, er det ett filbytte |
 
 ## Medier som forventes (i `assets/`)
@@ -104,7 +105,7 @@ Plassholder-flatene («Foto kommer» / «Film kommer») i `index.html` viser hvo
 | `assets/inngang.jpg` | `#finn-oss` – bytt ut `.medie-slot-staaende` med `<img>` | JPG/WebP, 1200×1600 (3:4) |
 | `assets/raus.jpg` | `#huset` – Raus-kortet, bytt ut `.medie-slot-hus` med `<img>` | JPG/WebP, 1200×800 (3:2) |
 | `assets/taakt.jpg` | `#huset` – Tåkt-kortet, bytt ut `.medie-slot-hus` med `<img>` | JPG/WebP, 1200×800 (3:2) |
-| `assets/og-image.jpg` | `<head>` – `og:image` | JPG, 1200×630 |
+| `assets/og-image.png` | `<head>` – `og:image` | Finnes (generert fra logofila, 1200×630); kan byttes med foto senere |
 
 Husk `alt`-tekst på norsk på alle bilder, og `loading="lazy"` på bilder under folden.
 

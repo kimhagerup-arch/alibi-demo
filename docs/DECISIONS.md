@@ -251,3 +251,31 @@ usikre rekonstruksjoner er merket «(antatt)».
   én sannhet for logogeometrien er mer verdt enn en tredje favicon-variant
   av samme merke på ei dørplate få ser).
 - **Status:** Gjeldende.
+
+## #20 – Glasstegningene: strekstil på instansen, full messing
+- **Dato:** 2026-08-21 (runde 9)
+- **Beslutning:** Geometrien ligger som rene `<path>`-er i `<symbol>`-er;
+  strekattributtene (`fill="none" stroke="currentColor" stroke-width="4.6"`
+  osv.) står på hver instans-SVG (`.glass-ikon`) og arves inn i
+  symbolinnholdet. Fargen er full messing (`--messing`) via `currentColor`
+  på `.meny-glass`-raden – ikke den dusere `--messing-dus`.
+- **Begrunnelse:** Attributter på instansen gjør at samme geometri kan få
+  annen strek/farge senere (f.eks. mørk på Bakrommets inverterte kort) uten
+  å røre symbolene. Full messing måler ≈ 6,9:1 mot kortbunnen; messing-dus
+  hadde målt ≈ 4,8:1 – begge består AA for grafikk (3:1), men tynne streker
+  (~1,6 px rendret) tåler god margin.
+- **Alternativer vurdert:** Attributter i symbolene (forkastet: låser
+  stilen), tykkere strek (unødvendig når kontrasten er godkjent med
+  margin – og geometrien skal matche trykt meny uendret).
+- **Status:** Gjeldende.
+
+## #21 – Begge footer-lenkene til Æventyr peker på /nb/about
+- **Dato:** 2026-08-21 (runde 9)
+- **Beslutning:** Bestillingen gjaldt «footerens Æventyr-lenke»; footeren
+  har to (logoen i «et …-sted» og Huset-spalten) – begge byttet til
+  `https://aeventyr.no/nb/about` (HTTP 200 verifisert). `url`-feltet på
+  `parentOrganization` i JSON-LD beholder `https://aeventyr.no/nb/`.
+- **Begrunnelse:** To ulike mål for samme merke i samme footer ville vært
+  inkonsekvent. JSON-LD-url-en er en identifikator for organisasjonen, ikke
+  navigasjon – der er nettstedsroten riktigere enn en undermeny-side.
+- **Status:** Gjeldende.
