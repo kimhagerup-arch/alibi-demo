@@ -164,7 +164,9 @@ usikre rekonstruksjoner er merket «(antatt)».
   som feil på den mørke bunnen.
 - **Alternativer vurdert:** Omfarge SVG-en til sidens messing (forkastet:
   tukler med merkevaren).
-- **Status:** Gjeldende.
+- **Status:** Gjeldende – utvidet av #24 (runde 11): fila er nå
+  `img/logo/aeventyr.svg` i logoraden i footeren, sammen med de andre
+  søsterstedene, fortsatt i egen gull.
 
 ## #14 – Fontene selvhostes som latin-subset woff2
 - **Dato:** 2026-07-30 (runde 5)
@@ -250,7 +252,9 @@ usikre rekonstruksjoner er merket «(antatt)».
 - **Alternativer vurdert:** Mørk omfarging av logoen i egen fil (forkastet:
   én sannhet for logogeometrien er mer verdt enn en tredje favicon-variant
   av samme merke på ei dørplate få ser).
-- **Status:** Gjeldende.
+- **Status:** Erstattet av #23 (runde 11): det nye ordmerket bruker
+  `currentColor`, så plata kan bære det mørkt gravert (#2a1e12 på messing,
+  ≈ 8:1) uten egen fil – argumentet fra runde 8 falt bort.
 
 ## #20 – Glasstegningene: strekstil på instansen, full messing
 - **Dato:** 2026-08-21 (runde 9)
@@ -278,7 +282,9 @@ usikre rekonstruksjoner er merket «(antatt)».
 - **Begrunnelse:** To ulike mål for samme merke i samme footer ville vært
   inkonsekvent. JSON-LD-url-en er en identifikator for organisasjonen, ikke
   navigasjon – der er nettstedsroten riktigere enn en undermeny-side.
-- **Status:** Gjeldende.
+- **Status:** Delvis erstattet i runde 11 (#24): tekstlenkene er borte, og
+  logoraden lenker til `https://aeventyr.no/nb/` som bestilt (svarer 308 →
+  `/nb` → sesongside). JSON-LD beholder `/nb/`.
 
 ## #22 – Alibi er «bar», og Bakrommet heter «den skjulte menyen» utad
 - **Dato:** 2026-09-23 (runde 10)
@@ -297,4 +303,82 @@ usikre rekonstruksjoner er merket «(antatt)».
 - **Begrunnelse:** Eierne ser Alibi som cocktailbar, ikke pub; «bar» treffer
   også tonen (cocktails, lavt tempo) bedre. «Skjult meny» sier hva det er
   uten å love et fysisk rom som ikke finnes.
+- **Status:** Gjeldende.
+
+## #23 – Ordmerket «ALIBI» med gruppens A
+- **Dato:** 2026-09-23 (runde 11)
+- **Beslutning:** Logoen er et ordmerke satt i Æventyr-gruppens kjennemerke:
+  A-en er én lang, tynn diagonal (langt over versalhøyden, langt under
+  grunnlinja) med et kort høyre ben – ingen tverrstrek, intet venstre ben –
+  hentet uendret fra gruppens egne logofiler; L, I, B, I er tegnet i samme
+  strek. Fila (`img/logo/alibi-logo.svg`, `currentColor`) ligger inline som
+  `<symbol id="alibi-ordmerke">` og brukes med `<use>` i topplinja, hero,
+  dørskiltet og footeren. Dimensjoner settes etter versalhøyde, ikke total
+  høyde; i topplinja går streken utenfor layoutboksen (negativ marg), så
+  headerhøyden er uendret. «Alibi» i løpende tekst, `<title>`, meta og
+  JSON-LD er vanlig tekst. Gjelder til en eventuell offisiell logo fra
+  Æventyr foreligger – da byttes symbolet, ikke markupen.
+- **Alternativer vurdert:** Beholde Limelight-logotypen (forkastet: følger
+  ikke gruppens kjennemerke). `<img>` i stedet for inline (forkastet: fargen
+  må styres av CSS for dørplata/hover/fokus). Egen mørk fil til dørplata
+  (unødvendig med `currentColor`, jf. #19).
+- **Begrunnelse:** Alibi skal leses som et Æventyr-sted ved første blikk –
+  A-en er familielikheten. Ett symbol i DOM-en gir én sannhet for geometrien.
+- **Status:** Gjeldende. Erstatter #19. Logoen skal bekreftes med kunden
+  (TODO).
+
+## #24 – Søsterstedenes logoer i footeren, i egen gull
+- **Dato:** 2026-09-23 (runde 11)
+- **Beslutning:** Footeren viser Æventyr, Raus Social, Tåkt, Canyon Hotell og
+  Gargia Lodge som en logorad («Familien») – hver som lenke, som `<img>`
+  (ikke inline: det er andres merker, vi styler dem ikke), i stedenes egen
+  gull `#ca9e67`, ikke Alibis messing. Høyden settes per logo for lik optisk
+  størrelse (filene har ulike proporsjoner). Tåkt finnes bare som PNG og er
+  eksportert til WebP 1×/2×. Raden erstatter tekstlista «Huset» og Æventyr-
+  logoen i bunnlinja; footeren har derfor to lenkespalter + logorad.
+- **Alternativer vurdert:** Beholde tekstlista i tillegg (forkastet: dobbelt
+  opp). Én felles `height` (forkastet: ulik optisk størrelse). Farge om til
+  messing (forkastet, jf. #13).
+- **Begrunnelse:** Familiebåndet vises med merkene, ikke bare ord; egen gull
+  respekterer merkevarene. Kontrast 7,7:1 er godt over 3:1-kravet.
+- **Status:** Gjeldende. Utvider #13, erstatter delvis #21.
+
+## #25 – Midlertidige stockbilder: hva som er brukt og forkastet
+- **Dato:** 2026-09-23 (runde 11)
+- **Beslutning:** Tre sort-hvitt stockbilder er tatt inn som midlertidige
+  stemningsbilder, kun i eksisterende fotofelt som hører til Alibi selv:
+  veggtelefon (`#historien`), lampe/chesterfield (Alibi-kortet i `#huset`),
+  bardisk (`#finn-oss`). Sjekket i full størrelse: ingen drikke, røyk eller
+  merker; Jameson-plakaten i lampe-bildet er bekreftet beskåret bort;
+  bakbarens uskarpe glass i bardisk-bildet er beskåret bort i eksporten.
+  `dame`, `par-dans` og `ford` er sjekket og godkjent (ford krever
+  beskjæring av skiltet), men ikke tatt inn – det finnes ingen ledige felt,
+  og nye felt/gallerier/bakgrunner lages ikke. `chesterfield` er forkastet
+  (annen bar: gjenkjennelig person, merkenavn, menykort). Ubrukte bilder
+  ligger ikke i repoet. Kilder og lisenser i `docs/BILDEKILDER.md`.
+- **Alternativer vurdert:** Legge et bilde på bankedøra (forkastet: LCP).
+  Bruke `par-dans` på Tåkt-kortet (forkastet: stock skal ikke late som det
+  viser andre steder, jf. #27).
+- **Begrunnelse:** Siden trenger stemning nå; ekte foto kommer fra kunden og
+  byttes inn i samme `<picture>`-markup.
+- **Status:** Gjeldende (midlertidig – P4/P7/P16 står åpne).
+
+## #26 – Bilderegel: alkohol, tobakk og merker
+- **Dato:** 2026-09-23 (runde 11)
+- **Beslutning:** Bilder på siden skal aldri vise alkohol som drikkes eller er
+  i fokus, tobakk/røyking, eller alkohol- eller tobakksmerker (alkoholloven
+  § 9-2 / alkoholforskriften kap. 14, tobakkskadeloven § 22). I tvil: ikke
+  bruk bildet, spør. Alt-tekster omtaler aldri drikke. Regelen står i
+  CLAUDE.md under føringene som ikke endres.
+- **Begrunnelse:** Alibi er et skjenkested; reklameforbudet gjelder også
+  nettsiden. Regelen må være fast, ikke vurderes per bilde.
+- **Status:** Gjeldende.
+
+## #27 – Raus og Tåkt venter på ekte foto
+- **Dato:** 2026-09-23 (runde 11)
+- **Beslutning:** Raus- og Tåkt-kortene i «Huset» beholder «Foto kommer»
+  til kunden leverer ekte bilder (P16). Stockbilder brukes ikke der – de
+  ville latt som de viser andres lokaler.
+- **Begrunnelse:** Troverdighet: et stockbilde av et dansende par er ikke
+  Tåkt.
 - **Status:** Gjeldende.

@@ -4,7 +4,7 @@ Restanseliste i tre deler. **Plassholder-tabellen skal alltid stemme med
 koden** – verifiser med søk på `PLACEHOLDER` i repoet. Lukkede punkter
 markeres med dato, ikke slettes.
 
-Sist verifisert mot koden: 2026-09-23, runde 10 (21 `PLACEHOLDER`-merker i `index.html`).
+Sist verifisert mot koden: 2026-09-23, runde 11 (21 `PLACEHOLDER`-merker i `index.html`).
 
 ## 1. Plassholdere
 
@@ -13,24 +13,42 @@ Sist verifisert mot koden: 2026-09-23, runde 10 (21 `PLACEHOLDER`-merker i `inde
 | P1 | Open Graph-bilde (`og:image`) | `index.html` `<head>` | ~~Foto/grafikk 1200×630~~ | **Lukket 2026-08-21** (runde 9: `assets/og-image.png` 1200×630, 19 kB, rendret fra logofila; og:image/width/height/alt + twitter:image inne. URL-en peker på previewdomenet – byttes via P2) |
 | P2 | **Bytt domene ved lansering** (samlepunkt) | `index.html` `<head>` | Når endelig domene er klart: `<link rel="canonical">`, `og:url`, og bytt domenet i `og:image`- og `twitter:image`-URL-ene (i dag `alibi-demo.vercel.app` – absolutt URL kreves av Facebook/LinkedIn, derfor står previewdomenet der nå). Henger sammen med P14 (noindex vekk) | Åpen |
 | P3 | Hero-video | `#velkommen`, `.medie-slot-hero` | `assets/hero.mp4` (1920×1080, H.264, < 8 MB, uten lyd) → bytt flaten med `<video autoplay muted loop playsinline>` | Åpen |
-| P4 | Interiørfoto | `#historien`, `.medie-slot-staaende` | `assets/interior-1.jpg` (3:4/4:5) → `<img>` med norsk alt-tekst | Åpen |
+| P4 | Interiørfoto (ekte foto av Alibi) | `#historien`, `.medie-slot-staaende` | Siden runde 11 står stockbildet `img/alibi-telefon-*` der (Pexels, se `BILDEKILDER.md`). Ekte foto: eksporter med `tools/eksporter-bilder.py` (4:5, 480/800 WebP + JPEG) og bytt kildene i `<picture>` + alt-tekst | Åpen (stock inne) |
 | P5 | ~~Ekte cocktailmeny og~~ **priser** | `#menyen`, `.meny-liste` + `.bakrom-liste` | Menyen kom inn 2026-08-21 (runde 9: sju drinker + to i Bakrommet). Siden 2026-09-23 (runde 10) står alle ni kort med **midlertidig pris `kr 159`** – erstatt med reelle priser per drink når de leveres. NB: glasstypen skal **ikke** vises som tekst (kun mengde, f.eks. «30 cl»; tegningen er dekor) – behold det når prisene legges inn | Åpen (kun priser) |
 | P6 | Bakromsmeny (på siden: «den skjulte menyen») | `#menyen`, `.bakrom-liste` | ~~2 ekte «hemmelige» cocktails~~ | **Lukket 2026-08-21** (runde 9: Mandaquiri og Adventure inne; priser dekkes av P5 – midlertidig `kr 159` fra runde 10 – og glass/mengde av P18) |
-| P7 | Foto av inngangen | `#finn-oss`, `.medie-slot-staaende` | `assets/inngang.jpg` (3:4/4:5) → `<img>` | Åpen |
+| P7 | Foto av inngangen | `#finn-oss`, `.medie-slot-staaende` | Siden runde 11 står stockbildet `img/alibi-bardisk-*` der. Ekte foto av døra/inngangen: samme framgangsmåte som P4 | Åpen (stock inne) |
 | P8 | Åpningstider | `#praktisk` | Reelle åpningstider fra eierne | Åpen |
 | P9 | Aldersgrense | `#praktisk` | Reell aldersgrense (18/20 år?) | Åpen |
 | P10 | Kontaktinfo | `#praktisk` | E-post og/eller telefon | Åpen |
 | P11 | Sosiale medier-lenker | `#praktisk`, `.some-ikon` | Instagram-/Facebook-URL-er → bytt `<span>` til `<a>`. Se også P17 (footer + JSON-LD) | Åpen |
 | P12 | Lenke til Tåkt | Footer + «Finn oss» | ~~Tåkt sin nettside-URL~~ | **Lukket 2026-07-30** (runde 4: raussocial.no/no/takt i footer og «Finn oss», HTTP 200 verifisert) |
-| P13 | Ekte logo | `#velkommen`, `.logotype` | ~~Logotypen er satt i typografi~~ | **Lukket 2026-08-21** (runde 8: `assets/alibi-logo.svg` i hero, topplinje og favicon. Leverer kunden en egen fil senere, er det ett filbytte – samme filnavn, samme proporsjoner) |
+| P13 | Ekte logo | `#velkommen`, `.logotype` | ~~Logotypen er satt i typografi~~ | **Lukket 2026-08-21** (runde 8). *Runde 11:* byttet til ordmerket med gruppens A (`img/logo/alibi-logo.svg`, inline symbol). Kommer en offisiell fil fra Æventyr, byttes innholdet i `<symbol id="alibi-ordmerke">` – se «bekreft logo» under |
 | P14 | **noindex på previewen** | `index.html` `<head>` (rett under viewport) | **MÅ fjernes ved lansering** på ekte domene – ellers indekseres ikke siden. Fjern meta-taggen og PLACEHOLDER-kommentaren. NB: så lenge den står, viser Lighthouse SEO 60 (is-crawlable) – forventet, ikke en regresjon | Åpen |
 | P15 | **Adressekonflikt – MÅ avklares før lansering** | `#finn-oss`, `#praktisk` (Beliggenhet) og `address` i JSON-LD | Siden vår sier **Sentrumsparken 2, 9510 Alta** (brødtekst + JSON-LD). Raus og Tåkt oppgir begge **Markedsgata 6, 9510 Alta**, Tåkt ligger i kjelleren under Raus med inngang gjennom restauranten, og Alibi ligger vegg i vegg med Tåkt i samme kjeller – da kan ikke begge adressene stemme. Adressen står også i menyen som er sendt kunden. Feil adresse i JSON-LD ender i Google Maps/Google Business. Avklar med eierne; rett deretter alle tre stedene + Google Maps-lenken i «Finn oss» | Åpen |
-| P16 | Foto til «Huset»-kortene | `#huset`, `.medie-slot-hus` (3 stk) | Foto av Raus (`assets/raus.jpg`), Tåkt (`assets/taakt.jpg`) og Alibi (kan gjenbruke interiørfotoet fra P4). Ikke hotlink fra aeventyr-CDN – alt selvhostes | Åpen |
+| P16 | Foto til «Huset»-kortene | `#huset`, `.medie-slot-hus` (3 stk) | Raus (`assets/raus.jpg`) og Tåkt (`assets/taakt.jpg`) står med «Foto kommer» – ekte foto fra kunden, ingen stock der (beslutning #27). Alibi-kortet har stockbildet `img/alibi-lampe-*` siden runde 11; byttes med ekte foto (3:2). Ikke hotlink fra aeventyr-CDN – alt selvhostes | Åpen (Alibi: stock inne) |
 | P17 | Alibis egne sosiale kontoer | Footer («Følg oss») + `sameAs` i JSON-LD | Egne Instagram-/Facebook-kontoer for Alibi. Ikke lenk til Raus' eller Tåkts kontoer som om de var Alibis. Når de finnes: bytt `<span>` til `<a>` i footeren, legg `sameAs` i JSON-LD, og lukk P11 samtidig | Åpen |
 | P18 | Glass og mengde for Bakroms-drinkene | `#menyen`, `.bakrom-liste` | Eiernes regneark oppgir ikke glass/totalmengde for Mandaquiri og Adventure – derfor ingen glasstegning eller cl-angivelse der ennå. Når de kommer: bruk samme `.meny-glass`-mønster som hovedmenyen (symbolene finnes øverst i `<body>`, `currentColor` gjør dem automatisk mørke på de inverterte kortene). Siden runde 10 vises kun mengden som tekst («15 cl»), ikke glasstypen | Åpen |
 
 ## 2. Kjente svakheter / gjeld
 
+- **HØY PRIORITET – nøktern meny (knyttet til P5).** Når Brian Rundhaugs
+  meny kommer: drinktekstene skal være nøkterne (navn, ingredienser, mengde,
+  pris) uten salgsfremmende formuleringer, og alkoholfrie alternativer skal
+  vises like tydelig som de alkoholholdige (alkoholforskriften § 14-3
+  nr. 13). Gjelder også den skjulte menyen. Vurder også om passordet /
+  «skjult meny» i markedsføring kan oppfattes som salgsfremmende. Dagens
+  drinktekster er ikke skrevet om – de byttes uansett. (Lagt inn runde 11.)
+- **Bekreft logoen med kunden.** Ordmerket med gruppens A (runde 11,
+  beslutning #23) er bygget av gruppens egen A-geometri, men er ikke en
+  offisiell fil fra Æventyr. Får vi en offisiell fil: bytt innholdet i
+  `<symbol id="alibi-ordmerke">` (og `img/logo/*`, favicon, og-image).
+- **Gargia-lenka er sesongavhengig.** Footeren lenker til
+  `https://gargialodge.no/nb/winter` (200 per 2026-09-23). Sjekk at den
+  fortsatt svarer når sesongen skifter – ev. bytt til `/nb`.
+- **Æventyr-lenka i logoraden** går til `https://aeventyr.no/nb/` som
+  bestilt; den svarer 308 → `/nb` → sesongside (`/nb/winter` nå). Fungerer,
+  men lander på kampanjeside – vurder `/nb/about` hvis eierne vil ha
+  «om oss» (jf. beslutning #21/#24).
 - ~~**Performance 86 – under 95-målet.**~~ **Lukket 2026-07-30** (runde 5):
   fontene selvhostes nå, render-blokkeringen er borte. Ny måling (samme
   oppsett – lokal server, emulert mobil): Performance **99**, Accessibility
@@ -69,6 +87,18 @@ Sist verifisert mot koden: 2026-09-23, runde 10 (21 `PLACEHOLDER`-merker i `inde
 
 ## 3. Ideer / backlog (nevnt, ikke besluttet)
 
+- **Ubrukte stemningsbilder** (sjekket og godkjent i runde 11, ligger ikke i
+  repoet – se `BILDEKILDER.md`). Forslag til plassering, tas i egen runde:
+  - `dame.jpg` (stående portrett): et nytt stående felt i «Menyen», ved
+    siden av ingressen – eller som bilde i den skjulte menyen (kun synlig
+    etter opplåsing).
+  - `par-dans.jpg` (stående 9:16): et smalt felt i «Praktisk» ved siden av
+    listen, eller i «Historien» som bilde nr. 2 under første avsnitt.
+    Ikke på Tåkt-kortet (beslutning #27).
+  - `ford.jpg` (liggende 4:3): et liggende felt over «Finn oss»-teksten
+    («veien hit»), etter at skiltet «AR-83-13» og personen i høyre kant er
+    beskåret bort.
+  Krever nye felt – ikke gjort i runde 11 (bestillingen: ingen nye felt).
 - **«Ukas passord»-rutine:** Bakrommet er bygget for markedsføringsgrepet
   der ukas passord deles på sosiale medier (runde 2-briefen). Krever bare å
   bytte `ALIBI_PASSORD` i `js/main.js` og publisere – men rutinen/eierskapet

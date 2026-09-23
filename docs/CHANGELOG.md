@@ -5,6 +5,78 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 11 – 2026-09-23 – Ny logo med gruppens A, stemningsbilder og footer
+
+### Lagt til
+- **Nytt ordmerke «ALIBI»** med Æventyr-gruppens A (én lang diagonal + kort
+  høyre ben, ingen tverrstrek). Filene ligger i `img/logo/` (`alibi-logo.svg`
+  med `currentColor`, gull/hvit/svart-varianter og `alibi-merke-gold.svg`).
+  Ordmerket er inline som `<symbol id="alibi-ordmerke">` og brukes med
+  `<use>` i topplinja, hero, dørskiltet og footeren – fargen styres av CSS.
+  Dimensjonert etter versalhøyde: i topplinja er LIBI ≈ 0,7 rem og
+  A-streken går utenfor layoutboksen med negativ marg, så headerhøyden er
+  uendret (47 px desktop / 125 px mobil, målt før og etter).
+- **Favicon** (SVG + PNG 32/180) av A-merket på brunsort, kvadratisk
+  viewBox; streken har ekstra kontur *kun* i favicon-versjonen så den er
+  synlig i 16 px (sjekket på lys og mørk fane-bakgrunn). **og-image.png**
+  rendret på nytt med gullversjonen av ordmerket (8,6 kB).
+- **Søsterstedene som logorad i footeren** («Familien»): Æventyr, Raus
+  Social, Tåkt, Canyon Hotell og Gargia Lodge, hver som lenke, som `<img>`
+  i stedenes egen gull `#ca9e67` (7,7:1 mot bunnen). Per-logo høyde for lik
+  optisk størrelse, touch-mål ≥ 44 px, raden brytes pent på 375 px. Tåkt er
+  WebP 1×/2× (1,8 / 3,9 kB) eksportert fra PNG-en. `gargia.svg` inneholder
+  ingen `<text>` – alt er kurver.
+- **Canyon Hotell:** én linje i «Finn oss» («Du finner oss i samme bygg som
+  Canyon Hotell.», lenket) og `containedInPlace` {Hotel} i JSON-LD-en.
+  Validert med validator.schema.org (0 feil).
+- **Tre stemningsbilder** (sort-hvitt stock) i de eksisterende fotofeltene
+  som hører til Alibi: veggtelefon i «Historien», lampe/chesterfield på
+  Alibi-kortet i «Huset», bardisk i «Finn oss». WebP 480/800 px + JPEG-
+  fallback i `<picture>` med `srcset`/`sizes`, `width`/`height`, lazy/async.
+  Rammen på `.medie-slot` beholdes; bildet fyller feltet med cover.
+  Filstørrelser: telefon 52 / 110 kB (jpg 140), lampe 6 / 15 kB (jpg 27),
+  bardisk 19 / 38 kB (jpg 61). Raus- og Tåkt-kortene står urørt.
+- `tools/eksporter-bilder.py` (Pillow, kun lokalt) for reproduserbar
+  eksport med utsnitt/beskjæring per bilde. `docs/BILDEKILDER.md` med kilde,
+  lisens og sjekk per bilde.
+- **Bilderegel** i CLAUDE.md: aldri alkohol som drikkes/er i fokus, tobakk/
+  røyking eller alkohol-/tobakksmerker (alkoholloven § 9-2, alkoholforskriften
+  kap. 14, tobakkskadeloven § 22).
+
+### Endret
+- Footeren har to lenkespalter (Alibi, Følg oss) + logoraden; tekstlista
+  «Huset» og Æventyr-logoen i bunnlinja er erstattet. Bunnlinja viser nå
+  ordmerket (lenke til toppen).
+- Meta description: «levende lys» → «dimmet lys og mørknet tre» (141 tegn).
+  og:description og JSON-LD-beskrivelsen nevnte ikke lys og er urørt.
+- PLACEHOLDER-kommentarene for P4, P7 og P16 (Alibi) omformulert til
+  «stemningsbilde (stock), byttes med ekte foto» – ett merke per felt som
+  før, derfor uendret antall (21), ikke +3 som bestillingen antok.
+- CLAUDE.md: Canyon Hotell (samme bygg) og Gargia Lodge i beskrivelsen,
+  logo-føring, bilderegel, `img/` og `tools/` i filkartet. README: medier,
+  eksportskript, filkart.
+
+### Fjernet
+- `assets/alibi-logo.svg` (Limelight-logotypen) og `assets/aeventyr-gold.svg`
+  (erstattet av `img/logo/aeventyr.svg` i logoraden), samt CSS for
+  bildelogoen og alt-tekst-fallback. Limelight beholdes – den brukes fortsatt
+  til overskrifter og mottoet.
+
+### Verifisert
+- Lighthouse mobil (lokal server): Performance **98** / Accessibility
+  **100** / Best Practices **100** / SEO 60 (noindex, P14). FCP 1,5 s,
+  LCP 2,3 s, TBT 50 ms, CLS 0,012. Før runden (runde 9): 99/100/100/60,
+  LCP 2,0 s.
+- Bildene laster riktig variant: 375 px @1× og 1440 px @1× → 480-WebP,
+  375 px @2× → 800-WebP; Tåkt 1×/2× tilsvarende.
+- Skjult meny låses opp via inline-felt, passord ved døra og taste-egget;
+  tre bank åpner døra; fokusrekkefølgen er logisk (skip-lenke → dør →
+  ordmerke → ankere → … → logorad → ordmerke i bunnen → vilkår/personvern).
+- Alle fem footerlenker svarer 200 (aeventyr.no/nb/ via 308 → /nb → sesong-
+  side; Gargia `/nb/winter` 200 nå – sjekkes ved sesongskifte).
+- `git ls-files img/`: kun de tre brukte bildene og logoene. Ingen
+  chesterfield/dame/par-dans/ford i repoet.
+
 ## Runde 10 – 2026-09-23 – Bar, materialer, fast pris og «skjult meny»
 
 Liten tekstrunde uten nye funksjoner eller designendringer.

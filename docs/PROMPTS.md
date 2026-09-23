@@ -6,6 +6,45 @@ Nyeste øverst.
 
 ---
 
+## Runde 11 – 2026-09-23 – Ny logo med gruppens A, stemningsbilder, footer
+**Prompt:** [`prompts/runde-11-logo-bilder-footer.md`](prompts/runde-11-logo-bilder-footer.md)
+
+**Bestilt:** (A) Nytt ordmerke med gruppens A inline overalt logoen brukes
+(header, dør, hero, footer), dimensjonert etter versalhøyde uten layout-
+hopp; nytt favicon av A-merket; gammel logo-CSS/markup ut. (B) Søsterstedene
+som logorad i footeren (fem logoer, egen gull, Tåkt PNG → WebP 1×/2×),
+Canyon-linje i «Finn oss», `containedInPlace` i JSON-LD, CLAUDE.md.
+(C) Sju stockbilder sjekket; telefon/lampe/bardisk inn i eksisterende
+Alibi-felt som WebP+JPEG i `<picture>`; Raus/Tåkt urørt; ingen nye felt;
+bilderegel i CLAUDE.md. (D) «levende lys» ut av beskrivelsene; TODO-punkt
+om nøktern meny. (E) Verifisering med skjermbilder, Lighthouse 95+, JSON-LD-
+validering, opplåsingsveier, PLACEHOLDER-antall. (F) Sporbarhet, tag, push.
+
+**Levert:** Alt, i sju commits + docs. Lighthouse 98/100/100/60 (SEO 60 =
+noindex). JSON-LD validert eksternt. Skjermbilder av header/dør/footer og
+alle tre bildefelt på 1440 og 375 px sjekket i økten.
+
+**Avvik:**
+- **PLACEHOLDER-antallet er uendret (21), ikke +3:** feltene hadde allerede
+  ett merke hver (P4/P7/P16); de er omformulert til «stemningsbilde (stock),
+  byttes med ekte foto» i stedet for å legge et merke til ved siden av.
+- **Delingsbildet** (`og-image.png`) er rendret på nytt med den nye logoen
+  selv om det ikke sto i bestillingen – det gamle viste Limelight-logoen.
+- **1200-bredden er droppet** for bildene: feltene er maks 307 px brede, så
+  480/800 dekker 1× og 2×; telefon-1200 ble dessuten 189 kB (> 150-målet).
+- **og:description og JSON-LD-beskrivelsen** inneholdt ikke «levende lys» –
+  bare meta description er endret.
+- **Æventyr-lenka** følger bestillingen (`/nb/`), som avviker fra beslutning
+  #21 (`/nb/about`) – ført som delvis erstattet, med TODO-notat.
+- **Dørplata** bærer nå ordmerket (mørkt gravert) – beslutning #19 er
+  erstattet av #23 siden `currentColor` fjernet argumentet.
+- Limelight beholdes: displayfonten brukes til overskrifter og motto, ikke
+  bare logoen.
+- Ingen `package.json`/npm: eksportskriptet er Python + Pillow (allerede
+  installert lokalt), dokumentert i README.
+
+---
+
 ## Runde 10 – 2026-09-23 – Tekstjusteringer: bar, materialer, pris, skjult meny
 **Prompt:** [`prompts/runde-10-tekstjusteringer.md`](prompts/runde-10-tekstjusteringer.md)
 
