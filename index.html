@@ -103,6 +103,12 @@
     <circle cx="41" cy="33" r="1.9"/>
     <circle cx="57" cy="35" r="1.9"/>
   </symbol>
+  <!-- Alibi-ordmerket (img/logo/alibi-logo.svg): gruppens A – én lang diagonal
+       + kort høyre ben – og LIBI i samme strek. Brukes med <use> i topplinja,
+       hero, dørskiltet og footeren; fargen styres av CSS via currentColor. -->
+  <symbol id="alibi-ordmerke" viewBox="0 0 236.88 188.95">
+    <g fill="currentColor"><path d="M19,188.06C49.27,128.47,78.77,64.92,108.64,3.35a1.46,1.46,0,0,0-.76-2L104.72.11c-.74-.29-1.88,0-2.62,1.52C72.77,63.42,42.27,131.16,16.29,186.81a1.48,1.48,0,0,0,.59,1.94h0A1.54,1.54,0,0,0,19,188.06Z"/><polygon points="93.43 134.01 101.24 134.01 80.6 74.46 75.98 84.18 93.43 134.01"/><path d="M116.70,74.69h6.09v59.22h-6.09ZM116.70,127.82h30.00v6.09h-30.00ZM160.70,74.69h6.09v59.22h-6.09Z"/><path fill-rule="evenodd" d="M180.79,74.69H195.26A16.53,16.53 0 0 1 195.26,107.75H180.79ZM186.88,80.78H195.26A10.44,10.44 0 0 1 195.26,101.66H186.88Z"/><path fill-rule="evenodd" d="M180.79,101.66H198.66A16.13,16.13 0 0 1 198.66,133.91H180.79ZM186.88,107.75H198.66A10.04,10.04 0 0 1 198.66,127.82H186.88Z"/><path d="M228.79,74.69h6.09v59.22h-6.09Z"/></g>
+  </symbol>
 </svg>
 
 <a class="skip-lenke" href="#hoved">Hopp til innholdet</a>
@@ -132,8 +138,8 @@
             </span>
             <span class="luke-deksel"></span>
           </span>
-          <!-- Messingskiltet -->
-          <span class="dor-skilt">Alibi</span>
+          <!-- Messingskiltet: ordmerket gravert i plata (dekor – knappen har egen aria-label) -->
+          <span class="dor-skilt"><svg class="ordmerke" viewBox="0 0 236.88 188.95" aria-hidden="true" focusable="false"><use href="#alibi-ordmerke"/></svg></span>
           <!-- Dørfyllinger og håndtak -->
           <span class="dor-fylling dor-fylling-topp"></span>
           <span class="dor-fylling dor-fylling-bunn"></span>
@@ -166,7 +172,7 @@
 
 <header class="topplinje">
   <nav aria-label="Hovedmeny">
-    <a class="topplinje-merke" href="#velkommen"><img src="assets/alibi-logo.svg" alt="Alibi" width="728" height="292"></a>
+    <a class="topplinje-merke" href="#velkommen"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-topp"><title id="ordmerke-topp">Alibi</title><use href="#alibi-ordmerke"/></svg></a>
     <ul class="topplinje-lenker">
       <li><a href="#historien">Historien</a></li>
       <li><a href="#huset">Huset</a></li>
@@ -187,7 +193,7 @@
   <!-- ============ VELKOMMEN ============ -->
   <section id="velkommen" class="seksjon seksjon-velkommen">
     <p class="overtekst">Alta · kjelleren · siden i kveld</p>
-    <h1 class="logotype" tabindex="-1"><img src="assets/alibi-logo.svg" alt="Alibi" width="728" height="292"></h1>
+    <h1 class="logotype" tabindex="-1"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-hero"><title id="ordmerke-hero">Alibi</title><use href="#alibi-ordmerke"/></svg></h1>
     <p class="velkomst-linje">Du fant oss. Det du ser her, blir mellom oss.</p>
 
     <!-- PLACEHOLDER: hero-video. Erstatt denne flaten med <video> når filen foreligger.
@@ -489,7 +495,7 @@
     </div>
   </div>
   <div class="bunn-linje">
-    <p class="bunn-merke">Alibi – et <a class="aeventyr-lenke" href="https://aeventyr.no/nb/about" rel="noopener" target="_blank"><img class="aeventyr-logo" src="assets/aeventyr-gold.svg" alt="Æventyr" width="110" height="55"><span class="sr-only"> (åpnes i ny fane)</span></a>-sted</p>
+    <p class="bunn-merke"><a class="bunn-alibi" href="#velkommen"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-bunn"><title id="ordmerke-bunn">Alibi</title><use href="#alibi-ordmerke"/></svg><span class="sr-only"> – til toppen</span></a> – et <a class="aeventyr-lenke" href="https://aeventyr.no/nb/about" rel="noopener" target="_blank"><img class="aeventyr-logo" src="assets/aeventyr-gold.svg" alt="Æventyr" width="110" height="55"><span class="sr-only"> (åpnes i ny fane)</span></a>-sted</p>
     <p class="bunn-jus">
       <a class="tekstlenke" href="https://raussocial.no/no/terms" rel="noopener" target="_blank">Vilkår<span class="sr-only"> (åpnes i ny fane)</span></a>
       <span aria-hidden="true">·</span>

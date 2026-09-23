@@ -71,7 +71,6 @@
   --tekst-m: 1.2rem;
   --tekst-l: 1.45rem;
   --tekst-xl: clamp(1.6rem, 4vw, 2.3rem);
-  --tekst-logotype: clamp(3.2rem, 12vw, 7rem);
 
   --maks-bredde: 62rem;
   --luft: clamp(1.25rem, 4vw, 2.5rem);
@@ -288,17 +287,18 @@ html.inne .dor-scene { display: none; }
   top: 24%;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0.15rem 0.8rem;
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  text-indent: 0.35em; /* kompenserer for letter-spacing på siste tegn */
-  color: #2a1e12;
+  padding: 0.3rem 0.7rem;
+  line-height: 0;
+  color: #2a1e12; /* «gravert» – mørkt ordmerke i messingplata (≈ 8:1) */
   background: linear-gradient(175deg, #d9b545, var(--messing-dus));
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 1px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 245, 210, 0.5);
+}
+
+.dor-skilt .ordmerke {
+  height: 2.2rem;
+  width: auto;
 }
 
 /* ---------- Dørluka og øyet ---------- */
@@ -469,26 +469,32 @@ html.inne .dor-scene { display: none; }
   margin: 0 auto;
   padding: 0.45rem var(--luft);
   display: flex;
-  align-items: center; /* logotypen er et bilde – baseline gir ingen mening lenger */
+  align-items: center; /* logoen er grafikk – baseline gir ingen mening */
   gap: 1rem;
+}
+
+/* ---------- Ordmerket (inline SVG, <use href="#alibi-ordmerke">) ----------
+   Fargen arves fra color (currentColor). SVG-en er ca. 3,2 × versalhøyden
+   høy fordi A-streken går langt over og under bokstavene; dimensjonene
+   settes derfor etter versalhøyden (LIBI), og i topplinja får streken gå
+   utenfor layoutboksen med negativ marg – ingen layout-hopp. */
+.ordmerke {
+  display: block;
+  aspect-ratio: 236.88 / 188.95;
+  fill: currentColor;
+  overflow: visible;
 }
 
 .topplinje-merke {
   display: inline-flex;
   align-items: center;
-  /* Fallback-stil for alt-teksten om logofila ikke laster */
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-decoration: none;
   color: var(--messing);
 }
 
-.topplinje-merke img {
-  display: block;
-  height: 1.4rem;
+.topplinje-merke .ordmerke {
+  height: 2.25rem;       /* versalhøyde ≈ 0,7 rem – som menypunktene */
   width: auto;
+  margin: -0.425rem 0;   /* layoutboks 1,4 rem, som logoen hadde før */
 }
 
 .topplinje-lenker {
@@ -659,21 +665,17 @@ html.inne .dor-scene { display: none; }
   color: var(--kritt-dus);
 }
 
-/* Logotypen er en SVG-fil (assets/alibi-logo.svg). Font-reglene står igjen
-   som fallback for alt-teksten om bildet ikke laster. Skråstreken i A-en
-   stikker med vilje ut over og under bokstavene – den ligger innenfor
-   SVG-ens viewBox og skal aldri klippes. */
+/* Logotypen i hero: ordmerket stort. A-streken stikker med vilje ut over
+   og under bokstavene – den ligger innenfor viewBoxen og skal aldri klippes. */
 .logotype {
-  font-size: var(--tekst-logotype);
-  line-height: 1;
-  letter-spacing: 0.12em;
-  text-indent: 0.12em;
+  line-height: 0;
+  color: var(--messing);
 }
 
-.logotype img {
-  display: block;
-  width: clamp(13rem, 56vw, 22rem);
+.logotype .ordmerke {
+  width: clamp(11rem, 46vw, 18rem);
   height: auto;
+  margin: 0 auto;
 }
 
 .velkomst-linje {
@@ -1162,6 +1164,20 @@ html.fane-skjult .stov-korn {
 .bunn-merke {
   font-size: 1.05rem;
   letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bunn-alibi {
+  display: block;
+  color: var(--messing);
+}
+.bunn-alibi:hover { color: var(--messing-dus); }
+
+.bunn-alibi .ordmerke {
+  height: 3.4rem; /* versalhøyde ≈ 1,07 rem */
+  width: auto;
 }
 
 .bunn-c {

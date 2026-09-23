@@ -34,7 +34,8 @@ igjen. Passordet er `æventyr` (konstanten `ALIBI_PASSORD` øverst i
   `:root` øverst; seksjonene er tydelig kommentert (døra, meny, Bakrommet,
   bevegelse).
 - `js/main.js` – tre deler: døra, Bakrommet, bevegelseslaget.
-- `assets/` – logotypen (`alibi-logo.svg`), favicon (SVG + PNG-fallback),
+- `img/logo/` – ordmerket (`alibi-logo.svg` m.fl., inline som symbol i `index.html`) og søsterstedenes logoer
+- `assets/` – favicon (SVG + PNG-fallback),
   delingsbildet (`og-image.png`) og selvhostede fonter (`fonts/`);
   foto/video kommer (spesifikasjoner i [`../README.md`](../README.md)).
 - `docs/` – [CHANGELOG](CHANGELOG.md) (hva er gjort),
