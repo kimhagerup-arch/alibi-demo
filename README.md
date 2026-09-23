@@ -101,13 +101,29 @@ Plassholder-flatene («Foto kommer» / «Film kommer») i `index.html` viser hvo
 | Fil | Brukes i | Anbefalt format |
 |---|---|---|
 | `assets/hero.mp4` | `#velkommen` – bytt ut `.medie-slot-hero` med en `<video autoplay muted loop playsinline>` | MP4 (H.264), 1920×1080, < 8 MB, uten lyd |
-| `assets/interior-1.jpg` | `#historien` – bytt ut `.medie-slot-staaende` med `<img>` | JPG/WebP, 1200×1600 (3:4) |
-| `assets/inngang.jpg` | `#finn-oss` – bytt ut `.medie-slot-staaende` med `<img>` | JPG/WebP, 1200×1600 (3:4) |
+| `assets/interior-1.jpg` | `#historien` – i dag stemningsbilde (stock) i `<picture>`; bytt kildene i `img/` | JPG/WebP, 1200×1600 (3:4) |
+| `assets/inngang.jpg` | `#finn-oss` – i dag stemningsbilde (stock) i `<picture>`; bytt kildene i `img/` | JPG/WebP, 1200×1600 (3:4) |
 | `assets/raus.jpg` | `#huset` – Raus-kortet, bytt ut `.medie-slot-hus` med `<img>` | JPG/WebP, 1200×800 (3:2) |
 | `assets/taakt.jpg` | `#huset` – Tåkt-kortet, bytt ut `.medie-slot-hus` med `<img>` | JPG/WebP, 1200×800 (3:2) |
 | `assets/og-image.png` | `<head>` – `og:image` | Finnes (generert fra logofila, 1200×630); kan byttes med foto senere |
 
 Husk `alt`-tekst på norsk på alle bilder, og `loading="lazy"` på bilder under folden.
+
+### Stemningsbilder (midlertidige) og eksport
+
+Tre sort-hvitt stockbilder ligger som midlertidige stemningsbilder i
+`img/` (`alibi-telefon`, `alibi-lampe`, `alibi-bardisk`) som WebP i 480/800 px
++ JPEG-fallback, i `<picture>` med `srcset`/`sizes`. Originalene ligger
+utenfor repoet. Eksporten gjøres lokalt med `tools/eksporter-bilder.py`
+(Python 3 + Pillow – kun byggtid, siden trenger det ikke):
+
+```
+python tools/eksporter-bilder.py <mappe-med-originaler>
+```
+
+Bilderegel: aldri alkohol som drikkes eller er i fokus, tobakk/røyking,
+eller alkohol-/tobakksmerker (se `CLAUDE.md`). Kilder og lisenser per bilde:
+[`docs/BILDEKILDER.md`](docs/BILDEKILDER.md).
 
 ## Struktur
 
@@ -115,7 +131,9 @@ Husk `alt`-tekst på norsk på alle bilder, og `loading="lazy"` på bilder under
 index.html        – alt innhold (one-page med ankernavigasjon)
 css/style.css     – all stil; palett og typografi som variabler øverst i :root
 js/main.js        – dørmekanikken; ingenting annet krever JavaScript
-assets/           – logo, favicon (SVG + PNG), og-image, selvhostede fonter; bilder/video kommer
+assets/           – favicon (SVG + PNG), og-image, selvhostede fonter; video kommer
+img/              – stemningsbilder (WebP + JPEG) og img/logo/ (ordmerket + søsterstedenes logoer)
+tools/            – eksporter-bilder.py (lokal bildeeksport, Pillow)
 ```
 
 ## Design-referanse

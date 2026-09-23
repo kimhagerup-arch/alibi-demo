@@ -39,7 +39,9 @@ menyen»** i all synlig tekst (beslutning #22).
 | `index.html` | Alt innhold. Plassholdere merket `<!-- PLACEHOLDER -->` |
 | `css/style.css` | All stil. Palett/typografi som variabler i `:root` øverst |
 | `js/main.js` | Døra, Bakrommet, bevegelseslaget. Passordet: `ALIBI_PASSORD` øverst |
-| `assets/` | Logo, favicon (SVG + PNG), og-image, fonter i `fonts/`; foto/video kommer (spesifisert i `README.md`) |
+| `assets/` | Favicon (SVG + PNG), og-image, fonter i `fonts/`; video kommer (spesifisert i `README.md`) |
+| `img/` | Stemningsbilder (WebP + JPEG-fallback, midlertidig stock) og `img/logo/` (ordmerket + søsterstedenes logoer) |
+| `tools/` | `eksporter-bilder.py` – lokal bildeeksport (Pillow). Kun byggtid, aldri runtime |
 | `docs/` | Changelog, beslutninger, promptlogg, TODO, onboarding |
 
 ## Føringer som IKKE endres uten eksplisitt beskjed
@@ -50,6 +52,19 @@ menyen»** i all synlig tekst (beslutning #22).
   Aldri ren svart bakgrunn med neonaksent, aldri blank «Gatsby-glamour».
   Æventyr-logoen i footeren beholder merkevarens gull `#CA9F68` – ikke
   «harmoniser» den med sidens messing (beslutning #13).
+- **Logo:** ordmerket «ALIBI» med gruppens A (`img/logo/alibi-logo.svg`, inline som
+  `<symbol id="alibi-ordmerke">` i `index.html`, farge via `currentColor`). A-en er
+  hentet uendret fra Æventyr-gruppens egne logofiler – ikke tegn den om, ikke bytt
+  den med en font-glyph, ikke strekk/skjev. Dimensjoner etter versalhøyde (LIBI),
+  ikke total høyde – A-streken skal få gå over/under uten å presse layouten.
+  «Alibi» i løpende tekst, `<title>`, meta og JSON-LD er vanlig tekst (beslutning #23).
+- **Bilder:** aldri alkohol som drikkes eller er i fokus, tobakk/røyking, eller
+  alkohol- eller tobakksmerker (alkoholloven § 9-2 / alkoholforskriften kap. 14,
+  tobakkskadeloven § 22). I tvil om et bilde: ikke bruk det, spør. Stockbilder er
+  midlertidige, merkes `PLACEHOLDER` og føres i `docs/BILDEKILDER.md`; de skal aldri
+  late som de viser andre steder (Raus/Tåkt venter på ekte foto fra kunden).
+  Bilder leveres som WebP + JPEG-fallback i `<picture>`, med `width`/`height`,
+  `loading="lazy"` og norsk alt-tekst (aldri om drikke). Sort-hvitt bevares.
 - **Tone:** norsk bokmål, lavmælt, konspiratorisk, glimt i øyet
   («Du fant oss.»). Aldri ropende salgstekst, ingen utropstegn-hype.
 - **Døra:** forblir et overlay – ALT innhold skal ligge i DOM-en bak og være
