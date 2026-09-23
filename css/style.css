@@ -1116,7 +1116,8 @@ html.fane-skjult .stov-korn {
   color: var(--kritt-dus);
 }
 
-/* Tre lenkespalter – samme mønster som Raus og Tåkt */
+/* Lenkespalter – samme mønster som Raus og Tåkt (to spalter siden runde 11:
+   søsterstedene ligger som logorad under, se .bunn-familie) */
 .bunn-spalter {
   max-width: var(--maks-bredde);
   margin: 0 auto;
@@ -1126,8 +1127,43 @@ html.fane-skjult .stov-korn {
   border-bottom: 1px solid rgba(201, 162, 39, 0.18);
 }
 @media (min-width: 46rem) {
-  .bunn-spalter { grid-template-columns: repeat(3, 1fr); }
+  .bunn-spalter { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Søsterstedene som logorad. Hver logo har egen høyde: filene har ulike
+   proporsjoner (A-streken, «SOCIAL»/«HOTELL»/«LODGE» under ordet), så én
+   felles height gir ulik optisk størrelse – målet er lik versalhøyde. */
+.bunn-familie {
+  max-width: var(--maks-bredde);
+  margin: 0 auto;
+  padding: 1.6rem 0 1.4rem;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+}
+
+.bunn-logoer {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 1rem;
+  margin-left: -0.5rem; /* linjerer første logo med teksten over */
+}
+
+.bunn-logoer a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;  /* touch-mål */
+  min-height: 44px;
+  padding: 0.3rem 0.5rem;
+}
+
+.bunn-logoer img { display: block; width: auto; }
+.logo-aeventyr { height: 2.7rem; }
+.logo-raus     { height: 2.3rem; }
+.logo-taakt    { height: 2.4rem; }
+.logo-canyon   { height: 2.6rem; }
+.logo-gargia   { height: 2.6rem; }
 
 .bunn-tittel {
   font-size: 0.95rem;
@@ -1183,16 +1219,6 @@ html.fane-skjult .stov-korn {
 .bunn-c {
   max-width: var(--maks-bredde);
   margin: 0.8rem auto 0;
-}
-
-/* Æventyr-logoen: merkevarens gull (#CA9F68) beholdes selv om den
-   avviker litt fra sidens messing – se beslutning #13 */
-.aeventyr-lenke { display: inline-block; }
-
-.aeventyr-logo {
-  width: clamp(90px, 26vw, 110px);
-  height: auto;
-  vertical-align: middle;
 }
 
 /* ==========================================================================
