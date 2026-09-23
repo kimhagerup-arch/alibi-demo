@@ -9,9 +9,11 @@ Nettsiden til **Alibi** – en speakeasy-bar i en kjeller i Alta sentrum
 (adressen er under avklaring: siden sier Sentrumsparken 2, søstersidene
 Markedsgata 6 – se TODO P15, skal løses før lansering),
 drevet av **Æventyr** (samme eiere som nattklubben **Tåkt**, som ligger vegg i vegg
-i samme kjeller – Tåkt er nattklubben, Alibi er baren). Alibi omtales alltid som
-*bar*, aldri *pub* (beslutning #22). Målgruppen er et voksent publikum som vil ha
-god samtale og gode cocktails i lavt tempo.
+i samme kjeller – Tåkt er nattklubben, Alibi er baren). Raus, Tåkt og Alibi ligger
+i **samme bygg som Canyon Hotell**; **Gargia Lodge** og Canyon Hotell er også
+Æventyr-steder (alle fem har logo i footeren). Alibi omtales alltid som *bar*,
+aldri *pub* (beslutning #22). Målgruppen er et voksent publikum som vil ha god
+samtale og gode cocktails i lavt tempo.
 
 One-page statisk nettside med ankernavigasjon. Signaturgrepet er «Døra»: et
 fullskjerms-overlay der besøkende banker tre ganger for å komme inn. Skjult
