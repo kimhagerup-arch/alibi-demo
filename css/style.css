@@ -1265,6 +1265,22 @@ html.fane-skjult .stov-korn {
   padding: var(--luft);
 }
 
+/* Ordmerket over «Feil dør» – lite og nøkternt, versalhøyde ≈ 0,6 rem som
+   overteksten. Samme symbol som forsiden (kopiert inn i 404.html, som ikke
+   laster JS eller deler DOM med index.html). */
+.feil-ordmerke {
+  display: block;
+  line-height: 0;
+  color: var(--messing);
+}
+.feil-ordmerke:hover { color: var(--messing-dus); }
+
+.feil-ordmerke .ordmerke {
+  height: 1.9rem;   /* versalhøyde ≈ 0,6 rem */
+  width: auto;
+  margin-bottom: -0.5rem; /* streken under grunnlinja skal ikke skyve overteksten ned */
+}
+
 .feil-kode {
   font-size: clamp(4rem, 18vw, 8rem);
   line-height: 1;
