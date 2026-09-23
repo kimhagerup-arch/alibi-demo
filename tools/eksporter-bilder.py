@@ -14,7 +14,7 @@ skriptet gir samme resultat uansett originalstørrelse.
 import os
 import sys
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageFilter
 
 if len(sys.argv) < 2:
     sys.exit(__doc__)
@@ -25,7 +25,11 @@ os.makedirs(MAAL, exist_ok=True)
 
 # (kildefil, målnavn, (bredde, høyde)-forhold, y-forskyvning 0–1 av tilgjengelig
 #  beskjæringsrom (0 = topp, 0.5 = midt, 1 = bunn), x-forskyvning, bredder,
-#  utsnitt (x0, y0, x1, y1 som brøk av originalen – None = hele bildet))
+#  utsnitt (x0, y0, x1, y1 som brøk av originalen – None = hele bildet),
+#  valgfritt: dict med egne innstillinger per bilde:
+#     "webp": WebP-kvalitet (ellers WEBP_KVALITET)
+#     "stoy": lett støyfjerning – gaussisk radius i px på det nedskalerte
+#             bildet før lagring (0/utelatt = ingen))
 BILDER = [
     ("telefon.jpg", "alibi-telefon", (4, 5), 0.45, 0.5, (480, 800), None),
     # Lampa: høyre del av originalen, så lampe og sofa fyller det lille kortfeltet
@@ -40,10 +44,14 @@ BILDER = [
     # Paret: 9:16 → 4:5, utsnittet starter rett over hatten så begge hodene
     # og mest mulig av kroppene er med (kuttes ved knærne).
     ("par-dans.jpg", "alibi-par-dans", (4, 5), 0.43, 0.5, (480, 640, 800), None),
-    # Forden: fast utsnitt (2048×2560 px av originalen) sentrert på grill og
-    # lykter. Registreringsskiltet «AR-83-13» (y ≥ ca. 0.77) og ansiktet til
-    # personen i høyre kant (x ≥ ca. 0.92, y ≤ ca. 0.09) ligger utenfor.
-    ("ford.jpg", "alibi-ford", (4, 5), 0.5, 0.5, (480, 640, 800), (0.4688, 0.0875, 0.8638, 0.7459)),
+    # Forden: fast utsnitt (2048×2560 px av originalen) med venstre lykt og
+    # grillen. Høyre kant går ved frontrutestolpen (x ≈ 0.796), så ermet og
+    # hånda til personen i høyre kant er helt ute (ermet når inn til x ≈ 0.80);
+    # registreringsskiltet «AR-83-13» (y ≥ ca. 0.77) er også utenfor.
+    # Grillnettet komprimerer dårlig: egen WebP-kvalitet og lett støyfjerning
+    # (runde 14) gir ca. 40 % mindre filer uten synlige artefakter.
+    ("ford.jpg", "alibi-ford", (4, 5), 0.5, 0.5, (480, 640, 800), (0.4007, 0.0875, 0.7957, 0.7459),
+     {"webp": 65, "stoy": 0.55}),
 ]
 
 JPEG_FALLBACK_BREDDE = 800
@@ -63,7 +71,11 @@ def beskjaer(im, forhold, fy, fx):
     return im.crop((0, y0, w, y0 + nh))
 
 
-for kilde, navn, forhold, fy, fx, bredder, utsnitt in BILDER:
+for oppf in BILDER:
+    kilde, navn, forhold, fy, fx, bredder, utsnitt = oppf[:7]
+    egne = oppf[7] if len(oppf) > 7 else {}
+    webp_kvalitet = egne.get("webp", WEBP_KVALITET)
+    stoy = egne.get("stoy", 0)
     im = Image.open(os.path.join(KILDE, kilde))
     im = ImageOps.exif_transpose(im)
     if utsnitt:
@@ -74,8 +86,10 @@ for kilde, navn, forhold, fy, fx, bredder, utsnitt in BILDER:
     for b in bredder:
         h = round(im.height * b / im.width)
         liten = im.resize((b, h), Image.LANCZOS)
+        if stoy:
+            liten = liten.filter(ImageFilter.GaussianBlur(stoy))
         sti = os.path.join(MAAL, f"{navn}-{b}.webp")
-        liten.convert("RGB").save(sti, "WEBP", quality=WEBP_KVALITET, method=6)
+        liten.convert("RGB").save(sti, "WEBP", quality=webp_kvalitet, method=6)
         print(f"  {os.path.basename(sti)} {b}x{h} {os.path.getsize(sti) // 1024} kB")
         if b == JPEG_FALLBACK_BREDDE:
             sti = os.path.join(MAAL, f"{navn}-{b}.jpg")
