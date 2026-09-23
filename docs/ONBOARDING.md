@@ -63,5 +63,7 @@ igjen. Passordet er `æventyr` (konstanten `ALIBI_PASSORD` øverst i
 - Bakrommet: låses opp via inline-feltet, via passord ved døra, og ved å
   taste passordet hvor som helst.
 - Ankernavigasjonen klipper ingen overskrifter.
+- Fotobåndet (under 46 rem): kan rulles med sveip og med piltaster når
+  rulleområdet har fokus, uten at selve siden får horisontal rulling.
 - Med `prefers-reduced-motion`: alt innhold synlig, ingenting beveger seg.
 - Kontrast: nye farger sjekkes mot WCAG AA (4,5:1 for brødtekst).

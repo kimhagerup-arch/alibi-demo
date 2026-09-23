@@ -103,6 +103,7 @@ Plassholder-flatene («Foto kommer» / «Film kommer») i `index.html` viser hvo
 | `assets/hero.mp4` | `#velkommen` – bytt ut `.medie-slot-hero` med en `<video autoplay muted loop playsinline>` | MP4 (H.264), 1920×1080, < 8 MB, uten lyd |
 | `assets/interior-1.jpg` | `#historien` – i dag stemningsbilde (stock) i `<picture>`; bytt kildene i `img/` | JPG/WebP, 1200×1600 (3:4) |
 | `assets/inngang.jpg` | `#finn-oss` – i dag stemningsbilde (stock) i `<picture>`; bytt kildene i `img/` | JPG/WebP, 1200×1600 (3:4) |
+| Tre foto til fotobåndet | `.fotoband` mellom `#historien` og `#huset` – i dag tre stemningsbilder (stock) i `<picture>`; bytt kildene i `img/` og alt-tekstene | JPG/WebP, 4:5 (eksporteres i 480/640/800) |
 | `assets/raus.jpg` | `#huset` – Raus-kortet, bytt ut `.medie-slot-hus` med `<img>` | JPG/WebP, 1200×800 (3:2) |
 | `assets/taakt.jpg` | `#huset` – Tåkt-kortet, bytt ut `.medie-slot-hus` med `<img>` | JPG/WebP, 1200×800 (3:2) |
 | `assets/og-image.png` | `<head>` – `og:image` | Finnes (generert fra logofila, 1200×630); kan byttes med foto senere |
@@ -111,9 +112,10 @@ Husk `alt`-tekst på norsk på alle bilder, og `loading="lazy"` på bilder under
 
 ### Stemningsbilder (midlertidige) og eksport
 
-Tre sort-hvitt stockbilder ligger som midlertidige stemningsbilder i
-`img/` (`alibi-telefon`, `alibi-lampe`, `alibi-bardisk`) som WebP i 480/800 px
-+ JPEG-fallback, i `<picture>` med `srcset`/`sizes`. Originalene ligger
+Seks sort-hvitt stockbilder ligger som midlertidige stemningsbilder i
+`img/` (`alibi-telefon`, `alibi-lampe`, `alibi-bardisk`, og `alibi-dame`,
+`alibi-par-dans`, `alibi-ford` i fotobåndet) som WebP i 480/800 px (båndet
+også 640) + JPEG-fallback, i `<picture>` med `srcset`/`sizes`. Originalene ligger
 utenfor repoet. Eksporten gjøres lokalt med `tools/eksporter-bilder.py`
 (Python 3 + Pillow – kun byggtid, siden trenger det ikke):
 

@@ -9,7 +9,7 @@ Bilderegelen (se `CLAUDE.md`): aldri alkohol som drikkes eller er i fokus,
 tobakk/røyking, eller alkohol-/tobakksmerker (alkoholloven § 9-2 /
 alkoholforskriften kap. 14, tobakkskadeloven § 22). I tvil: ikke bruk, spør.
 
-Sist oppdatert: 2026-09-23 (runde 11).
+Sist oppdatert: 2026-09-23 (runde 13).
 
 ## Brukt på siden (midlertidige stockbilder – byttes med ekte foto)
 
@@ -18,16 +18,14 @@ Sist oppdatert: 2026-09-23 (runde 11).
 | `img/alibi-telefon-{480,800}.webp`, `-800.jpg` | `telefon.jpg` (3056×4064, s/h) | Pexels – fri bruk, kreditering ikke påkrevd | `#historien` (stående felt, 4:5) | OK: veggtelefon, art deco-tapet, lysrekke. Ingen glass/drikke, ingen røyk, ingen merker |
 | `img/alibi-lampe-{480,800}.webp`, `-800.jpg` | `lampe.jpg` (3086×2333, s/h) | Pexels – fri bruk, kreditering ikke påkrevd | `#huset`, Alibi-kortet (3:2) | OK: bordlampe med frynser, murvegg, chesterfield, tre innrammede bilder på veggen. Jameson-plakaten er bekreftet beskåret bort (sjekket i full størrelse). Utsnitt: høyre del, så lampe + sofa fyller det lille feltet |
 | `img/alibi-bardisk-{480,800}.webp`, `-800.jpg` | `bardisk-uten-glass.jpg` (3879×5819, s/h) | Pexels – fri bruk, kreditering ikke påkrevd | `#finn-oss` (stående felt, 4:5) | OK: bardisk med avis, sedler, hatt og koffert. Øverst i originalen står uskarpe glass på bakbaren – beskåret bort (utsnittet er forskjøvet helt ned). Ingen drikke, ingen merker |
+| `img/alibi-dame-{480,640,800}.webp`, `-800.jpg` | `dame.jpg` (4160×6240, s/h) | **Oppgis av Kim – lisens må bekreftes før lansering** (TODO) | Fotobåndet mellom `#historien` og `#huset` (4:5), bilde 1 | Sjekket på nytt i runde 13: portrett, kvinne i 1920-tallsantrekk med fjær, pannebånd og pels. Ingen glass, ingen sigarett/munnstykke, ingen merker. Utsnitt forskjøvet mot toppen (fjær og ansikt med) |
+| `img/alibi-par-dans-{480,640,800}.webp`, `-800.jpg` | `par-dans.jpg` (3375×6000, s/h) | **Oppgis av Kim – lisens må bekreftes før lansering** (TODO) | Fotobåndet, bilde 2 | Sjekket på nytt i runde 13: par i 1920-tallsklær som danser foran et vindu. Ingen drikke, ingen røyk, ingen merker. Utsnitt fra rett over hatten til knærne, begge hodene med. Ikke på Tåkt-kortet (#27) |
+| `img/alibi-ford-{480,640,800}.webp`, `-800.jpg` | `ford.jpg` (5184×3888, s/h) | **Oppgis av Kim – lisens må bekreftes før lansering** (TODO) | Fotobåndet, bilde 3 | Sjekket på nytt i runde 13: veteranbil (Ford T) forfra. Ford-merket på grillen er greit (verken alkohol eller tobakk). Fast utsnitt 2048×2560 px (x 0,469–0,864, y 0,088–0,746) sentrert på grill og lykter: **skiltet «AR-83-13» er utenfor i alle fire varianter** (sjekket per fil), ansiktet til personen i høyre kant også – en hånd/jakke synes øverst til høyre |
 
-## Sjekket og godkjent, men ikke tatt inn (ingen ledige felt)
+## Sjekket og godkjent, men ikke tatt inn
 
-Ligger **ikke** i repoet. Forslag til plassering står i `docs/TODO.md`.
-
-| Original | Kilde / lisens | Sjekk (runde 11) | Merknad |
-|---|---|---|---|
-| `dame.jpg` (4160×6240, s/h) | Oppgis av Kim | OK: portrett, kvinne i 1920-tallsantrekk med fjær, pannebånd og pels. Ingen glass, ingen sigarett/munnstykke, ingen merker | Stående 2:3 |
-| `par-dans.jpg` (3375×6000, s/h) | Oppgis av Kim | OK: par i 1920-tallsklær som danser foran et vindu. Ingen drikke, ingen røyk, ingen merker | Stående 9:16. Skal **ikke** på Tåkt-kortet (stockbilder later ikke som de viser andre steder) |
-| `ford.jpg` (5184×3888, s/h) | Oppgis av Kim | OK med forbehold: veteranbil (Ford T) forfra. Ford-merket på grillen er greit (verken alkohol eller tobakk). **Skiltet «AR-83-13» må beskjæres bort** før bruk – kan tilhøre en ekte bil. En person i høyre kant bør også ut av utsnittet | Liggende 4:3 |
+Ingen per runde 13 – `dame`, `par-dans` og `ford` ble tatt inn i fotobåndet
+(beslutning #29). Ubrukte originaler ligger fortsatt utenfor repoet.
 
 ## Forkastet
 

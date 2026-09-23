@@ -6,6 +6,40 @@ Nyeste øverst.
 
 ---
 
+## Runde 13 – 2026-09-23 – Fotobånd med tre stemningsbilder
+**Prompt:** [`prompts/runde-13-fotoband.md`](prompts/runde-13-fotoband.md)
+
+**Bestilt:** Ett fotobånd mellom Historien og Huset med dame – par-dans –
+ford: semantisk liste, sidens ramme, 4:5, tre på rad ≥ 768 px, horisontal
+snap-rad under (fokuserbart rulleområde, ingen siderulling, reduced
+motion respektert). Eksport 480/800 + JPEG, kvalitet 75–80, mål ~100 kB.
+Ford uten registreringsskilt. Skjermbilder 1440/768/375 + ford-varianter,
+Lighthouse 95+/100 og CLS ≤ 0,012, dør/skjult meny/nav som før. Sporbarhet,
+tag, push. Ingen andre endringer.
+
+**Levert:** Alt, i to kode-commits + docs. Båndet rett etter Historien
+(beslutning #29). Lighthouse 97/100/100/60, CLS 0,012 (uendret).
+Skiltet er bekreftet borte i alle fire ford-filer. 22 `PLACEHOLDER`.
+
+**Avvik:**
+- **Bruddpunkt 46 rem (736 px) i stedet for 768 px** – sidens eget
+  bruddpunkt, så båndet skifter samtidig med to-spalter og Huset-kortene.
+  768 px ligger fortsatt i desktop-grenen.
+- **Ekstra 640-variant** i tillegg til 480/800, for alle tre bildene: på
+  2x-skjermer (som er det vanlige) velges 640 (44/28/131 kB) i stedet for
+  800.
+- **Ford over ~100 kB-målet:** 131 kB (640) og 199 kB (800). Grillnettet
+  komprimerer dårlig; kvaliteten er holdt på 78 som de andre i stedet for
+  å presse den under 75. 480-varianten (1x) er 79 kB.
+- **Ford-utsnittet** viser en hånd/jakke fra personen i høyre kant øverst;
+  ansiktet og skiltet er ute. Bestillingen sa «sentrert på grill og
+  lykter» – begge lyktene er med, men klippes i kantene (4:5 av et 4:3-
+  motiv).
+- **Sveip** er verifisert med touch-emulering i headless Chrome, ikke på
+  fysisk enhet.
+- Lighthouse laster båndbildene tidlig (Chromes lazy-terskel på treg
+  mobil) – i vanlig Chrome på 375 px lastes de først når båndet rulles inn.
+
 ## Runde 12 – 2026-09-23 – Dørskiltet og logo på 404
 **Prompt:** [`prompts/runde-12-dorskilt-og-404.md`](prompts/runde-12-dorskilt-og-404.md)
 

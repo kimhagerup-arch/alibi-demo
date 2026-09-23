@@ -5,6 +5,71 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 13 – 2026-09-23 – Fotobånd med tre stemningsbilder
+
+### Lagt til
+- **Fotobånd mellom Historien og Huset** (`.fotoband`, rett etter
+  `#historien`, før skillelinja): dame – par-dans – ford som tre stående
+  4:5-bilder i sidens ramme (border + ytre hårlinje fra `.medie-slot`,
+  diamant i toppen som på kortene). Ingen overskrift, ikke i navigasjonen,
+  ingen bildetekster, ikke med i scroll-avsløringen (statisk). Markup:
+  `<ul>`/`<li>`/`<figure>`/`<picture>`. Fra 46 rem: tre på rad med samme
+  innholdsbredde som seksjonene – målt 3 × 288 px (luft 24 px) på 1440 og
+  3 × 219,5 px på 768. Under 46 rem: horisontal rad med `scroll-snap`
+  *inni* båndet, hvert bilde 75 vw (281 px på 375) med 16 px gap, så neste
+  bilde stikker 58 px inn; gutter lik seksjonenes `--luft` i begge ender.
+  Rulleområdet har `tabindex="0"`, `role="region"` og
+  `aria-label="Stemningsbilder"`; fokusringen ligger 3 px innenfor båndet.
+  Piltaster ruller ett bilde av gangen (scrollLeft 0 → 297 → 541 px).
+  Ingen `scroll-behavior` settes på båndet.
+- **Nye bilder** `img/alibi-dame-*`, `img/alibi-par-dans-*` og
+  `img/alibi-ford-*` – WebP 480/640/800 (q78) + JPEG 800 (q75) fra
+  `tools/eksporter-bilder.py`:
+
+  | Variant | dame | par-dans | ford |
+  |---|---|---|---|
+  | 480 webp | 26 kB | 17 kB | 79 kB |
+  | 640 webp | 44 kB | 28 kB | 131 kB |
+  | 800 webp | 66 kB | 46 kB | 199 kB |
+  | 800 jpg (fallback) | 95 kB | 81 kB | 195 kB |
+
+  `sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw"`
+  gir 480 på 1x-skjermer, 640 på 2x (1440, 768 og 375) og 800 bare på 3x.
+  Ford: fast utsnitt 2048 × 2560 px av originalen (x 0,469–0,864,
+  y 0,088–0,746), sentrert på grill og lykter – registreringsskiltet
+  «AR-83-13» og ansiktet til personen i høyre kant ligger utenfor i alle
+  fire varianter (sjekket per fil). Dame: forskjøvet mot toppen så fjæra
+  og ansiktet er med. Par-dans: fra rett over hatten til knærne, begge
+  hodene med.
+- Én ny `PLACEHOLDER`-kommentar på båndet (TODO P19) – 22 totalt.
+
+### Endret
+- `tools/eksporter-bilder.py`: tre nye oppføringer; de tre gamle bildene
+  ble re-eksportert byte-identisk (ingen diff i git).
+
+### Verifisert
+- Skjermbilder på 1440, 768 og 375 px (hele siden, båndet, fokus og rullet
+  tilstand) og de fire ford-variantene i `..\alibi-skjermbilder\runde-13\`.
+- Ingen horisontal rulling på siden på 375: `scrollWidth` 375 = `innerWidth`
+  før og etter rulling/sveip. Sveip (touch-emulert i headless Chrome)
+  snapper 0 → 297 → 541 px og tilbake; vertikalt sveip over båndet ruller
+  siden. Bildene har `aspect-ratio` 0,800 på alle bredder.
+- Lazy: på 375 er ingen av båndbildene lastet ved `load` (`currentSrc`
+  tom); de lastes når båndet rulles inn. På 1440/768 ligger båndet
+  innenfor Chromes lazy-terskel og lastes tidlig – som telefon-bildet.
+- Redusert bevegelse: `js-klar` settes ikke, `scroll-behavior: auto` på
+  både `html` og båndet, bildene er synlige (opacity 1).
+- Døra (tre bank → `aapner`, «Gå rett inn» → `borte`, passord →
+  `hemmelig` med skjult meny synlig), navigasjonen (fem ankere, ingen til
+  båndet) og tab-rekkefølgen (skip-lenke → topplinje → båndet → Huset-
+  lenkene → skjult meny-knapp → footer) virker som før.
+- Lighthouse mobil (lokal server, emulert 412 px @1,75x): Performance
+  **97** / Accessibility **100** / Best Practices **100** / SEO 60
+  (noindex, P14). FCP 1,4 s, LCP 2,4 s, TBT 77 ms, CLS **0,012** –
+  uendret fra runde 11/12; eneste layout-skift er fortsatt hero-feltet.
+  Nettverk: `alibi-dame-640.webp` 45 kB, `alibi-par-dans-640.webp` 30 kB,
+  `alibi-ford-640.webp` 134 kB.
+
 ## Runde 12 – 2026-09-23 – Dørskiltet får plass til ordmerket, logo på 404
 
 ### Lagt til

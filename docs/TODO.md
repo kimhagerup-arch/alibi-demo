@@ -4,7 +4,7 @@ Restanseliste i tre deler. **Plassholder-tabellen skal alltid stemme med
 koden** – verifiser med søk på `PLACEHOLDER` i repoet. Lukkede punkter
 markeres med dato, ikke slettes.
 
-Sist verifisert mot koden: 2026-09-23, runde 12 (21 `PLACEHOLDER`-merker i `index.html`).
+Sist verifisert mot koden: 2026-09-23, runde 13 (22 `PLACEHOLDER`-merker i `index.html`).
 
 ## 1. Plassholdere
 
@@ -28,9 +28,16 @@ Sist verifisert mot koden: 2026-09-23, runde 12 (21 `PLACEHOLDER`-merker i `inde
 | P16 | Foto til «Huset»-kortene | `#huset`, `.medie-slot-hus` (3 stk) | Raus (`assets/raus.jpg`) og Tåkt (`assets/taakt.jpg`) står med «Foto kommer» – ekte foto fra kunden, ingen stock der (beslutning #27). Alibi-kortet har stockbildet `img/alibi-lampe-*` siden runde 11; byttes med ekte foto (3:2). Ikke hotlink fra aeventyr-CDN – alt selvhostes | Åpen (Alibi: stock inne) |
 | P17 | Alibis egne sosiale kontoer | Footer («Følg oss») + `sameAs` i JSON-LD | Egne Instagram-/Facebook-kontoer for Alibi. Ikke lenk til Raus' eller Tåkts kontoer som om de var Alibis. Når de finnes: bytt `<span>` til `<a>` i footeren, legg `sameAs` i JSON-LD, og lukk P11 samtidig | Åpen |
 | P18 | Glass og mengde for Bakroms-drinkene | `#menyen`, `.bakrom-liste` | Eiernes regneark oppgir ikke glass/totalmengde for Mandaquiri og Adventure – derfor ingen glasstegning eller cl-angivelse der ennå. Når de kommer: bruk samme `.meny-glass`-mønster som hovedmenyen (symbolene finnes øverst i `<body>`, `currentColor` gjør dem automatisk mørke på de inverterte kortene). Siden runde 10 vises kun mengden som tekst («15 cl»), ikke glasstypen | Åpen |
+| P19 | Fotobåndet mellom Historien og Huset (3 stockbilder) | `.fotoband` (mellom `#historien` og `#huset`) | Siden runde 13 står `img/alibi-dame-*`, `img/alibi-par-dans-*` og `img/alibi-ford-*` der (kilde/lisens: «oppgis av Kim», se punkt under og `BILDEKILDER.md`). Ekte foto av Alibi: eksporter 4:5 i 480/640/800 med `tools/eksporter-bilder.py` og bytt kildene + alt-tekstene i de tre `<picture>` | Åpen (stock inne) |
 
 ## 2. Kjente svakheter / gjeld
 
+- **FØR LANSERING – kilde og lisens for dame, par-dans og ford må
+  bekreftes av Kim.** De tre bildene i fotobåndet (P19) står i
+  `BILDEKILDER.md` med kilde «oppgis av Kim» – ingen dokumentert lisens
+  ennå. Bekreft hvor de er hentet fra og at bruksvilkårene dekker
+  kommersiell nettside (ev. kreditering). Kan ikke lanseres med ukjent
+  lisens; alternativet er å ta dem ut. (Lagt inn runde 13.)
 - **HØY PRIORITET – nøktern meny (knyttet til P5).** Når Brian Rundhaugs
   meny kommer: drinktekstene skal være nøkterne (navn, ingredienser, mengde,
   pris) uten salgsfremmende formuleringer, og alkoholfrie alternativer skal
@@ -88,18 +95,11 @@ Sist verifisert mot koden: 2026-09-23, runde 12 (21 `PLACEHOLDER`-merker i `inde
 
 ## 3. Ideer / backlog (nevnt, ikke besluttet)
 
-- **Ubrukte stemningsbilder** (sjekket og godkjent i runde 11, ligger ikke i
-  repoet – se `BILDEKILDER.md`). Forslag til plassering, tas i egen runde:
-  - `dame.jpg` (stående portrett): et nytt stående felt i «Menyen», ved
-    siden av ingressen – eller som bilde i den skjulte menyen (kun synlig
-    etter opplåsing).
-  - `par-dans.jpg` (stående 9:16): et smalt felt i «Praktisk» ved siden av
-    listen, eller i «Historien» som bilde nr. 2 under første avsnitt.
-    Ikke på Tåkt-kortet (beslutning #27).
-  - `ford.jpg` (liggende 4:3): et liggende felt over «Finn oss»-teksten
-    («veien hit»), etter at skiltet «AR-83-13» og personen i høyre kant er
-    beskåret bort.
-  Krever nye felt – ikke gjort i runde 11 (bestillingen: ingen nye felt).
+- ~~**Ubrukte stemningsbilder** – forslag til plassering av `dame`,
+  `par-dans` og `ford` i eksisterende seksjoner.~~ **Lukket 2026-09-23**
+  (runde 13): alle tre ligger i fotobåndet mellom Historien og Huset
+  (beslutning #29, P19). Forslagene om egne felt i Menyen/Praktisk/Finn oss
+  er dermed uaktuelle.
 - **«Ukas passord»-rutine:** Bakrommet er bygget for markedsføringsgrepet
   der ukas passord deles på sosiale medier (runde 2-briefen). Krever bare å
   bytte `ALIBI_PASSORD` i `js/main.js` og publisere – men rutinen/eierskapet

@@ -363,7 +363,10 @@ usikre rekonstruksjoner er merket «(antatt)».
   viser andre steder, jf. #27).
 - **Begrunnelse:** Siden trenger stemning nå; ekte foto kommer fra kunden og
   byttes inn i samme `<picture>`-markup.
-- **Status:** Gjeldende (midlertidig – P4/P7/P16 står åpne).
+- **Status:** Gjeldende (midlertidig – P4/P7/P16 står åpne). *Runde 13:*
+  `dame`, `par-dans` og `ford` er tatt inn i fotobåndet mellom Historien og
+  Huset (se #29, TODO P19); ford med skiltet beskåret bort. `chesterfield`
+  er fortsatt forkastet.
 
 ## #26 – Bilderegel: alkohol, tobakk og merker
 - **Dato:** 2026-09-23 (runde 11)
@@ -411,3 +414,40 @@ usikre rekonstruksjoner er merket «(antatt)».
   uten å flytte på noe annet. Prosentmål gjør at skiltet holder samme
   forhold til døra på mobil og desktop.
 - **Status:** Gjeldende. Presiserer #23.
+
+## #29 – Fotobånd mellom Historien og Huset, horisontal rad med snap på mobil
+- **Dato:** 2026-09-23 (runde 13)
+- **Beslutning:** De tre godkjente, ubrukte bildene (dame, par-dans, ford)
+  vises som et smalt fotobånd rett etter «Historien», før skillelinja til
+  «Huset». Båndet er ikke en seksjon: ingen overskrift, ikke i
+  navigasjonen, ingen bildetekster, og det er ikke med i scroll-
+  avsløringen (statisk, ingen JS-endring). Tre like 4:5-bilder i sidens
+  eksisterende ramme, i samme innholdsbredde som seksjonene. Bruddpunktet
+  er 46 rem (sidens eget, som `.to-spalter` og `.hus-liste`) – 768 px
+  faller i desktop-grenen som bestilt. Under 46 rem er båndet en
+  horisontal rad med `scroll-snap` inni et fokuserbart rulleområde
+  (`tabindex="0"`, `role="region"`, `aria-label`), 75 vw per bilde så
+  neste stikker inn. Rulleområdet er fokuserbart på alle bredder (ett
+  ekstra tabstopp på desktop). Bildene eksporteres i 480/640/800: 640
+  dekker 2x-skjermer på alle bredder, 800 bare 3x.
+- **Alternativer vurdert:** (1) Etter skillelinja, som opptakt til Huset
+  (forkastet: bildene hører til tjuetallsfortellingen i Historien; linja
+  markerer skiftet til Huset). (2) Mellom Huset og Menyen (forkastet:
+  Huset-kortene har allerede tre bildeflater – seks på rad blir tett).
+  (3) Spre bildene i eksisterende seksjoner slik TODO foreslo i runde 11
+  (forkastet av bestillingen: ett bånd). (4) Avsløringsanimasjon som på
+  `.medie-slot` i seksjonene (forkastet: krever JS-endring og gir ingen
+  gevinst for et pusterom; statisk gir null CLS-risiko). (5) Fjerne
+  `tabindex` på desktop (forkastet: krever JS/matchMedia; ett tabstopp
+  koster lite). (6) 768 px som bruddpunkt (forkastet: 736–767 px ville
+  vist to-spalter over et rullende bånd). (7) Lavere WebP-kvalitet på
+  ford for å nå ~100 kB (forkastet: grillnettet komprimerer dårlig –
+  q55 gir fortsatt 141 kB på 800; 640-varianten holder heller 2x-skjermer
+  unna 800-fila, og kvaliteten holdes på 75–80 som resten).
+- **Begrunnelse:** Et pusterom uten tekst gir siden luft mellom to
+  tekstseksjoner uten å legge til et menypunkt. Rulling *inni* båndet
+  holder siden fri for horisontal rulling; fokuserbart område med
+  piltaster er den enkleste tilgjengelige løsningen uten JS.
+- **Status:** Gjeldende. Ford-utsnittet viser fortsatt en hånd/jakke fra
+  personen i høyre kant øverst (ansikt og skilt er ute) – aksepteres til
+  ekte foto kommer.
