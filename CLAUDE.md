@@ -5,11 +5,11 @@ Prosjektets hukommelse og regelbok. Leses automatisk av Claude Code i hver økt.
 
 ## Hva dette er
 
-Nettsiden til **Alibi** – en speakeasy-pub i en kjeller i Alta sentrum
+Nettsiden til **Alibi** – en speakeasy-bar i en kjeller i Alta sentrum
 (adressen er under avklaring: siden sier Sentrumsparken 2, søstersidene
 Markedsgata 6 – se TODO P15, skal løses før lansering),
 drevet av **Æventyr** (samme eiere som nattklubben **Tåkt**, som ligger vegg i vegg
-i samme kjeller – Tåkt er nattklubben, Alibi er puben). Målgruppen er et voksent
+i samme kjeller – Tåkt er nattklubben, Alibi er baren – Alibi omtales som *bar*, aldri *pub*). Målgruppen er et voksent
 publikum som vil ha god samtale og gode cocktails i lavt tempo.
 
 One-page statisk nettside med ankernavigasjon. Signaturgrepet er «Døra»: et

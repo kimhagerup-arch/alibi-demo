@@ -6,7 +6,7 @@ første endring.
 
 ## Hva er dette?
 
-Nettsiden til **Alibi**, en speakeasy-pub i en kjeller i Alta (drevet av
+Nettsiden til **Alibi**, en speakeasy-bar i en kjeller i Alta (drevet av
 Æventyr, vegg i vegg med nattklubben Tåkt). Én statisk side i ren
 HTML/CSS/JS – ingen rammeverk, ingen byggesteg. Signaturgrepet: besøkende
 må «banke på» en dør for å komme inn, og et passord åpner en skjult del av

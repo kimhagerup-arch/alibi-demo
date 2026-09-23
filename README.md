@@ -1,6 +1,6 @@
 # Alibi – nettside
 
-Nettsiden til **Alibi**, speakeasy-pub i en kjeller i Alta sentrum. Drevet av Æventyr (samme eiere som nattklubben Tåkt, vegg i vegg). NB: gateadressen er under avklaring – siden sier Sentrumsparken 2, søstersidene sier Markedsgata 6 (se TODO P15).
+Nettsiden til **Alibi**, speakeasy-bar i en kjeller i Alta sentrum. Drevet av Æventyr (samme eiere som nattklubben Tåkt, vegg i vegg). NB: gateadressen er under avklaring – siden sier Sentrumsparken 2, søstersidene sier Markedsgata 6 (se TODO P15).
 
 Ren statisk side: HTML + CSS + vanilla JavaScript. Ingen rammeverk, ingen byggesteg, ingen eksterne avhengigheter – fontene selvhostes i `assets/fonts/`.
 
