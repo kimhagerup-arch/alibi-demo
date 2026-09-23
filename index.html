@@ -356,20 +356,20 @@
     <p class="meny-fotnote">Enkelte av drinkene våre inneholder rå eggehvite. Si fra om allergier, så finner vi noe annet til deg.</p>
     <p class="meny-fotnote">Mynte, basilikum og rosmarin dyrker vi selv.</p>
 
-    <!-- ============ BAKROMMET – skjult til passordet er gitt ============ -->
+    <!-- ============ BAKROMMET (på siden: «den skjulte menyen») – skjult til passordet er gitt ============ -->
     <div class="bakrom-inngang">
-      <p class="bakrom-linje" id="bakrom-linje">Vi har et
-        <button type="button" id="bakrom-utloser" class="bakrom-utloser" aria-expanded="false" aria-controls="bakrom-laas">bakrom<svg class="nokkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M11.2 12H20M16.8 12v3M20 12v2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>.
+      <p class="bakrom-linje" id="bakrom-linje">Vi har en
+        <button type="button" id="bakrom-utloser" class="bakrom-utloser" aria-expanded="false" aria-controls="bakrom-laas">skjult meny<svg class="nokkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M11.2 12H20M16.8 12v3M20 12v2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>.
         De som kan passordet, vet hva de skal gjøre.</p>
       <form id="bakrom-laas" class="bakrom-laas" hidden>
-        <label class="sr-only" for="bakrom-felt">Passord til bakrommet</label>
+        <label class="sr-only" for="bakrom-felt">Passord til den skjulte menyen</label>
         <input type="password" id="bakrom-felt" class="passord-input" autocomplete="off" spellcheck="false" placeholder="Hvisk det her òg …">
       </form>
       <p class="bakrom-status" id="bakrom-status" role="status" aria-live="polite"></p>
     </div>
 
     <div id="bakrommet" class="bakrom" hidden>
-      <h3 class="bakrom-tittel" tabindex="-1">Bakrommet</h3>
+      <h3 class="bakrom-tittel" tabindex="-1">Den skjulte menyen</h3>
       <p class="seksjon-ingress">To til, for deg som spurte pent. Dette står ikke på menyen, for dette er ikke menyen.</p>
       <!-- PLACEHOLDER: prisene er midlertidig satt til «kr 159» på alle kort – byttes med reelle priser når de leveres (TODO P5) -->
       <!-- PLACEHOLDER: glass og mengde mangler for Bakroms-drinkene – ikke oppgitt

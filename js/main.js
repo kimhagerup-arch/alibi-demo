@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ALIBI – døra, Bakrommet og bevegelsen
+   ALIBI – døra, Bakrommet (på siden: «den skjulte menyen») og bevegelsen
    Døra er et rent overlay: alt innhold ligger i DOM-en bak og er crawlbart
    uansett. sessionStorage: «alibi-inne» (døra vises én gang per økt) og
    «alibi-bakrom» (Bakrommet forblir åpent i økten).
@@ -47,7 +47,7 @@ var ALIBI_PASSORD = "æventyr";
 
     bakromLaas.hidden = true;
     bakromStatus.textContent = "";
-    bakromLinje.textContent = "Du kan passordet. Bakrommet er ditt.";
+    bakromLinje.textContent = "Du kan passordet. Den skjulte menyen er din.";
 
     bakrommet.hidden = false;
     if (reduserBevegelse) {
