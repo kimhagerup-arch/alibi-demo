@@ -33,6 +33,17 @@ BILDER = [
     # Bardisken: øverst i originalen står uskarpe glass på bakbaren –
     # beskjæringen tar dem bort (y = 1.0 → maksimal forskyvning nedover).
     ("bardisk-uten-glass.jpg", "alibi-bardisk", (4, 5), 1.0, 0.5, (480, 800), None),
+    # Fotobåndet (runde 13): tre stående 4:5. Vises 220–290 px brede, så 640
+    # dekker 2x-skjermer og 800 bare 3x (grillnettet i ford komprimerer dårlig).
+    # Dama: forskjøvet mot toppen så fjæra og ansiktet er med.
+    ("dame.jpg", "alibi-dame", (4, 5), 0.18, 0.5, (480, 640, 800), None),
+    # Paret: 9:16 → 4:5, utsnittet starter rett over hatten så begge hodene
+    # og mest mulig av kroppene er med (kuttes ved knærne).
+    ("par-dans.jpg", "alibi-par-dans", (4, 5), 0.43, 0.5, (480, 640, 800), None),
+    # Forden: fast utsnitt (2048×2560 px av originalen) sentrert på grill og
+    # lykter. Registreringsskiltet «AR-83-13» (y ≥ ca. 0.77) og ansiktet til
+    # personen i høyre kant (x ≥ ca. 0.92, y ≤ ca. 0.09) ligger utenfor.
+    ("ford.jpg", "alibi-ford", (4, 5), 0.5, 0.5, (480, 640, 800), (0.4688, 0.0875, 0.8638, 0.7459)),
 ]
 
 JPEG_FALLBACK_BREDDE = 800
