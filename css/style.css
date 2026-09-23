@@ -746,6 +746,72 @@ html.inne .dor-scene { display: none; }
   object-position: center;
 }
 
+/* ---------- Fotobånd (mellom Historien og Huset) ----------
+   Tre stående 4:5-bilder i sidens ramme. Ingen overskrift, ikke i menyen –
+   et pusterom. Under 46rem: horisontal rad med scroll-snap inni båndet
+   (aldri på siden), ca. 75 % av skjermbredden per bilde så neste stikker inn.
+   Rulleområdet er fokuserbart (tabindex/role/aria-label i HTML) så det kan
+   rulles med piltaster. Ingen scroll-behavior settes her – snap og rulling
+   følger nettleserens standard, også med redusert bevegelse. */
+
+.fotoband {
+  max-width: var(--maks-bredde);
+  margin: 0 auto;
+  padding-bottom: clamp(3.5rem, 9vh, 6rem); /* samme luft som seksjonene */
+}
+
+.fotoband-rull {
+  /* Luft over/under så rammens ytre hårlinje (5 px) og diamanten ikke
+     klippes av rulleområdet */
+  padding: 0.6rem var(--luft);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--luft);
+  scrollbar-width: none;
+}
+.fotoband-rull::-webkit-scrollbar { display: none; }
+.fotoband-rull:focus-visible { outline-offset: -3px; } /* ringen holder seg innenfor båndet */
+
+.fotoband-liste {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  width: max-content; /* så høyre gutter (padding) også får plass etter siste bilde */
+}
+
+.fotoband-liste li {
+  position: relative;
+  flex: 0 0 75vw;
+  scroll-snap-align: start;
+}
+
+.fotoband-bilde { aspect-ratio: 4 / 5; }
+
+/* Diamant i toppen, som på kortene */
+.fotoband-liste li::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--brunsort);
+  border: 1px solid var(--messing-dus);
+}
+
+@media (min-width: 46rem) {
+  .fotoband-rull {
+    padding: 0 var(--luft);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .fotoband-liste { gap: 1.5rem; width: auto; }
+  .fotoband-liste li { flex: 1 1 0; }
+}
+
 /* ---------- Menyen ---------- */
 
 .meny-liste {
