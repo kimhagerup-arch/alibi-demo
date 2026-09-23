@@ -448,6 +448,9 @@ usikre rekonstruksjoner er merket «(antatt)».
   tekstseksjoner uten å legge til et menypunkt. Rulling *inni* båndet
   holder siden fri for horisontal rulling; fokuserbart område med
   piltaster er den enkleste tilgjengelige løsningen uten JS.
-- **Status:** Gjeldende. Ford-utsnittet viser fortsatt en hånd/jakke fra
-  personen i høyre kant øverst (ansikt og skilt er ute) – aksepteres til
-  ekte foto kommer.
+- **Status:** Gjeldende. *Runde 14:* ford-utsnittet er flyttet til
+  venstre så hånd og erme er helt ute (høyre kant ved frontrutestolpen);
+  motivet er nå venstre lykt + grill, høyre lykt er ute fordi den lå under
+  hånda. Ford eksporteres med egne innstillinger (WebP q65 + gaussisk
+  støyfjerning 0,55 px) – 640 = 76 kB, 800 = 109 kB – som erstatning for
+  alternativ (7) over; de andre bildene beholder q78.

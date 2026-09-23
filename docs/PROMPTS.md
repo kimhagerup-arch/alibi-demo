@@ -6,6 +6,30 @@ Nyeste øverst.
 
 ---
 
+## Runde 14 – 2026-09-24 – Ford-bildet og bildekilder
+**Prompt:** [`prompts/runde-14-ford-og-bildekilder.md`](prompts/runde-14-ford-og-bildekilder.md)
+
+**Bestilt:** (1) Bildekilder: dame/par-dans/ford er fra Pexels – rett
+BILDEKILDER og lukk lanseringskravet i TODO. (2) Ford: strammere utsnitt
+uten hånd/erme, skiltet fortsatt ute, 4:5, grill og lykter i fokus; mindre
+filer kun for ford (WebP q≈65 + lett støyfjerning som egen innstilling per
+bilde), mål 640 ≤ 80 kB / 800 ≤ 110 kB, visuell før/etter-sammenligning i
+281/288 px, rapporter artefakter. (3) Skjermbilder 1440/375, filstørrelser
+før/etter, Lighthouse. (4) Sporbarhet, tag, push.
+
+**Levert:** Alt. Ford 48/76/109 kB (webp 480/640/800), 160 kB jpg. Ingen
+synlige artefakter ved q65 + radius 0,55. Lighthouse 97/100/100/60,
+CLS 0,012 uendret.
+
+**Avvik:**
+- **Høyre lykt er ute av utsnittet.** Hånda ligger oppå høyre lykt i
+  originalen, så «grill og lykter» og «hånd helt ute» lar seg ikke forene
+  i ett 4:5-rektangel. Valgt: venstre lykt + grill (hånd/erme/skilt ute).
+- **Støyfjerning er gaussisk radius 0,55** (ikke 0,5): 0,5 ga 116 kB på
+  800-varianten, over målet; 0,55 ser identisk ut i zoom.
+- Kilde-URL-en i BILDEKILDER er Pexels' forside (nb-no) – lenker til de
+  enkelte fotografene/bildene er ikke oppgitt.
+
 ## Runde 13 – 2026-09-23 – Fotobånd med tre stemningsbilder
 **Prompt:** [`prompts/runde-13-fotoband.md`](prompts/runde-13-fotoband.md)
 

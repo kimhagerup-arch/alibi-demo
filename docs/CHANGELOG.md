@@ -5,6 +5,53 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 14 – 2026-09-24 – Strammere ford-utsnitt, lettere ford-filer, bildekilder
+
+### Endret
+- **Ford-utsnittet** er flyttet til venstre: fortsatt 2048 × 2560 px (4:5)
+  av originalen, nå x 0,401–0,796 (før 0,469–0,864), y uendret. Høyre kant
+  går ved frontrutestolpen, like før jakkeermet til personen i høyre kant
+  (ermet når inn til x ≈ 0,80, hånda ligger ved x ≥ 0,85). Motivet er
+  venstre lykt + grillen med Ford-skriften; høyre lykt er ute (den lå under
+  hånda – ingen 4:5-rektangel får med begge lyktene uten hånda).
+  Registreringsskiltet er fortsatt utenfor (bunn ved y 0,746, skiltet
+  starter ved ≈ 0,77). Alle fire eksporterte varianter er sjekket: ingen
+  skilt, ingen hånd, ingen erme.
+- **Egne eksportinnstillinger per bilde** i `tools/eksporter-bilder.py`:
+  valgfritt åttende element i `BILDER` med `"webp"` (kvalitet) og `"stoy"`
+  (gaussisk radius på det nedskalerte bildet før lagring). Kun ford bruker
+  det: q65 + radius 0,55. De andre bildene er uendret (q78, ingen
+  støyfjerning) og re-eksporteres byte-identisk.
+- **Ford-filene** (før → etter):
+
+  | Variant | runde 13 | runde 14 |
+  |---|---|---|
+  | 480 webp | 79 kB | 48 kB |
+  | 640 webp | 131 kB | 76 kB |
+  | 800 webp | 199 kB | 109 kB |
+  | 800 jpg (fallback, q75 uendret) | 195 kB | 160 kB |
+
+  Målet 640 ≤ 80 kB / 800 ≤ 110 kB er nådd. Visuell sammenligning i 576 og
+  562 px (288/281 css-px @2x) med 3:1-zoom på grillnettet: q65 uten
+  støyfjerning, radius 0,5, 0,55 og 0,6 er alle rene (ingen blokk- eller
+  ringeartefakter i nettet); 0,7–0,8 gjør nettet synlig mykere og ble
+  forkastet. 0,5 ga 116 kB på 800, 0,55 er det letteste som holder både
+  målene og skarpheten.
+- **Bildekilder:** dame, par-dans og ford er fra Pexels (fri bruk,
+  kreditering ikke påkrevd) – samme lisens som telefon, lampe og bardisk.
+  `docs/BILDEKILDER.md` er rettet («oppgis av Kim» er borte), og
+  lanseringskravet om kilde/lisens i TODO er lukket.
+
+### Verifisert
+- Skjermbilder av båndet (og hele siden) på 1440 og 375 px, samt de fire
+  ford-variantene, i `..\alibi-skjermbilder\runde-14\`.
+- Kildevalg uendret: 480 på 1x, 640 på 2x, 800 på 3x; lazy på 375 som før.
+- Lighthouse mobil (lokal server): Performance **97** / Accessibility
+  **100** / Best Practices **100** / SEO 60 (noindex, P14). FCP 1,5 s,
+  LCP 2,5 s, TBT 38 ms, CLS **0,012** (uendret; kilden er hero-feltet).
+  Nettverk: `alibi-ford-640.webp` 79 kB (før 134 kB).
+- `PLACEHOLDER`-antallet er uendret (22).
+
 ## Runde 13 – 2026-09-23 – Fotobånd med tre stemningsbilder
 
 ### Lagt til
