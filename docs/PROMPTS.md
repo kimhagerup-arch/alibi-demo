@@ -6,6 +6,40 @@ Nyeste øverst.
 
 ---
 
+## Runde 10 – 2026-09-23 – Tekstjusteringer: bar, materialer, pris, skjult meny
+**Prompt:** [`prompts/runde-10-tekstjusteringer.md`](prompts/runde-10-tekstjusteringer.md)
+
+**Bestilt:** Avgrenset tekstrunde. (1) Historien: pub → bar, «levende lys,
+messing …» → «dimmet lys og tre …»; alle «pub»-forekomster i synlig tekst,
+metadata og CLAUDE.md byttes (ikke `BarOrPub`). (2) Huset-mottoet: «Dans»
+→ «Nattklubb». (3) Alle menykort: `kr —` → `kr 159`, glasstype ut av
+spesifikasjonslinja (kun mengde), ikonet beholdt som dekor uten opplest
+glassnavn, P5/P6-merkene står. (4) «Bakrommet» → «skjult meny» i all synlig
+tekst, interne navn beholdt. (5) Verifisering: grep, alle tre opplåsings-
+veier, korthøyder på desktop og 375 px, PLACEHOLDER-antall uendret.
+(6) Sporbarhet, tag og push.
+
+**Levert:** Alt det bestilte, i seks commits etter konvensjonen. Fire
+opplåsingsveier (taste-easter-egget testet både foran døra og etter «Gå
+rett inn») + feil-passord-tilfellet verifisert i headless Chrome.
+Korthøyder identiske før/etter på 1440 og 375 px. 21 PLACEHOLDER-merker
+før og etter.
+
+**Avvik:**
+- `<title>`, `description`, Open Graph og JSON-LD-beskrivelsen inneholdt
+  ikke ordet «pub» (de sier «speakeasy»/«speakeasy-bar») – ingenting å
+  endre der. `description` sier fortsatt «levende lys»; bestillingen gjaldt
+  bare avsnittet i historien, så det står.
+- README og ONBOARDING sa også «speakeasy-pub» – rettet i samme commit
+  (regelen: dokumentasjon i utakt med koden rettes i samme økt).
+- Overskriften ble «Den skjulte menyen» (bestemt form) fordi den står som
+  egen tittel; bestillingens forslag «Lås opp den skjulte menyen» passet
+  ingen eksisterende streng – det finnes ingen egen låseknapp-tekst.
+- PLACEHOLDER-kommentarene for P5/P18 er omformulert (fortsatt merket
+  PLACEHOLDER) så de beskriver ny status.
+
+---
+
 ## Justering – 2026-08-21 – «header ble for stor» (etter runde 9)
 **Prompt:** [`prompts/justering-2026-08-21-header.md`](prompts/justering-2026-08-21-header.md)
 

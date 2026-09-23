@@ -5,6 +5,44 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 10 – 2026-09-23 – Bar, materialer, fast pris og «skjult meny»
+
+Liten tekstrunde uten nye funksjoner eller designendringer.
+
+### Endret
+- **Alibi er bar, ikke pub** i all synlig tekst og i prosjektbeskrivelsen:
+  historien («En bar i en kjeller …»), Huset-kortet («Bar i samme kjeller …»),
+  CLAUDE.md, README og ONBOARDING. `<title>`, `description`, Open Graph og
+  JSON-LD-beskrivelsen sa allerede «speakeasy»/«speakeasy-bar» og er urørt.
+  JSON-LD-typen `BarOrPub` står (riktig schema.org-type). Beslutning #22.
+- **Historien, andre avsnitt:** «levende lys, messing som har fått lov til å
+  mørkne» → «dimmet lys og tre som har fått lov til å mørkne».
+- **Huset-mottoet:** «Spis oppe. Dans ved siden av. Snakk her.» →
+  «Spis oppe. Nattklubb ved siden av. Snakk her.»
+- **Menykortene (alle ni, hovedmeny + skjult meny):** pris `kr —` → `kr 159`
+  (midlertidig, P5 står åpen). Glasstypen er tatt ut av spesifikasjonslinja –
+  bare mengden står igjen («Vinglass · 30 cl» → «30 cl» osv.). Glasstegningen
+  beholdes som dekor (`aria-hidden="true"`, ingen `<title>`), så skjermlesere
+  hører kun mengden.
+- **«Bakrommet» heter «den skjulte menyen» i synlig tekst:** inngangslinja
+  («Vi har en skjult meny.»), sr-only-etiketten («Passord til den skjulte
+  menyen»), overskriften («Den skjulte menyen») og suksessmeldingen («Du kan
+  passordet. Den skjulte menyen er din.»). Interne navn (klasser, ID-er,
+  JS-variabler, `alibi-bakrom`) er uendret. Beslutning #22.
+- PLACEHOLDER-kommentarene for P5 og P18 oppdatert til å beskrive ny status
+  (midlertidig pris, glasstype vises ikke). Antall merker uendret: 21.
+
+### Verifisert
+- Funksjonstest i headless Chrome (fersk profil per forsøk): den skjulte
+  menyen låses opp via inline-feltet, passordet ved døra, taste-easter-egget
+  foran døra og taste-easter-egget etter «Gå rett inn». Feil passord gir
+  «Det var ikke det.» og lar menyen være låst. `ALIBI_PASSORD` urørt.
+- Korthøydene i menyen er identiske før og etter endringen på 1440 px og
+  375 px (emulert via DevTools-protokollen); ingen horisontal rulling.
+  Skjermbilder av hovedmeny og opplåst skjult meny sjekket på begge bredder.
+- `grep -in "pub"` / `"bakrom"` i `index.html` og `js/main.js`: bare
+  `BarOrPub`, kommentarer, klasser, ID-er og variabler gjenstår.
+
 ## Justering – 2026-08-21 – «for stor header» (rett etter runde 9)
 
 ### Rettet

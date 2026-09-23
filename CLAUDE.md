@@ -9,12 +9,15 @@ Nettsiden til **Alibi** – en speakeasy-bar i en kjeller i Alta sentrum
 (adressen er under avklaring: siden sier Sentrumsparken 2, søstersidene
 Markedsgata 6 – se TODO P15, skal løses før lansering),
 drevet av **Æventyr** (samme eiere som nattklubben **Tåkt**, som ligger vegg i vegg
-i samme kjeller – Tåkt er nattklubben, Alibi er baren – Alibi omtales som *bar*, aldri *pub*). Målgruppen er et voksent
-publikum som vil ha god samtale og gode cocktails i lavt tempo.
+i samme kjeller – Tåkt er nattklubben, Alibi er baren). Alibi omtales alltid som
+*bar*, aldri *pub* (beslutning #22). Målgruppen er et voksent publikum som vil ha
+god samtale og gode cocktails i lavt tempo.
 
 One-page statisk nettside med ankernavigasjon. Signaturgrepet er «Døra»: et
 fullskjerms-overlay der besøkende banker tre ganger for å komme inn. Skjult
-bonus: «Bakrommet» – en passordlåst del av menyen.
+bonus: «Bakrommet» – en passordlåst del av menyen. «Bakrommet» er det interne
+navnet (klasser, ID-er, JS, dokumentasjon); på siden heter den **«den skjulte
+menyen»** i all synlig tekst (beslutning #22).
 
 ## Teknisk stack og drift
 

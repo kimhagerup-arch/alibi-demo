@@ -4,7 +4,7 @@ Restanseliste i tre deler. **Plassholder-tabellen skal alltid stemme med
 koden** – verifiser med søk på `PLACEHOLDER` i repoet. Lukkede punkter
 markeres med dato, ikke slettes.
 
-Sist verifisert mot koden: 2026-08-21, runde 9 (21 `PLACEHOLDER`-merker i `index.html`).
+Sist verifisert mot koden: 2026-09-23, runde 10 (21 `PLACEHOLDER`-merker i `index.html`).
 
 ## 1. Plassholdere
 
@@ -14,8 +14,8 @@ Sist verifisert mot koden: 2026-08-21, runde 9 (21 `PLACEHOLDER`-merker i `index
 | P2 | **Bytt domene ved lansering** (samlepunkt) | `index.html` `<head>` | Når endelig domene er klart: `<link rel="canonical">`, `og:url`, og bytt domenet i `og:image`- og `twitter:image`-URL-ene (i dag `alibi-demo.vercel.app` – absolutt URL kreves av Facebook/LinkedIn, derfor står previewdomenet der nå). Henger sammen med P14 (noindex vekk) | Åpen |
 | P3 | Hero-video | `#velkommen`, `.medie-slot-hero` | `assets/hero.mp4` (1920×1080, H.264, < 8 MB, uten lyd) → bytt flaten med `<video autoplay muted loop playsinline>` | Åpen |
 | P4 | Interiørfoto | `#historien`, `.medie-slot-staaende` | `assets/interior-1.jpg` (3:4/4:5) → `<img>` med norsk alt-tekst | Åpen |
-| P5 | ~~Ekte cocktailmeny og~~ **priser** | `#menyen`, `.meny-liste` + `.bakrom-liste` | Menyen kom inn 2026-08-21 (runde 9: sju drinker + to i Bakrommet). Gjenstår kun: erstatt `kr —` med reelle priser (ikke levert – står til lansering) | Åpen (kun priser) |
-| P6 | Bakromsmeny | `#menyen`, `.bakrom-liste` | ~~2 ekte «hemmelige» cocktails~~ | **Lukket 2026-08-21** (runde 9: Mandaquiri og Adventure inne; priser dekkes av P5, glass/mengde av P18) |
+| P5 | ~~Ekte cocktailmeny og~~ **priser** | `#menyen`, `.meny-liste` + `.bakrom-liste` | Menyen kom inn 2026-08-21 (runde 9: sju drinker + to i Bakrommet). Siden 2026-09-23 (runde 10) står alle ni kort med **midlertidig pris `kr 159`** – erstatt med reelle priser per drink når de leveres. NB: glasstypen skal **ikke** vises som tekst (kun mengde, f.eks. «30 cl»; tegningen er dekor) – behold det når prisene legges inn | Åpen (kun priser) |
+| P6 | Bakromsmeny (på siden: «den skjulte menyen») | `#menyen`, `.bakrom-liste` | ~~2 ekte «hemmelige» cocktails~~ | **Lukket 2026-08-21** (runde 9: Mandaquiri og Adventure inne; priser dekkes av P5 – midlertidig `kr 159` fra runde 10 – og glass/mengde av P18) |
 | P7 | Foto av inngangen | `#finn-oss`, `.medie-slot-staaende` | `assets/inngang.jpg` (3:4/4:5) → `<img>` | Åpen |
 | P8 | Åpningstider | `#praktisk` | Reelle åpningstider fra eierne | Åpen |
 | P9 | Aldersgrense | `#praktisk` | Reell aldersgrense (18/20 år?) | Åpen |
@@ -27,7 +27,7 @@ Sist verifisert mot koden: 2026-08-21, runde 9 (21 `PLACEHOLDER`-merker i `index
 | P15 | **Adressekonflikt – MÅ avklares før lansering** | `#finn-oss`, `#praktisk` (Beliggenhet) og `address` i JSON-LD | Siden vår sier **Sentrumsparken 2, 9510 Alta** (brødtekst + JSON-LD). Raus og Tåkt oppgir begge **Markedsgata 6, 9510 Alta**, Tåkt ligger i kjelleren under Raus med inngang gjennom restauranten, og Alibi ligger vegg i vegg med Tåkt i samme kjeller – da kan ikke begge adressene stemme. Adressen står også i menyen som er sendt kunden. Feil adresse i JSON-LD ender i Google Maps/Google Business. Avklar med eierne; rett deretter alle tre stedene + Google Maps-lenken i «Finn oss» | Åpen |
 | P16 | Foto til «Huset»-kortene | `#huset`, `.medie-slot-hus` (3 stk) | Foto av Raus (`assets/raus.jpg`), Tåkt (`assets/taakt.jpg`) og Alibi (kan gjenbruke interiørfotoet fra P4). Ikke hotlink fra aeventyr-CDN – alt selvhostes | Åpen |
 | P17 | Alibis egne sosiale kontoer | Footer («Følg oss») + `sameAs` i JSON-LD | Egne Instagram-/Facebook-kontoer for Alibi. Ikke lenk til Raus' eller Tåkts kontoer som om de var Alibis. Når de finnes: bytt `<span>` til `<a>` i footeren, legg `sameAs` i JSON-LD, og lukk P11 samtidig | Åpen |
-| P18 | Glass og mengde for Bakroms-drinkene | `#menyen`, `.bakrom-liste` | Eiernes regneark oppgir ikke glass/totalmengde for Mandaquiri og Adventure – derfor ingen glasstegning eller cl-angivelse der ennå. Når de kommer: bruk samme `.meny-glass`-mønster som hovedmenyen (symbolene finnes øverst i `<body>`, `currentColor` gjør dem automatisk mørke på de inverterte kortene) | Åpen |
+| P18 | Glass og mengde for Bakroms-drinkene | `#menyen`, `.bakrom-liste` | Eiernes regneark oppgir ikke glass/totalmengde for Mandaquiri og Adventure – derfor ingen glasstegning eller cl-angivelse der ennå. Når de kommer: bruk samme `.meny-glass`-mønster som hovedmenyen (symbolene finnes øverst i `<body>`, `currentColor` gjør dem automatisk mørke på de inverterte kortene). Siden runde 10 vises kun mengden som tekst («15 cl»), ikke glasstypen | Åpen |
 
 ## 2. Kjente svakheter / gjeld
 

@@ -279,3 +279,22 @@ usikre rekonstruksjoner er merket «(antatt)».
   inkonsekvent. JSON-LD-url-en er en identifikator for organisasjonen, ikke
   navigasjon – der er nettstedsroten riktigere enn en undermeny-side.
 - **Status:** Gjeldende.
+
+## #22 – Alibi er «bar», og Bakrommet heter «den skjulte menyen» utad
+- **Dato:** 2026-09-23 (runde 10)
+- **Beslutning:** (a) Alibi omtales som *bar*, aldri *pub*, i all synlig
+  tekst, metadata og prosjektdokumentasjon. JSON-LD-typen `BarOrPub`
+  beholdes – det er schema.org-typen som dekker begge, ikke en
+  merkevarebetegnelse. (b) Den passordlåste delen av menyen heter «den
+  skjulte menyen» i alt besøkende ser og hører (inngangslinje, etiketter,
+  overskrift, meldinger). «Bakrommet» lever videre som internt navn:
+  klasser (`.bakrom-*`), ID-er, JS-variabler, `sessionStorage`-nøkkelen
+  `alibi-bakrom` og dokumentasjonen.
+- **Alternativer vurdert:** Bytte de interne navnene også, for full
+  konsistens – forkastet: det gir bare risiko for å knekke opplåsingen og
+  sesjonslagringen, uten synlig gevinst. Endre `BarOrPub` til noe
+  «bar-aktig» – finnes ingen mer presis type på schema.org.
+- **Begrunnelse:** Eierne ser Alibi som cocktailbar, ikke pub; «bar» treffer
+  også tonen (cocktails, lavt tempo) bedre. «Skjult meny» sier hva det er
+  uten å love et fysisk rom som ikke finnes.
+- **Status:** Gjeldende.
