@@ -1,8 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-60 -10 290 290">
-  <!-- Alibi-favicon: A-merket fra logotypen (assets/alibi-logo.svg) på brunsort
-       bunn. Geometrien er identisk med logofila; viewBoxen er utvidet til
-       kvadrat så merket ikke letterboxes i nettleserfanen. -->
-  <rect x="-60" y="-10" width="290" height="290" rx="36" fill="#141110"/>
-  <path d="M88,63 L102,63 L170,210 L122,210 Z" fill="#C9A227"/>
-  <path d="M123.4,0 L2,270" stroke="#C9A227" stroke-width="11" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Alibi-favicon: A-merket fra ordmerket (img/logo/alibi-merke-gold.svg)
+       på brunsort bunn. Geometrien er identisk med logofila; kvadratisk
+       viewBox så merket ikke letterboxes i fanen. Streken er tegnet med en
+       ekstra kontur (stroke 10) KUN her – i 16 px forsvinner den ellers. -->
+  <rect width="200" height="200" rx="36" fill="#141110"/>
+  <g transform="translate(37.5 5.5)" fill="#ca9e67" stroke="#ca9e67" stroke-width="10" stroke-linejoin="round">
+    <path d="M19,188.06C49.27,128.47,78.77,64.92,108.64,3.35a1.46,1.46,0,0,0-.76-2L104.72.11c-.74-.29-1.88,0-2.62,1.52C72.77,63.42,42.27,131.16,16.29,186.81a1.48,1.48,0,0,0,.59,1.94h0A1.54,1.54,0,0,0,19,188.06Z"/>
+    <polygon points="93.43 134.01 101.24 134.01 80.6 74.46 75.98 84.18 93.43 134.01"/>
+  </g>
 </svg>
