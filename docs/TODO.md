@@ -4,7 +4,7 @@ Restanseliste i tre deler. **Plassholder-tabellen skal alltid stemme med
 koden** – verifiser med søk på `PLACEHOLDER` i repoet. Lukkede punkter
 markeres med dato, ikke slettes.
 
-Sist verifisert mot koden: 2026-09-23, runde 11 (21 `PLACEHOLDER`-merker i `index.html`).
+Sist verifisert mot koden: 2026-09-23, runde 12 (21 `PLACEHOLDER`-merker i `index.html`).
 
 ## 1. Plassholdere
 
@@ -41,7 +41,8 @@ Sist verifisert mot koden: 2026-09-23, runde 11 (21 `PLACEHOLDER`-merker i `inde
 - **Bekreft logoen med kunden.** Ordmerket med gruppens A (runde 11,
   beslutning #23) er bygget av gruppens egen A-geometri, men er ikke en
   offisiell fil fra Æventyr. Får vi en offisiell fil: bytt innholdet i
-  `<symbol id="alibi-ordmerke">` (og `img/logo/*`, favicon, og-image).
+  `<symbol id="alibi-ordmerke">` i **både** `index.html` og `404.html`
+  (kopi siden runde 12), samt `img/logo/*`, favicon og og-image.
 - **Gargia-lenka er sesongavhengig.** Footeren lenker til
   `https://gargialodge.no/nb/winter` (200 per 2026-09-23). Sjekk at den
   fortsatt svarer når sesongen skifter – ev. bytt til `/nb`.

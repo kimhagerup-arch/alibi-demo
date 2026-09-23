@@ -5,6 +5,55 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 12 – 2026-09-23 – Dørskiltet får plass til ordmerket, logo på 404
+
+### Lagt til
+- **Ordmerket på 404-siden:** samme `<symbol id="alibi-ordmerke">` som på
+  forsiden (kopiert inn i `404.html`, som ikke laster JS og ikke deler DOM
+  med `index.html`), sentrert over «Feil dør» i messing. Lite og nøkternt:
+  høyde 1,9 rem → versalhøyde 9,5 px, overteksten «FEIL DØR» har 9 px.
+  Lenke til forsiden (`href="/"`) med `aria-label="Alibi – til forsiden"`,
+  hover i dempet messing som ordmerket i footeren. Resten av 404 er urørt.
+
+### Endret
+- **Dørskiltet** (`.dor-skilt`) er nå liggende 2:1 og står sentrert *i* det
+  øvre dørfeltet (feltet: top 34 %, høyde 22 % → skiltet på 45 %), helt
+  innenfor feltets kanter. Bredde 45 % av dørbladet og `aspect-ratio`, så
+  det skalerer med døra (som er `min(17rem, 62vw, 31vh)`). Ordmerket
+  dimensjoneres etter versalhøyden: A-streken fyller 86 % av platehøyden,
+  som gir LIBI ≈ 27 % av platehøyden. Målt: plate 114,5 × 57,2 px og
+  versalhøyde 15,1 px på 1440 og 768 px; 85,1 × 42,6 px og 11,2 px på
+  375 px (før: 68,5 × 46,8 px og 11 px på alle bredder, rem-basert).
+  Luft over/under streken 4,4 px (3,4 px på 375). Ingenting klippes.
+- **Optisk sentrering** av ordmerket på plata: SVG-en flyttes 9,1 % av egen
+  bredde mot venstre (`translateX`), slik at ordet slik det leses – A-en i
+  versalbåndet + LIBI, x 45–235 av 237 i viewBoxen – står midt på plata.
+  Målt avvik 0,0 px. Bare LIBI + det korte A-benet ville krevd 15,6 % og
+  lagt streken for tett i venstre kant (se beslutning #28).
+- Skiltet ligger etter dørfyllingene i DOM-en, så det males oppå feltet
+  (feltene har halvgjennomsiktig mørk bakgrunn som ellers ville dempet
+  messingen).
+- CLAUDE.md og README: symbolet ligger i både `index.html` og `404.html`.
+
+### Verifisert
+- Skjermbilder før/etter av døra på 1440, 768 og 375 px (+ utsnitt av skilt-
+  området og fokusbilde) og av 404 på 1440 og 375 px, lagret utenfor repoet:
+  `..\alibi-skjermbilder\runde-12\`.
+- Døra (headless Chrome via puppeteer-core i scratchpad, ikke i prosjektet):
+  tre bank → `vurderer` → `aapner`, `alibi-inne` settes; «Gå rett inn» →
+  `aapner` → `borte`; passord «æventyr» ved døra → `hemmelig`, skjult meny
+  synlig, lås skjult, `alibi-bakrom` satt; lyd av → på → av med
+  `aria-pressed`; Tab × 2 lander på døra med synlig fokus (2 px messing
+  outline), Enter × 3 banker. Tilgjengelig navn uendret (`aria-label` på
+  knappen, skiltet er `aria-hidden`). Med redusert bevegelse er skiltet
+  synlig og `js-klar` settes ikke.
+- Kontrast gravering (#2a1e12) mot plata: 8,2:1 mot lys ende (#d9b545),
+  4,7:1 mot mørk ende (#a9862a) – over kravet 3:1.
+- Lighthouse mobil (lokal server): Performance **98** / Accessibility
+  **100** / Best Practices **100** / SEO 60 (noindex, P14). FCP 1,5 s,
+  LCP 2,3 s, TBT 50 ms, CLS **0,012** – identisk med runde 11.
+- `PLACEHOLDER`-antallet er uendret (21).
+
 ## Runde 11 – 2026-09-23 – Ny logo med gruppens A, stemningsbilder og footer
 
 ### Lagt til

@@ -6,6 +6,36 @@ Nyeste øverst.
 
 ---
 
+## Runde 12 – 2026-09-23 – Dørskiltet og logo på 404
+**Prompt:** [`prompts/runde-12-dorskilt-og-404.md`](prompts/runde-12-dorskilt-og-404.md)
+
+**Bestilt:** (1) Dørskiltet: liggende 2–2,5:1, helt innenfor ett rolig
+område (mellomrommet under luka eller det øvre feltet – velg og begrunn),
+versalhøyde ≥ ca. 14 px desktop / 11 px på 375 px, optisk sentrert på
+ordet, streken nesten til kanten men ikke klippet, kontrast ≥ 3:1,
+skalerer med døra, døra fungerer som før. (2) Ordmerket lite over «Feil
+dør» på 404, lenke til forsiden med `aria-label`. (3) Skjermbilder før/
+etter, funksjonstest av døra, CLS/Lighthouse. (4) Sporbarhet, tag, push.
+
+**Levert:** Alt, i to kode-commits + docs. Skiltet sentrert i det øvre
+feltet (beslutning #28): 114,5 × 57,2 px / versal 15,1 px på 1440 og 768,
+85,1 × 42,6 px / 11,2 px på 375. 404 har ordmerket (versal 9,5 px mot
+9 px i overteksten). Lighthouse 98/100/100/60, CLS 0,012 (uendret). Alle
+dørveier testet i headless Chrome.
+
+**Avvik:**
+- **Sentreringen måler på A-en i versalbåndet + LIBI** (9,1 % forskyvning),
+  ikke bare LIBI + det korte A-benet som bestillingen ordla det (15,6 %) –
+  det siste så venstretungt ut. Begrunnet i #28.
+- **Symbolet er kopiert inn i `404.html`** (404 laster ikke JS og deler
+  ikke DOM med forsiden; ekstern `<use>` virker ikke fra `file://`). To
+  steder å oppdatere hvis logoen byttes – ført i TODO under «bekreft
+  logoen».
+- **Verktøy for verifisering** (puppeteer-core) ligger i Claude Codes
+  scratchpad utenfor repoet – ingen npm i prosjektet. Skjermbildene ligger
+  i søskenmappa `alibi-skjermbilder/runde-12/` ved siden av repoet, ikke i
+  git.
+
 ## Runde 11 – 2026-09-23 – Ny logo med gruppens A, stemningsbilder, footer
 **Prompt:** [`prompts/runde-11-logo-bilder-footer.md`](prompts/runde-11-logo-bilder-footer.md)
 

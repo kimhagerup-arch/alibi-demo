@@ -325,7 +325,9 @@ usikre rekonstruksjoner er merket «(antatt)».
 - **Begrunnelse:** Alibi skal leses som et Æventyr-sted ved første blikk –
   A-en er familielikheten. Ett symbol i DOM-en gir én sannhet for geometrien.
 - **Status:** Gjeldende. Erstatter #19. Logoen skal bekreftes med kunden
-  (TODO).
+  (TODO). *Runde 12:* dørskiltets plassering og størrelse er endret (#28);
+  symbolet ligger i tillegg som kopi i `404.html` – endres logoen, byttes
+  begge.
 
 ## #24 – Søsterstedenes logoer i footeren, i egen gull
 - **Dato:** 2026-09-23 (runde 11)
@@ -382,3 +384,30 @@ usikre rekonstruksjoner er merket «(antatt)».
 - **Begrunnelse:** Troverdighet: et stockbilde av et dansende par er ikke
   Tåkt.
 - **Status:** Gjeldende.
+
+## #28 – Dørskiltet sentrert i det øvre dørfeltet, dimensjonert etter versalhøyde
+- **Dato:** 2026-09-23 (runde 12)
+- **Beslutning:** Messingskiltet på døra står sentrert *i* det øvre
+  dørfeltet, liggende 2:1, 45 % av dørbladets bredde, og alt i prosent av
+  døra så forholdet er likt på alle bredder. Ordmerket fyller 86 % av
+  platehøyden med A-streken (versalhøyde ≈ 27 % av platehøyden: ≈ 15 px på
+  desktop, ≈ 11 px på 375 px) og er optisk sentrert på *ordet* – A-en slik
+  den står i versalbåndet pluss LIBI – ikke på SVG-boksen.
+- **Alternativer vurdert:** (1) Sentrert i mellomrommet mellom kikkhullsluka
+  og det øvre feltet (forkastet: mellomrommet er bare ≈ 11,6 % av
+  dørhøyden ≈ 55 px på desktop; en plate stor nok for versalhøyde 14 px
+  trenger ≈ 57 px, så luka eller feltene måtte flyttes, og døra ville fått
+  tre elementer stablet tett). (2) Sentrere på LIBI + det korte A-benet
+  alene (forkastet: gir 15,6 % forskyvning; A-en leses med diagonalen som
+  venstre side, og strekens hale ville stått ≈ 19 px fra venstre kant mot
+  ≈ 40 px til høyre – det ser venstretungt ut. Med 9,1 % står ordet
+  eksakt midt på, og halen får 25 px luft mot 33 px på høyre side).
+  (3) Ekstern `<use href="index.html#…">` eller egen SVG-fil på 404
+  (forkastet: eksterne use-referanser virker ikke fra `file://`, som
+  CLAUDE.md sier at siden skal kunne åpnes fra; kopi av symbolet koster
+  ≈ 1 kB).
+- **Begrunnelse:** Et navneskilt sitter naturlig i dørfeltet, innrammet av
+  feltets kant, og feltet er det eneste rolige området som er stort nok
+  uten å flytte på noe annet. Prosentmål gjør at skiltet holder samme
+  forhold til døra på mobil og desktop.
+- **Status:** Gjeldende. Presiserer #23.

@@ -92,7 +92,7 @@ Alt som skal byttes er merket med `<!-- PLACEHOLDER -->` i `index.html`. Søk p�
 | Adresse | `#finn-oss`, `#praktisk` og JSON-LD i `<head>` | Må bekreftes: siden sier Sentrumsparken 2, Raus/Tåkt oppgir Markedsgata 6 (TODO P15) |
 | Foto til «Huset»-kortene | Seksjonen `#huset` | `assets/raus.jpg`, `assets/taakt.jpg` + foto av Alibi |
 | Open Graph-bilde | `<head>` | Generert (`assets/og-image.png`); bytt domenet i URL-en ved lansering (TODO P2) |
-| Logo | `img/logo/alibi-logo.svg` (inline som `<symbol id="alibi-ordmerke">` i `index.html`) | Ordmerke med gruppens A (runde 11). Bekreftes med kunden; en offisiell fil fra Æventyr byttes inn i symbolet |
+| Logo | `img/logo/alibi-logo.svg` (inline som `<symbol id="alibi-ordmerke">` i `index.html`, kopi i `404.html`) | Ordmerke med gruppens A (runde 11). Bekreftes med kunden; en offisiell fil fra Æventyr byttes inn i symbolet |
 
 ## Medier som forventes (i `assets/`)
 

@@ -53,7 +53,8 @@ menyen»** i all synlig tekst (beslutning #22).
   Æventyr-logoen i footeren beholder merkevarens gull `#CA9F68` – ikke
   «harmoniser» den med sidens messing (beslutning #13).
 - **Logo:** ordmerket «ALIBI» med gruppens A (`img/logo/alibi-logo.svg`, inline som
-  `<symbol id="alibi-ordmerke">` i `index.html`, farge via `currentColor`). A-en er
+  `<symbol id="alibi-ordmerke">` i `index.html` og som kopi i `404.html`, farge via
+  `currentColor` – endres logoen, byttes begge). A-en er
   hentet uendret fra Æventyr-gruppens egne logofiler – ikke tegn den om, ikke bytt
   den med en font-glyph, ikke strekk/skjev. Dimensjoner etter versalhøyde (LIBI),
   ikke total høyde – A-streken skal få gå over/under uten å presse layouten.
