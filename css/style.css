@@ -282,23 +282,38 @@ html.inne .dor-scene { display: none; }
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(232, 224, 208, 0.4);
 }
 
+/* Messingskiltet: sentrert i det øvre dørfeltet (34 % + 22 % / 2 = 45 %),
+   liggende 2:1 og 45 % av dørbladets bredde. Alt er prosent av døra, så
+   forholdet er likt på alle bredder. Ordmerket dimensjoneres etter versal-
+   høyden: A-streken (hele viewBox-høyden) fyller 86 % av platas høyde, som
+   gir LIBI ≈ 27 % av platehøyden (≈ 15 px på desktop, ≈ 11 px på 375 px). */
 .dor-skilt {
   position: absolute;
-  top: 24%;
+  top: 45%;
   left: 50%;
-  transform: translateX(-50%);
-  padding: 0.3rem 0.7rem;
-  line-height: 0;
-  color: #2a1e12; /* «gravert» – mørkt ordmerke i messingplata (≈ 8:1) */
+  width: 45%;
+  aspect-ratio: 2 / 1;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2a1e12; /* «gravert» – mørkt ordmerke i messingplata (4,7:1 mot platas mørkeste ende) */
   background: linear-gradient(175deg, #d9b545, var(--messing-dus));
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 1px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 245, 210, 0.5);
 }
 
+/* Bredde = 0,86 × platehøyde × (236,88 / 188,95) = 53,9 % av platebredden.
+   Optisk sentrering: SVG-boksen er skjev fordi A-streken stikker langt ut
+   til venstre nederst. Ordet slik det leses – A-en i versalbåndet + LIBI,
+   x 45–235 av 237 – har midtpunkt 9,1 % til høyre for boksens midte, så
+   SVG-en flyttes 9,1 % av egen bredde mot venstre. Streken ligger innenfor
+   viewBoxen og plata har ikke overflow hidden – ingenting klippes. */
 .dor-skilt .ordmerke {
-  height: 2.2rem;
-  width: auto;
+  width: 53.9%;
+  height: auto;
+  transform: translateX(-9.1%);
 }
 
 /* ---------- Dørluka og øyet ---------- */
