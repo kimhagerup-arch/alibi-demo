@@ -4,9 +4,10 @@ Restanseliste i tre deler. **Plassholder-tabellen skal alltid stemme med
 koden** – verifiser med søk på `PLACEHOLDER` i repoet. Lukkede punkter
 markeres med dato, ikke slettes.
 
-Sist verifisert mot koden: 2026-09-24, runde 16 (21 `PLACEHOLDER`-merker i
+Sist verifisert mot koden: 2026-09-24, runde 17b (21 `PLACEHOLDER`-merker i
 `tools/mal.html` – de følger med i begge genererte filer, `index.html` og
-`no/index.html`).
+`no/index.html`). Runde 17 og 17b ligger på `dev` og er ikke slått sammen til
+`main` – se punktet om Lighthouse på batteri i del 2.
 
 ## 1. Plassholdere
 
@@ -14,7 +15,7 @@ Sist verifisert mot koden: 2026-09-24, runde 16 (21 `PLACEHOLDER`-merker i
 |---|---|---|---|---|
 | P1 | Open Graph-bilde (`og:image`) | `index.html` `<head>` | ~~Foto/grafikk 1200×630~~ | **Lukket 2026-08-21** (runde 9: `assets/og-image.png` 1200×630, 19 kB, rendret fra logofila; og:image/width/height/alt + twitter:image inne. URL-en peker på previewdomenet – byttes via P2) |
 | P2 | **Bytt domene ved lansering** (samlepunkt) | `domene` i `tekst/felles.json` (→ `<head>` på begge sider + `sitemap.xml`) | Når endelig domene er klart: bytt `domene` i `tekst/felles.json` og kjør `python tools/bygg-sider.py`. Det oppdaterer selvrefererende `canonical`, `hreflang` (en/nb/x-default), `og:url`, `og:image`/`twitter:image` og `sitemap.xml` på begge sider (siden runde 15 står alt dette inne med previewdomenet `alibi-demo.vercel.app` – absolutte URL-er kreves av hreflang og Facebook/LinkedIn). Henger sammen med P14 (noindex vekk) | Åpen |
-| P3 | Hero-video | `#velkommen`, `.medie-slot-hero` | `assets/hero.mp4` (1920×1080, H.264, < 8 MB, uten lyd) → bytt flaten med `<video autoplay muted loop playsinline>` | Åpen |
+| P3 | Hero-video | `#velkommen`, `.medie-slot-hero` (`<video>` i `tools/mal.html`) | ~~`assets/hero.mp4` → bytt flaten med `<video>`~~ **Midlertidig løst 2026-09-24** (runde 17): `assets/video/alibi-hero.mp4` + plakat er inne, med pauseknapp, loop, lasting først etter døra. **Men fila er en Envato-forhåndsvisning med vannmerke** – se lanseringskravet i del 2. Bytt med `python tools/lag-hero-film.py <fil>` (samme navn ut) | Midlertidig løst (vannmerket eksempel) |
 | P4 | Interiørfoto (ekte foto av Alibi) | `#historien`, `.medie-slot-staaende` | Siden runde 11 står stockbildet `img/alibi-telefon-*` der (Pexels, se `BILDEKILDER.md`). Ekte foto: eksporter med `tools/eksporter-bilder.py` (4:5, 480/800 WebP + JPEG) og bytt kildene i `<picture>` + alt-tekst | Åpen (stock inne) |
 | P5 | ~~Ekte cocktailmeny og~~ **priser** | `pris` per drink i `tekst/meny.json` (→ `#menyen` på begge sider) | Menyen kom inn 2026-08-21 (runde 9: sju drinker + to i Bakrommet). Siden 2026-09-23 (runde 10) står alle ni kort med **midlertidig pris 159** («kr 159» / «NOK 159») – sett reelle priser per drink i `tekst/meny.json` og bygg på nytt. NB: glasstypen skal **ikke** vises som tekst (kun mengde, f.eks. «30 cl»; tegningen er dekor) – behold det når prisene legges inn | Åpen (kun priser) |
 | P6 | Bakromsmeny (på siden: «den skjulte menyen») | `#menyen`, `.bakrom-liste` | ~~2 ekte «hemmelige» cocktails~~ | **Lukket 2026-08-21** (runde 9: Mandaquiri og Adventure inne; priser dekkes av P5 – midlertidig `kr 159` fra runde 10 – og glass/mengde av P18) |
@@ -65,6 +66,19 @@ Sist verifisert mot koden: 2026-09-24, runde 16 (21 `PLACEHOLDER`-merker i
   alle tre er fra Pexels (https://www.pexels.com/nb-no/), samme lisens som
   telefon/lampe/bardisk (fri bruk, kreditering ikke påkrevd). Ført i
   `BILDEKILDER.md`.
+- **Sammenslåing av runde 17/17b venter på gyldig Lighthouse-måling.**
+  Runde 17b (2026-09-24) målte `main` og `dev` likt (median 89/89 engelsk,
+  89/93 norsk), men maskinen sto på batteri (CPU 710–1 440 MHz,
+  `benchmarkIndex` 100–925 mot 1 400–1 570 i runde 16), så tallene sier
+  ingenting om koden. Gjør: lader i, VS Code i ro, Chrome lukket, og kjør
+  del 2–3 i `docs/prompts/runde-17b-fade-maaling-main.md` på nytt. Kravet er
+  dev ≥ 95 / 100 / 100 / CLS 0 som median av tre.
+- **HØY PRIORITET – FØR LANSERING: Hero-filmen er en Envato-forhåndsvisning
+  med vannmerke** (`assets/video/alibi-hero.mp4`, runde 17). Den må
+  lisensieres (VideoHive/Elements, last ned full oppløsning og kjør
+  `python tools/lag-hero-film.py <fil>`) eller byttes med eget materiale
+  **før P14 (noindex) fjernes**. Vannmerket skal ikke fjernes, beskjæres bort
+  eller dekkes til så lenge fila er ulisensiert. Se `docs/BILDEKILDER.md`.
 - **HØY PRIORITET – nøktern meny (knyttet til P5).** Når Brian Rundhaugs
   meny kommer: drinktekstene skal være nøkterne (navn, ingredienser, mengde,
   pris) uten salgsfremmende formuleringer, og alkoholfrie alternativer skal

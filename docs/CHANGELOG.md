@@ -5,6 +5,130 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 17b – 2026-09-24 – Fade i loopen, ny måling (på `dev`, ikke slått sammen – målingen ble ugyldig)
+
+### Endret
+- **Myk loop-overgang:** `tools/lag-hero-film.py` legger nå på fade fra svart
+  (0–0,4 s) og til svart (siste 0,4 s) på alle filmer som kjøres gjennom
+  skriptet (`FADE_SEK`; fade-out regnes ut fra varigheten via ffprobe, som
+  nå er påkrevd). Eksempelfilmen er kodet på nytt: **334 kB** (fra 336 kB
+  – uvesentlig, +1,8 % i bytes), samme 960×540, 25 fps, 8,2 s. Sømmen går
+  nå 23 → 16 i gjennomsnittlig lysstyrke (Y) mellom siste og første bilde,
+  mot 87 → 73 før, og hvert steg i fadene er 5–7 – hoppet ser tilsiktet ut.
+  Plakaten tas ved 0,4 s (rett etter fade-in, ikke et svart bilde): **24 kB**,
+  tydelig bilde, vannmerket synlig. README («Hero-filmen») og
+  `BILDEKILDER.md` oppdatert.
+
+### Verifisert (lokalt, `dev`)
+- `python tools/bygg-sider.py --sjekk` i synk. **Testsettet fra runde 16:
+  47/47 OK** (Chromium). **Filmtestene: 23/23 Chromium, 19/19 Firefox,
+  20/21 WebKit** (den samme «mp4 lastet»-sjekken som i runde 17 – Playwrights
+  WebKit rapporterer ikke medieforespørsler; loopen går).
+- **Lighthouse mobil, median av tre, `main` (runde 16) og `dev` om
+  hverandre, ren profil, Chrome lukket:** `main` engelsk **89** (81/89/92),
+  `dev` engelsk **89** (81/89/94), `main` norsk **89** (80/89/93), `dev` norsk
+  **93** (94/82/93). Accessibility 100, Best Practices 100, CLS 0 på alle;
+  SEO 63 (noindex, P14). **Tallene er ugyldige som gulv:** maskinen sto på
+  batteri med CPU-klokke 710–1 440 MHz (maks 3 244), og Lighthouse sin
+  `benchmarkIndex` var 100–925 mot 1 400–1 570 da 96–97 ble målt i runde 16;
+  Lighthouse selv advarte «slower CPU than expected» i 11 av 12 kjøringer.
+  Det som koster er Speed Index (4,7–12,6 s mot 3,5–3,8 s i runde 16) og
+  TBT (70–320 ms) – ren CPU-tid, ikke bytes; LCP og FCP er som før
+  (2,2 s / 1,5 s). `main` og `dev` måler likt innenfor støyen, så filmen og
+  fade-en koster ingenting målbart (ingenting lastes før døra uansett).
+  **Kravet «dev ≥ 95» er dermed verken bestått eller motbevist – runde 17 er
+  ikke slått sammen.** Mål på nytt med laderen i (og VS Code i ro) før
+  sammenslåing.
+
+## Runde 17 – 2026-09-24 – Hero-video i loop (på `dev`, ikke slått sammen til `main`)
+
+### Lagt til
+- **Hero-filmen** i `#velkommen` erstatter «Film kommer»-flaten på begge
+  språk (P3 midlertidig løst). Samme ramme og 16:9-felt, ingen
+  layout-endring, CLS 0. **Fila er en Envato-forhåndsvisning med synlig
+  vannmerke, ikke lisensiert** – kun for å vise kunden muligheten; vannmerket
+  er ikke fjernet, beskåret bort eller dekket, og er synlig i feltet på 1440
+  (736 × 414) og 375 (335 × 188). Lanseringskrav i TODO (høy prioritet),
+  kilde/lisens i `BILDEKILDER.md`. Beslutning #34.
+- **Filer** i `assets/video/`: `alibi-hero.mp4` (H.264 High, yuv420p,
+  960×540, 25 fps, 8,2 s, s/h, uten lyd, `+faststart`, crf 26) **336 kB** –
+  kilden var 514 kB, ny koding uten synlig tap (sjekket i 2x-zoom);
+  `alibi-hero-poster.webp` (første bilde, 736 × 414, q 75) **25 kB**.
+  Ingen WebM: VP9 crf 40 ga 279 kB (−17 %) og var litt mykere – ikke
+  «tydelig mindre».
+- **`tools/lag-hero-film.py`** (ffmpeg): én kommando bytter filmen – ny
+  kildefil inn, samme filnavn ut, nedskalering til maks 960 px (aldri opp),
+  sort-hvitt (`hue=s=0`), lyd fjernet, plakat generert. `--webm` valgfritt.
+  Dokumentert i README («Hero-filmen»).
+- **Markup:** ingen `<video>` i DOM-en – `#hero-felt` har plakaten som
+  `<img>` (`.hero-plakat`), `data-film`/`data-plakat`, og en
+  `<noscript>`-video med `controls` for besøkende uten JS. `main.js`
+  lager `<video muted loop playsinline aria-hidden>` første gang filmen skal
+  spille. Grunn: WebKit hentet hele mp4-en for en `<video preload="none">` i
+  markupen, også bak lukket dør og med JS avslått (målt via serverlogg).
+  Chromium og Firefox lastet ingenting, men elementet må være borte for
+  alle.
+- **Pause/spill-knapp** (WCAG 2.2.2): 44 × 44 px, messing på mørk bunn,
+  nedre høyre hjørne, ikon bytter (pause ⇄ spill), navn per språk fra
+  «js»-tekstene («Pause film»/«Play film», «Sett film på pause»/«Spill av
+  film»), synlig fokus. Gjestens valg huskes så lenge siden er åpen.
+- **Regler for avspilling** i `main.js`: spiller bare når gjesten ikke har
+  trykket pause, døra ikke er lukket (`dorLukket`, fjernes idet døra begynner
+  å åpne seg), feltet er i syne (IntersectionObserver, terskel 0,1), fanen er
+  synlig, og verken `prefers-reduced-motion` eller
+  `navigator.connection.saveData` er satt – i de to siste vises plakat +
+  knapp, og knappen starter filmen. Reserve for loop: en `pause`-hendelse vi
+  ikke ba om (WebKit pauser ved 0 etter omstarten) starter filmen igjen.
+
+### Endret
+- `hero_video_aria`/`hero_video_tekst` («Film kommer») er fjernet fra
+  språkfilene; `film_spill`/`film_pause` er nye (topp + «js»).
+- `PLACEHOLDER`-antallet er uendret (21): hero-kommentaren er byttet til
+  «eksempelfilm med vannmerke (Envato-forhåndsvisning), lisensieres eller
+  byttes før lansering».
+
+### Verifisert (lokalt, samme filer som previewen)
+- **Filmtestsett (23 sjekker) i Chromium 143:** alle OK – ingen
+  videoforespørsel og ingen `<video>` bak lukket dør; spiller automatisk,
+  lydløst og i loop etter «Walk straight in»; klikk/Enter/Space på knappen;
+  pause huskes ved scroll bort/tilbake; ute av syne → pauset, tilbake →
+  spiller; skjult fane → pauset; redusert bevegelse og sparemodus → plakat +
+  knapp uten lasting, knappen starter; mobil med berøring; uten JS →
+  `<noscript>`-video med kontroller. **Firefox 141:** 19/19 (de fire
+  mobil-/fane-sjekkene kjøres bare i Chromium/WebKit). **WebKit 26:** 20 OK;
+  «mp4 lastet»-sjekken feiler fordi Playwright ikke rapporterer
+  medieforespørsler i WebKit (fila lastes – bekreftet via serverlogg), og
+  loopen krevde reserven over. Kim bør sjekke på ekte iPhone.
+- **Loop-sømmen er synlig:** siste bilde (hånda er ute av bildet) og første
+  bilde (hånda på knappen) avviker med gjennomsnittlig 23,0 gråtoneverdier,
+  mot 0,2–0,5 mellom nabobilder. Filmen «hopper» ved omstart; ikke gjort noe
+  med (eksempelfilmen byttes uansett).
+- **Range-forespørsler:** loop og søk i WebKit krever en server med
+  `Accept-Ranges` (Vercel har det; Pythons `http.server` har det ikke) –
+  WebKit-testene er kjørt mot `npx http-server`.
+- **Full feltbredde på 1440:** feltet er 736 × 414 css-px, filmen 960 × 540
+  – vises nedskalert, aldri opp. Skarpt nok; på 2x-skjermer er 960 px under
+  feltets 1472 fysiske piksler, så en lisensiert 1080p-fil vil bli skarpere.
+- **Testsettet fra runde 16 (47 sjekker):** alle OK.
+- **Lighthouse mobil, median av tre, kjørt om hverandre med runde 16-koden
+  som kontroll på samme maskin:** kontroll (uten film) **94** (91/94),
+  engelsk med film **93** (92/93/94), norsk med film **93** (93/93/92).
+  Accessibility 100, Best Practices 100, SEO 63 (noindex), **CLS 0** på alle.
+  FCP 1,5–1,6 s, **LCP 2,19 s (en) / 2,26 s (nb)**, LCP-elementet er nå
+  **plakaten** (`img.hero-film`, 25 kB) mot velkomstlinja før; TBT 110–120 ms.
+  **Filmen koster ≈ 1 poeng** og ingen LCP. Absoluttallene er lavere enn
+  runde 16 (97) fordi maskinen var belastet under målingene (brukerens egen
+  Chrome, 19 prosesser, 40–48 % CPU) – kontrollen viser det: samme kode
+  målte 97/97/97 tidligere i dag og 94 nå. Kravet ≥ 95 er dermed ikke
+  bekreftet i absolutte tall i denne økten; relativt til kontrollen er
+  kostnaden 1 poeng, og LCP/CLS er uendret. Bør måles på nytt på rolig
+  maskin (`bash`-oppsettet i CLAUDE.md, median av tre).
+- Nettverk før døra åpnes: kun plakaten (25 295 B); mp4 (336 301 B) hentes
+  først når filmen skal spille.
+- `python tools/bygg-sider.py --sjekk` → i synk.
+- Skjermbilder (1440 og 375, begge språk, film spiller og pauset, samt hero
+  og dør uten JS) i `..\alibi-skjermbilder\runde-17\`.
+
 ## Runde 16 – 2026-09-24 – Rettet engelsk, ytelse 97, Vercel–GitHub bekreftet, slått sammen til `main`
 
 ### Endret

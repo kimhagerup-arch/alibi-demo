@@ -56,8 +56,8 @@
 
   "hero_overtekst": "Alta · kjelleren · siden i kveld",
   "hero_linje": "Du fant oss. Det du ser her, blir mellom oss.",
-  "hero_video_aria": "Plassholder for video fra lokalet",
-  "hero_video_tekst": "Film kommer",
+  "film_spill": "Spill av film",
+  "film_pause": "Sett film på pause",
 
   "historien_tittel": "Historien",
   "historien_1": "På tjuetallet, i landet over havet, stengte de barene og trodde folk ville slutte å møtes. Folk sluttet ikke å møtes. De gikk bare ned én trapp, banket tre ganger og oppga et navn som ikke var deres eget. Der nede, bak dører uten skilt, satt de tettere, snakket lavere og drakk bedre enn noen gang.",
@@ -141,6 +141,8 @@
     "bank2": "Én til …",
     "fantOss": "Du fant oss.",
     "somDuVil": "Som du vil.",
+    "filmSpill": "Spill av film",
+    "filmPause": "Sett film på pause",
     "velkommenTilbake": "Velkommen tilbake."
   }
 }

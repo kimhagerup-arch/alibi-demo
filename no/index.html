@@ -64,7 +64,7 @@
   </script>
 
   <!-- Tekstene JavaScript skriver ut (dør og skjult meny) – fra tekst/*.json -->
-  <script id="alibi-tekst" type="application/json">{"bakromAapnet":"Du kan passordet. Den skjulte menyen er din.","feilPassord":"Det var ikke det.","lydPaa":"Lyd: på","lydAv":"Lyd: av","bank1":"En gang til.","bank2":"Én til …","fantOss":"Du fant oss.","somDuVil":"Som du vil.","velkommenTilbake":"Velkommen tilbake."}</script>
+  <script id="alibi-tekst" type="application/json">{"bakromAapnet":"Du kan passordet. Den skjulte menyen er din.","feilPassord":"Det var ikke det.","lydPaa":"Lyd: på","lydAv":"Lyd: av","bank1":"En gang til.","bank2":"Én til …","fantOss":"Du fant oss.","somDuVil":"Som du vil.","filmSpill":"Spill av film","filmPause":"Sett film på pause","velkommenTilbake":"Velkommen tilbake."}</script>
 
   <link rel="stylesheet" href="../css/style.min.css">
 
@@ -255,10 +255,25 @@
     <h1 class="logotype" tabindex="-1"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-hero"><title id="ordmerke-hero">Alibi</title><use href="#alibi-ordmerke"/></svg></h1>
     <p class="velkomst-linje">Du fant oss. Det du ser her, blir mellom oss.</p>
 
-    <!-- PLACEHOLDER: hero-video. Erstatt denne flaten med <video> når filen foreligger.
-         Forventet fil: assets/hero.mp4 (se README for spesifikasjoner). -->
-    <div class="medie-slot medie-slot-hero" role="img" aria-label="Plassholder for video fra lokalet">
-      <span class="medie-slot-tekst">Film kommer</span>
+    <!-- PLACEHOLDER: eksempelfilm med vannmerke (Envato-forhåndsvisning), lisensieres eller byttes før lansering -->
+    <!-- Hero-filmen: dekor, lydløs, i loop. Det ligger med vilje INGEN <video> i DOM-en
+         her – bare plakaten som <img>. main.js lager videoelementet (fra data-film/
+         data-plakat) første gang filmen skal spille: når døra er åpnet, feltet er i
+         syne og verken redusert bevegelse eller sparemodus er på. Grunn: WebKit/Safari
+         laster hele fila for en <video preload="none"> som står i markupen, også bak
+         lukket dør. Uten JS: <noscript>-videoen med nettleserens egne kontroller.
+         Filer og bytte: tools/lag-hero-film.py. -->
+    <div class="medie-slot medie-slot-hero medie-slot-film" id="hero-felt" data-film="../assets/video/alibi-hero.mp4" data-plakat="../assets/video/alibi-hero-poster.webp">
+      <img class="hero-film hero-plakat" src="../assets/video/alibi-hero-poster.webp" width="736" height="414" alt="" decoding="async">
+      <noscript>
+        <video class="hero-film" muted loop playsinline controls preload="none" width="960" height="540" poster="../assets/video/alibi-hero-poster.webp" aria-hidden="true">
+          <source src="../assets/video/alibi-hero.mp4" type="video/mp4">
+        </video>
+      </noscript>
+      <button type="button" class="film-knapp" id="film-knapp" data-tilstand="pauset" aria-label="Spill av film" hidden>
+        <svg class="film-ikon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2.5" width="3.4" height="11" fill="currentColor"/><rect x="9.6" y="2.5" width="3.4" height="11" fill="currentColor"/></svg>
+        <svg class="film-ikon-spill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.5,2.5 L13,8 L4.5,13.5 Z" fill="currentColor"/></svg>
+      </button>
     </div>
   </section>
 

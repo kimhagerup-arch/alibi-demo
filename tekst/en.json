@@ -56,8 +56,8 @@
 
   "hero_overtekst": "Alta · the cellar · tonight",
   "hero_linje": "You found us. What you see here stays between us.",
-  "hero_video_aria": "Placeholder for a video from the bar",
-  "hero_video_tekst": "Film to come",
+  "film_spill": "Play film",
+  "film_pause": "Pause film",
 
   "historien_tittel": "The story",
   "historien_1": "In the twenties, in the country across the sea, they closed the bars and thought people would stop meeting. People did not stop meeting. They simply went down one flight of stairs, knocked three times and gave a name that was not their own. Down there, behind doors without signs, they sat closer, spoke lower and drank better than ever before.",
@@ -141,6 +141,8 @@
     "bank2": "One more …",
     "fantOss": "You found us.",
     "somDuVil": "As you wish.",
+    "filmSpill": "Play film",
+    "filmPause": "Pause film",
     "velkommenTilbake": "Welcome back."
   }
 }

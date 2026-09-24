@@ -101,6 +101,8 @@ ingen gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg.
 | `assets/` | Favicon (SVG + PNG), og-image, fonter i `fonts/`; video kommer (spesifisert i `README.md`) |
 | `img/` | Stemningsbilder (WebP + JPEG-fallback, midlertidig stock) og `img/logo/` (ordmerket + søsterstedenes logoer) |
 | `tools/eksporter-bilder.py` | Lokal bildeeksport (Pillow). Kun byggtid, aldri runtime |
+| `tools/lag-hero-film.py` | Lager `assets/video/alibi-hero.mp4` + plakat fra én kildefil (ffmpeg). Kun byggtid |
+| `assets/video/` | Hero-filmen og plakaten. **Per runde 17 en Envato-forhåndsvisning med vannmerke – ikke lisensiert, vannmerket skal ikke fjernes/dekkes** (TODO, lanseringskrav) |
 | `docs/` | Changelog, beslutninger, promptlogg, TODO, onboarding |
 
 ## Føringer som IKKE endres uten eksplisitt beskjed
@@ -118,6 +120,13 @@ ingen gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg.
   den med en font-glyph, ikke strekk/skjev. Dimensjoner etter versalhøyde (LIBI),
   ikke total høyde – A-streken skal få gå over/under uten å presse layouten.
   «Alibi» i løpende tekst, `<title>`, meta og JSON-LD er vanlig tekst (beslutning #23).
+- **Hero-filmen:** dekor (`aria-hidden`), lydløs, loop, egen pause/spill-knapp
+  (WCAG 2.2.2, 44 px). **Ingen `<video>` i markupen** – bare plakaten som
+  `<img>` (+ `<noscript>`-video); JS lager videoelementet først når døra er
+  åpnet og feltet er i syne, og aldri ved `prefers-reduced-motion` eller
+  sparemodus (plakat + knapp). Grunn: WebKit laster hele fila for en
+  `<video preload="none">` i markupen. Bilderegelen gjelder filmen òg.
+  Byttes kun via `tools/lag-hero-film.py` (beslutning #34).
 - **Bilder:** aldri alkohol som drikkes eller er i fokus, tobakk/røyking, eller
   alkohol- eller tobakksmerker (alkoholloven § 9-2 / alkoholforskriften kap. 14,
   tobakkskadeloven § 22). I tvil om et bilde: ikke bruk det, spør. Stockbilder er

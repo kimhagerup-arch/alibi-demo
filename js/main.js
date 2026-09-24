@@ -19,6 +19,8 @@ var ALIBI_PASSORD = "æventyr";
   var harIO = "IntersectionObserver" in window;
   var doraAktiv = false;
   var doraPassordAapning = null;
+  var dorLukket = false;       // sann fra døra vises til den begynner å åpne seg
+  var filmOppdater = null;     // settes av hero-filmen, kalles når døra åpner
 
   /* ---------- Tekstene JS skriver ut – per språk, generert inn i <head>
      som <script id="alibi-tekst" type="application/json"> fra tekst/*.json.
@@ -131,6 +133,7 @@ var ALIBI_PASSORD = "æventyr";
       return;
     }
     doraAktiv = true;
+    dorLukket = true;
 
     var dorKnapp = document.getElementById("dor-knapp");
     var status = document.getElementById("dor-status");
@@ -194,8 +197,10 @@ var ALIBI_PASSORD = "æventyr";
       aapnet = true;
       sessionStorage.setItem("alibi-inne", "1");
       scene.setAttribute("data-state", tilstand);
-      // Døra begynner å åpne seg – kammerlys og støv bak den kan starte (pauset av inline-skriptet i <head>)
+      // Døra begynner å åpne seg – kammerlys, støv og film bak den kan starte (pauset av inline-skriptet i <head>)
       document.documentElement.classList.remove("dor-lukket");
+      dorLukket = false;
+      if (filmOppdater) filmOppdater();
 
       var ferdig = false;
       function ryddOpp() {
@@ -318,6 +323,93 @@ var ALIBI_PASSORD = "æventyr";
       laasOppBakrom(true);
     }
   });
+
+  /* ========================================================================
+     HERO-FILMEN
+     Dekor i loop, lydløs. Spiller bare når alt dette stemmer: gjesten har
+     ikke trykket pause, døra er ikke lukket, feltet er i syne, fanen er
+     synlig, ingen redusert bevegelse og ingen sparemodus (de to siste gir
+     plakat + knapp, og knappen kan starte filmen likevel). Uten JS: plakat
+     og nettleserens kontroller (controls fjernes her).
+     ======================================================================== */
+
+  (function initFilm() {
+    var felt = document.getElementById("hero-felt");
+    var knapp = document.getElementById("film-knapp");
+    if (!felt || !knapp) return;
+
+    var forbindelse = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    var sparemodus = !!(forbindelse && forbindelse.saveData);
+    var gjestPauset = reduserBevegelse || sparemodus; // startvalg – husker gjestens trykk ut siden
+    var iSyne = true;
+    var film = null; // lages først når filmen skal spille (se kommentaren i malen)
+
+    knapp.hidden = false;
+
+    function lagFilm() {
+      film = document.createElement("video");
+      film.className = "hero-film";
+      film.id = "hero-film";
+      film.muted = true;
+      film.setAttribute("muted", "");
+      film.loop = true;
+      film.setAttribute("playsinline", "");
+      film.setAttribute("aria-hidden", "true");
+      film.tabIndex = -1;
+      film.preload = "auto";
+      film.poster = felt.getAttribute("data-plakat");
+      film.width = 960;
+      film.height = 540;
+      var kilde = document.createElement("source");
+      kilde.src = felt.getAttribute("data-film");
+      kilde.type = "video/mp4";
+      film.appendChild(kilde);
+      // Reserve for loop-attributtet: Playwrights WebKit pauser ved 0 etter
+      // omstarten. Pauser filmen uten at vi ba om det, starter vi den igjen.
+      film.addEventListener("pause", function () {
+        if (kanSpille()) film.play().catch(function () {});
+      });
+      film.addEventListener("ended", function () {
+        if (kanSpille()) { film.currentTime = 0; film.play().catch(function () {}); }
+      });
+      felt.insertBefore(film, knapp); // over plakaten, under knappen
+    }
+
+    function kanSpille() {
+      return !gjestPauset && !dorLukket && iSyne && !document.hidden;
+    }
+
+    function oppdater() {
+      if (kanSpille()) {
+        if (!film) lagFilm();
+        if (film.paused) {
+          var p = film.play();
+          if (p && p.catch) p.catch(function () { /* autoplay nektet – knappen finnes */ });
+        }
+      } else if (film && !film.paused) {
+        film.pause();
+      }
+      var spiller = !gjestPauset;
+      knapp.setAttribute("data-tilstand", spiller ? "spiller" : "pauset");
+      knapp.setAttribute("aria-label", spiller ? t("filmPause") : t("filmSpill"));
+    }
+    filmOppdater = oppdater;
+
+    knapp.addEventListener("click", function () {
+      gjestPauset = !gjestPauset;
+      oppdater();
+    });
+
+    if (harIO) {
+      new IntersectionObserver(function (entries) {
+        iSyne = entries[0].isIntersecting;
+        oppdater();
+      }, { threshold: 0.1 }).observe(felt);
+    }
+    document.addEventListener("visibilitychange", oppdater);
+
+    oppdater();
+  })();
 
   /* ========================================================================
      SPRÅKVELGEREN
