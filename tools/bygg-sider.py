@@ -4,6 +4,8 @@ Bygger de to språkversjonene av forsiden fra én mal:
     tools/mal.html  +  tekst/nb.json / tekst/en.json  +  tekst/meny.json
         → index.html (engelsk, /)  og  no/index.html (norsk, /no/)
         → sitemap.xml
+    css/style.css → css/style.min.css (minifisert kopi som sidene lenker til –
+        rediger alltid style.css; runde 16: 40 → 25 kB gir Lighthouse 97+)
 
 Kun Python 3 (standardbiblioteket) – ingen avhengigheter. Kjøres lokalt
 etter hver tekst- eller menyendring, og de genererte filene commites, så
@@ -54,6 +56,55 @@ def skriv(sti, innhold):
     os.makedirs(os.path.dirname(sti) or ".", exist_ok=True)
     with open(sti, "w", encoding="utf-8", newline="") as f:
         f.write(innhold)
+
+
+# ---------- CSS ----------
+
+def minifiser_css(css):
+    """Fjerner kommentarer og overflødig mellomrom. Strenger og url(...)
+    kopieres uendret, så data-URI-er og content-verdier ikke røres."""
+    ut = []
+    i, n = 0, len(css)
+    while i < n:
+        c = css[i]
+        if css.startswith("/*", i):
+            slutt = css.find("*/", i + 2)
+            i = n if slutt < 0 else slutt + 2
+            continue
+        if c in "\"'":
+            slutt = css.find(c, i + 1)
+            while slutt > 0 and css[slutt - 1] == "\\":
+                slutt = css.find(c, slutt + 1)
+            slutt = n - 1 if slutt < 0 else slutt
+            ut.append(css[i:slutt + 1])
+            i = slutt + 1
+            continue
+        if css.startswith("url(", i):
+            # url("…") kan inneholde ) inni strengen (data-URI med url(%23n)) –
+            # er innholdet i anførselstegn, hopp til sluttanførselen først
+            j = i + 4
+            while j < n and css[j] in " \t\r\n":
+                j += 1
+            if j < n and css[j] in "\"'":
+                j = css.find(css[j], j + 1)
+                j = n - 1 if j < 0 else j
+            slutt = css.find(")", j)
+            slutt = n - 1 if slutt < 0 else slutt
+            ut.append(css[i:slutt + 1])
+            i = slutt + 1
+            continue
+        ut.append(c)
+        i += 1
+    tekst = "".join(ut)
+    # Kollaps mellomrom, fjern det rundt tegnsetting, dropp siste ; i en blokk
+    tekst = re.sub(r"\s+", " ", tekst)
+    tekst = re.sub(r" ?([{}:;,>]) ?", r"\1", tekst)
+    tekst = tekst.replace(";}", "}")
+    return (
+        "/* GENERERT av tools/bygg-sider.py fra css/style.css – rediger kilden, ikke denne */\n"
+        + tekst.strip()
+        + "\n"
+    )
 
 
 # ---------- Menyen ----------
@@ -201,6 +252,7 @@ def main():
 
     utdata = {os.path.join(ROT, fil): bygg_side(sprak, rot, mal, felles, meny) for sprak, fil, rot in SIDER}
     utdata[os.path.join(ROT, "sitemap.xml")] = sitemap(felles)
+    utdata[os.path.join(ROT, "css", "style.min.css")] = minifiser_css(les(os.path.join(ROT, "css", "style.css")))
 
     avvik = []
     for sti, innhold in utdata.items():
