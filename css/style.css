@@ -560,11 +560,89 @@ html.inne .dor-scene { display: none; }
   text-decoration-color: var(--messing-morket);
 }
 
-/* Smale skjermer: merke + stedsbytter på første rad, ankerlenkene på
-   egen rad under – topplinja skal ikke bli trang (se beslutningslogg) */
+/* ---------- Språkvelgeren (<details>, helt til høyre) ----------
+   Knappen er 2,75 rem (44 px) høy som touch-mål, men ligger med negativ
+   marg i en 1,4 rem layoutboks – samme knep som ordmerket – så topplinja
+   ikke blir høyere. Lista er absolutt posisjonert under knappen. */
+.sprak {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  padding-left: clamp(0.8rem, 2.5vw, 1.4rem);
+  border-left: 1px solid var(--messing-morket);
+}
+
+.sprak-knapp {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.75rem;
+  margin: -0.675rem 0;
+  padding: 0 0.25rem;
+  font-size: var(--tekst-s);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--messing);
+  cursor: pointer;
+  user-select: none;
+}
+.sprak-knapp::-webkit-details-marker { display: none; }
+.sprak-knapp:hover .sprak-kode {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--messing-morket);
+}
+
+.sprak-flagg {
+  width: 16px;
+  height: 12px;
+  flex: none;
+  opacity: 0.85;
+}
+
+.sprak-pil {
+  width: 0.55rem;
+  height: 0.35rem;
+  transition: transform 0.2s ease;
+}
+.sprak[open] .sprak-pil { transform: rotate(180deg); }
+
+.sprak-liste {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  min-width: 9.5rem;
+  margin: 0;
+  padding: 0.3rem 0;
+  list-style: none;
+  background: var(--brunsort-panel);
+  border: 1px solid var(--messing-morket);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+
+.sprak-liste a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  font-size: 1.05rem;
+  color: var(--kritt-dus);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.sprak-liste a:hover { color: var(--messing); background: rgba(201, 162, 39, 0.06); }
+.sprak-liste a[aria-current] { color: var(--messing); }
+
+/* Smale skjermer: merke + stedsbytter + språkvelger på første rad,
+   ankerlenkene på egen rad under – topplinja skal ikke bli trang (se beslutningslogg) */
 @media (max-width: 46rem) {
   .topplinje nav { flex-wrap: wrap; row-gap: 0.4rem; }
   .topplinje-steder { order: 2; margin-left: auto; }
+  .sprak { order: 2; }
   .topplinje-lenker {
     order: 3;
     flex-basis: 100%;
@@ -1373,6 +1451,20 @@ html.fane-skjult .stov-korn {
 }
 .feil-lenke:hover { border-color: var(--messing); }
 
+/* Den norske halvdelen av 404-siden – under en tynn messinglinje */
+.feil-norsk {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--messing-morket);
+  min-width: min(18rem, 100%);
+}
+.feil-norsk .feil-tekst { font-size: var(--tekst-m); }
+.feil-norsk .feil-lenke { margin-top: 0.4rem; }
+
 /* ==========================================================================
    REDUSERT BEVEGELSE – døra fader i stedet for å animere
    ========================================================================== */
@@ -1406,6 +1498,7 @@ html.fane-skjult .stov-korn {
 
   .meny-kort,
   .topplinje,
+  .sprak-pil,
   .bakrom {
     transition: none;
   }
