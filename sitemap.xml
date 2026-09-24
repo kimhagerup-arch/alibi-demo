@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GENERERT av tools/bygg-sider.py – domenet ligger i tekst/felles.json -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://alibi-demo.vercel.app/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alibi-demo.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="nb" href="https://alibi-demo.vercel.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alibi-demo.vercel.app/"/>
+  </url>
+  <url>
+    <loc>https://alibi-demo.vercel.app/no/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alibi-demo.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="nb" href="https://alibi-demo.vercel.app/no/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alibi-demo.vercel.app/"/>
+  </url>
+</urlset>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="{{html_lang}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- GENERERT FIL – ikke rediger index.html eller no/index.html direkte.
+       Tekst: tekst/nb.json og tekst/en.json. Meny: tekst/meny.json.
+       Struktur: tools/mal.html. Bygg: python tools/bygg-sider.py -->
+  <!-- PLACEHOLDER: fjernes ved lansering på ekte domene -->
+  <meta name="robots" content="noindex">
+
+  <title>{{tittel}}</title>
+  <meta name="description" content="{{beskrivelse}}">
+
+  <!-- Språkvarianter – selvrefererende canonical + hreflang. Domenet ligger
+       i tekst/felles.json (byttes ved lansering, TODO P2). -->
+  <link rel="canonical" href="{{domene}}{{url_denne}}">
+  <link rel="alternate" hreflang="en" href="{{domene}}/">
+  <link rel="alternate" hreflang="nb" href="{{domene}}/no/">
+  <link rel="alternate" hreflang="x-default" href="{{domene}}/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{domene}}{{url_denne}}">
+  <meta property="og:title" content="{{tittel}}">
+  <meta property="og:description" content="{{og_beskrivelse}}">
+  <meta property="og:locale" content="{{og_locale}}">
+  <meta property="og:locale:alternate" content="{{og_locale_alternativ}}">
+  <meta property="og:site_name" content="Alibi">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- PLACEHOLDER: og:image, canonical, hreflang og og:url bruker previewens
+       domene («domene» i tekst/felles.json) – byttes til endelig domene ved
+       lansering (TODO P2) -->
+  <meta property="og:image" content="{{domene}}/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{og_bilde_alt}}">
+  <meta name="twitter:image" content="{{domene}}/assets/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="{{rot}}assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{rot}}assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{rot}}assets/apple-touch-icon.png">
+
+  <!-- Fonter: Limelight (display) + Cormorant Garamond (brødtekst) –
+       selvhostet i assets/fonts/. Preload kun de to som brukes over folden. -->
+  <link rel="preload" href="{{rot}}assets/fonts/limelight-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{rot}}assets/fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="{{rot}}css/style.css">
+
+{{#er_en}}  <!-- Husket språkvalg: har gjesten valgt norsk i språkvelgeren («alibi-sprak»
+       i localStorage), sendes hen til /no/ før noe tegnes. Ingen gjetting ut
+       fra nettleserspråk, ingen omdirigering uten lagret valg – søkeroboter
+       får alltid siden de ber om. -->
+  <script>
+    try {
+      if (location.protocol !== 'file:' && localStorage.getItem('alibi-sprak') === 'nb') {
+        location.replace('/no/' + location.hash);
+      }
+    } catch (e) {}
+  </script>
+
+{{/er_en}}  <!-- Hindrer at døra blinker forbi for besøkende som allerede er sluppet inn -->
+  <script>
+    if (sessionStorage.getItem('alibi-inne')) {
+      document.documentElement.classList.add('inne');
+    }
+  </script>
+
+  <!-- Tekstene JavaScript skriver ut (dør og skjult meny) – fra tekst/*.json -->
+  <script id="alibi-tekst" type="application/json">{{js_tekst}}</script>
+
+  <!-- PLACEHOLDER: adresse må bekreftes – se TODO P15. Gjelder «address» i
+       JSON-LD-en under (JSON kan ikke bære kommentaren selv). Feil adresse her
+       ender i Google Maps/Business – skal avklares FØR lansering. -->
+  <!-- PLACEHOLDER: «sameAs» legges inn i JSON-LD-en når Alibis egne
+       SoMe-kontoer finnes (se TODO P17) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BarOrPub",
+    "name": "Alibi",
+    "url": "{{domene}}{{url_denne}}",
+    "inLanguage": "{{html_lang}}",
+    "description": "{{jsonld_beskrivelse}}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Sentrumsparken 2",
+      "postalCode": "9510",
+      "addressLocality": "Alta",
+      "addressCountry": "NO"
+    },
+    "containedInPlace": {
+      "@type": "Hotel",
+      "name": "Canyon Hotell",
+      "url": "{{url_canyon}}"
+    },
+    "parentOrganization": {
+      "@type": "Organization",
+      "name": "Æventyr",
+      "url": "{{url_aeventyr}}"
+    },
+    "servesCuisine": "Cocktails"
+  }
+  </script>
+
+  <script src="{{rot}}js/main.js" defer></script>
+</head>
+<body>
+
+<!-- Glasstegningene til menyen – samme strekstil som Æventyr-ikonene og den
+     trykte menyen. Definert én gang her, brukt med <use> i menykortene.
+     display:none i stil, ikke hidden-attributtet – det gjelder ikke for
+     SVG-elementer og lot blokka rendre som en tom boks over topplinja. -->
+<svg style="display:none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="glass-vin" viewBox="0 0 100 120">
+    <path d="M34,16 L66,16"/>
+    <path d="M34,16 C34,38 37,57 50,58 C63,57 66,38 66,16"/>
+    <path d="M50,58 L50,99"/>
+    <path d="M35,103 L65,103"/>
+  </symbol>
+  <symbol id="glass-highball" viewBox="0 0 100 120">
+    <path d="M27,16 L73,16"/>
+    <path d="M27,16 L29,96 C29,100 32,102 35,102 L65,102 C68,102 71,100 71,96 L73,16"/>
+  </symbol>
+  <symbol id="glass-rocks" viewBox="0 0 100 120">
+    <path d="M24,42 L76,42"/>
+    <path d="M24,42 L27,94 C27,98 30,100 33,100 L67,100 C70,100 73,98 73,94 L76,42"/>
+  </symbol>
+  <symbol id="glass-margarita" viewBox="0 0 100 120">
+    <path d="M20,24 L80,24"/>
+    <path d="M20,24 L50,62 L80,24"/>
+    <path d="M50,62 L50,96"/>
+    <path d="M31,100 L69,100"/>
+    <path d="M38,50 L70,14"/>
+    <circle cx="73.5" cy="10.5" r="4.5"/>
+    <circle cx="41" cy="33" r="1.9"/>
+    <circle cx="57" cy="35" r="1.9"/>
+  </symbol>
+  <!-- Alibi-ordmerket (img/logo/alibi-logo.svg): gruppens A – én lang diagonal
+       + kort høyre ben – og LIBI i samme strek. Brukes med <use> i topplinja,
+       hero, dørskiltet og footeren; fargen styres av CSS via currentColor. -->
+  <symbol id="alibi-ordmerke" viewBox="0 0 236.88 188.95">
+    <g fill="currentColor"><path d="M19,188.06C49.27,128.47,78.77,64.92,108.64,3.35a1.46,1.46,0,0,0-.76-2L104.72.11c-.74-.29-1.88,0-2.62,1.52C72.77,63.42,42.27,131.16,16.29,186.81a1.48,1.48,0,0,0,.59,1.94h0A1.54,1.54,0,0,0,19,188.06Z"/><polygon points="93.43 134.01 101.24 134.01 80.6 74.46 75.98 84.18 93.43 134.01"/><path d="M116.70,74.69h6.09v59.22h-6.09ZM116.70,127.82h30.00v6.09h-30.00ZM160.70,74.69h6.09v59.22h-6.09Z"/><path fill-rule="evenodd" d="M180.79,74.69H195.26A16.53,16.53 0 0 1 195.26,107.75H180.79ZM186.88,80.78H195.26A10.44,10.44 0 0 1 195.26,101.66H186.88Z"/><path fill-rule="evenodd" d="M180.79,101.66H198.66A16.13,16.13 0 0 1 198.66,133.91H180.79ZM186.88,107.75H198.66A10.04,10.04 0 0 1 198.66,127.82H186.88Z"/><path d="M228.79,74.69h6.09v59.22h-6.09Z"/></g>
+  </symbol>
+  <!-- Flaggene til språkvelgeren: 16 × 12, dempede farger som passer paletten.
+       Aldri alene – teksten (EN/NO, English/Norsk) står alltid ved siden av. -->
+  <symbol id="flagg-gb" viewBox="0 0 16 12">
+    <rect width="16" height="12" fill="#3b4a6b"/>
+    <path d="M0,0 L16,12 M16,0 L0,12" stroke="#d9d2c4" stroke-width="2.4"/>
+    <path d="M0,0 L16,12 M16,0 L0,12" stroke="#8a3a3f" stroke-width="0.8"/>
+    <path d="M8,0 V12 M0,6 H16" stroke="#d9d2c4" stroke-width="4"/>
+    <path d="M8,0 V12 M0,6 H16" stroke="#8a3a3f" stroke-width="2.2"/>
+  </symbol>
+  <symbol id="flagg-no" viewBox="0 0 16 12">
+    <rect width="16" height="12" fill="#8a3a3f"/>
+    <path d="M5.8,0 V12 M0,6 H16" stroke="#d9d2c4" stroke-width="3"/>
+    <path d="M5.8,0 V12 M0,6 H16" stroke="#3b4a6b" stroke-width="1.5"/>
+  </symbol>
+</svg>
+
+<a class="skip-lenke" href="#hoved">{{hopp_til_innhold}}</a>
+
+<!-- ============================================================
+     DØRA – inngangsscenen. Et overlay: alt innhold ligger bak i
+     DOM-en og er crawlbart uansett. Vises kun én gang per besøk.
+     ============================================================ -->
+<div id="dora" class="dor-scene" data-state="lukket">
+  <div class="dor-vegg">
+
+    <div class="dor-ramme">
+      <button type="button" id="dor-knapp" class="dor" aria-label="{{dor_aria}}">
+        <span class="dor-blad" aria-hidden="true">
+          <!-- Dørluka med øyet bak -->
+          <span class="luke">
+            <span class="luke-aapning">
+              <svg class="oye" viewBox="0 0 120 48" aria-hidden="true" focusable="false">
+                <ellipse class="oye-hvitt" cx="60" cy="24" rx="46" ry="19"/>
+                <g class="oye-iris-gruppe">
+                  <circle class="oye-iris" cx="60" cy="24" r="13"/>
+                  <circle class="oye-pupill" cx="60" cy="24" r="6"/>
+                  <circle class="oye-glimt" cx="64" cy="20" r="2"/>
+                </g>
+                <path class="oye-lokk" d="M14 24 Q60 -14 106 24 Q60 10 14 24 Z"/>
+              </svg>
+            </span>
+            <span class="luke-deksel"></span>
+          </span>
+          <!-- Dørfyllinger og håndtak -->
+          <span class="dor-fylling dor-fylling-topp"></span>
+          <span class="dor-fylling dor-fylling-bunn"></span>
+          <!-- Messingskiltet: ordmerket gravert i plata, sentrert i det øvre feltet.
+               Står etter fyllingene i DOM-en så det males oppå feltet (dekor – knappen har egen aria-label). -->
+          <span class="dor-skilt"><svg class="ordmerke" viewBox="0 0 236.88 188.95" aria-hidden="true" focusable="false"><use href="#alibi-ordmerke"/></svg></span>
+          <span class="dor-handtak"></span>
+        </span>
+      </button>
+
+      <p class="dor-status" id="dor-status" role="status" aria-live="polite">{{dor_status}}</p>
+
+      <div class="bank-spor" aria-hidden="true">
+        <span class="bank-prikk"></span><span class="bank-prikk"></span><span class="bank-prikk"></span>
+      </div>
+    </div>
+
+    <div class="dor-valg">
+      <a class="dor-hopp" id="gaa-rett-inn" href="#velkommen">{{dor_gaa_inn}}</a>
+      <span class="dor-valg-skille" aria-hidden="true">·</span>
+      <button type="button" class="dor-passord-knapp" id="passord-vis" aria-expanded="false" aria-controls="passord-felt-wrap">{{dor_passord}}</button>
+      <span class="dor-valg-skille" aria-hidden="true">·</span>
+      <button type="button" class="dor-lyd" id="lyd-knapp" aria-pressed="false">{{dor_lyd_av}}</button>
+      <span class="dor-valg-skille" aria-hidden="true">·</span>
+      <!-- Diskret språkbytte før man går inn – samme lagring som språkvelgeren i topplinja -->
+      <a class="dor-hopp dor-sprak" href="{{dor_sprak_url}}" hreflang="{{dor_sprak_lang}}" lang="{{dor_sprak_lang}}" data-sprak="{{dor_sprak_lang}}">{{dor_sprak_lenke}}</a>
+    </div>
+
+    <!-- Easter egg: passordet «Æventyr» åpner døra umiddelbart -->
+    <form class="passord-felt-wrap" id="passord-felt-wrap" hidden>
+      <label class="sr-only" for="passord-felt">{{passord_etikett}}</label>
+      <input type="password" id="passord-felt" class="passord-input" autocomplete="off" spellcheck="false" placeholder="{{passord_plassholder}}">
+    </form>
+  </div>
+</div>
+
+<header class="topplinje">
+  <nav aria-label="{{nav_aria}}">
+    <a class="topplinje-merke" href="#velkommen"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-topp"><title id="ordmerke-topp">Alibi</title><use href="#alibi-ordmerke"/></svg></a>
+    <ul class="topplinje-lenker">
+      <li><a href="#historien">{{nav_historien}}</a></li>
+      <li><a href="#huset">{{nav_huset}}</a></li>
+      <li><a href="#menyen">{{nav_menyen}}</a></li>
+      <li><a href="#finn-oss">{{nav_finn_oss}}</a></li>
+      <li><a href="#praktisk">{{nav_praktisk}}</a></li>
+    </ul>
+    <!-- Stedsbytteren: resten av huset, ett blikk unna – samme mønster som søstersidene -->
+    <ul class="topplinje-steder" aria-label="{{steder_aria}}">
+      <li><a href="{{url_raus}}" rel="noopener" target="_blank">Raus{{ny_fane}}</a></li>
+      <li><a href="{{url_taakt}}" rel="noopener" target="_blank">Tåkt{{ny_fane}}</a></li>
+    </ul>
+    <!-- Språkvelgeren: <details> så den virker uten JS. JS lukker på Esc og
+         klikk utenfor, og lagrer valget («alibi-sprak» i localStorage). -->
+    <details class="sprak">
+      <summary class="sprak-knapp"><span class="sr-only">{{sprak_etikett}}: </span><svg class="sprak-flagg" aria-hidden="true" focusable="false"><use href="#{{sprak_flagg}}"/></svg><span class="sprak-kode">{{sprak_kode}}</span><svg class="sprak-pil" viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="M1,1 L5,5 L9,1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <ul class="sprak-liste">
+        <li><a href="/" hreflang="en" lang="en" data-sprak="en"{{#er_en}} aria-current="page"{{/er_en}}><svg class="sprak-flagg" aria-hidden="true" focusable="false"><use href="#flagg-gb"/></svg>{{sprak_engelsk}}</a></li>
+        <li><a href="/no/" hreflang="nb" lang="nb" data-sprak="nb"{{#er_nb}} aria-current="page"{{/er_nb}}><svg class="sprak-flagg" aria-hidden="true" focusable="false"><use href="#flagg-no"/></svg>{{sprak_norsk}}</a></li>
+      </ul>
+    </details>
+  </nav>
+</header>
+
+<main id="hoved">
+
+  <!-- ============ VELKOMMEN ============ -->
+  <section id="velkommen" class="seksjon seksjon-velkommen">
+    <p class="overtekst">{{hero_overtekst}}</p>
+    <h1 class="logotype" tabindex="-1"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-hero"><title id="ordmerke-hero">Alibi</title><use href="#alibi-ordmerke"/></svg></h1>
+    <p class="velkomst-linje">{{hero_linje}}</p>
+
+    <!-- PLACEHOLDER: hero-video. Erstatt denne flaten med <video> når filen foreligger.
+         Forventet fil: assets/hero.mp4 (se README for spesifikasjoner). -->
+    <div class="medie-slot medie-slot-hero" role="img" aria-label="{{hero_video_aria}}">
+      <span class="medie-slot-tekst">{{hero_video_tekst}}</span>
+    </div>
+  </section>
+
+  <hr class="skille" aria-hidden="true">
+
+  <!-- ============ HISTORIEN ============ -->
+  <section id="historien" class="seksjon">
+    <h2>{{historien_tittel}}</h2>
+    <div class="to-spalter">
+      <div class="prosa">
+        <p>{{historien_1}}</p>
+        <p>{{historien_2}}</p>
+        <p>{{historien_3}}</p>
+      </div>
+      <!-- PLACEHOLDER: stemningsbilde (stock, Pexels), byttes med ekte foto av Alibi.
+           Forventet fil: assets/interior-1.jpg (TODO P4). -->
+      <figure class="medie-slot medie-slot-staaende medie-slot-foto">
+        <picture>
+          <source type="image/webp" srcset="{{rot}}img/alibi-telefon-480.webp 480w, {{rot}}img/alibi-telefon-800.webp 800w" sizes="(max-width: 22rem) calc(100vw - 2.5rem), 19.2rem">
+          <img src="{{rot}}img/alibi-telefon-800.jpg" width="800" height="1000" alt="{{alt_telefon}}" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ FOTOBÅND – pusterom mellom Historien og Huset (ingen overskrift, ikke i navigasjonen) ============ -->
+  <!-- PLACEHOLDER: stemningsbilde (stock), byttes med ekte foto av Alibi -->
+  <div class="fotoband">
+    <div class="fotoband-rull" tabindex="0" role="region" aria-label="{{fotoband_aria}}">
+      <ul class="fotoband-liste">
+        <li>
+          <figure class="medie-slot medie-slot-foto fotoband-bilde">
+            <picture>
+              <source type="image/webp" srcset="{{rot}}img/alibi-dame-480.webp 480w, {{rot}}img/alibi-dame-640.webp 640w, {{rot}}img/alibi-dame-800.webp 800w" sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw">
+              <img src="{{rot}}img/alibi-dame-800.jpg" width="800" height="1000" alt="{{alt_dame}}" loading="lazy" decoding="async">
+            </picture>
+          </figure>
+        </li>
+        <li>
+          <figure class="medie-slot medie-slot-foto fotoband-bilde">
+            <picture>
+              <source type="image/webp" srcset="{{rot}}img/alibi-par-dans-480.webp 480w, {{rot}}img/alibi-par-dans-640.webp 640w, {{rot}}img/alibi-par-dans-800.webp 800w" sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw">
+              <img src="{{rot}}img/alibi-par-dans-800.jpg" width="800" height="1000" alt="{{alt_par_dans}}" loading="lazy" decoding="async">
+            </picture>
+          </figure>
+        </li>
+        <li>
+          <figure class="medie-slot medie-slot-foto fotoband-bilde">
+            <picture>
+              <source type="image/webp" srcset="{{rot}}img/alibi-ford-480.webp 480w, {{rot}}img/alibi-ford-640.webp 640w, {{rot}}img/alibi-ford-800.webp 800w" sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw">
+              <img src="{{rot}}img/alibi-ford-800.jpg" width="800" height="1000" alt="{{alt_ford}}" loading="lazy" decoding="async">
+            </picture>
+          </figure>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="skille" aria-hidden="true">
+
+  <!-- ============ HUSET – familien: Raus, Tåkt og oss ============ -->
+  <section id="huset" class="seksjon">
+    <h2>{{huset_tittel}}</h2>
+    <p class="huset-motto">{{huset_motto}}</p>
+    <p class="seksjon-ingress">{{huset_ingress}}</p>
+
+    <ul class="meny-liste hus-liste">
+      <li class="meny-kort hus-kort">
+        <div class="meny-kort-indre">
+          <!-- PLACEHOLDER: foto av Raus (fasade eller lokale). Forventet fil: assets/raus.jpg – se TODO P16. Ikke hotlink fra aeventyr-CDN. -->
+          <div class="medie-slot medie-slot-hus" role="img" aria-label="{{raus_foto_aria}}">
+            <span class="medie-slot-tekst">{{foto_kommer}}</span>
+          </div>
+          <h3>Raus</h3>
+          <p>{{raus_tekst}}</p>
+          <p class="hus-fakta">{{raus_tider}}</p>
+          <p class="hus-handling"><a class="tekstlenke" href="{{url_raus}}" rel="noopener" target="_blank">{{raus_besok}}{{ny_fane}}</a></p>
+        </div>
+      </li>
+      <li class="meny-kort hus-kort">
+        <div class="meny-kort-indre">
+          <!-- PLACEHOLDER: foto av Tåkt (dansegulv eller inngang). Forventet fil: assets/taakt.jpg – se TODO P16. Ikke hotlink fra aeventyr-CDN. -->
+          <div class="medie-slot medie-slot-hus" role="img" aria-label="{{taakt_foto_aria}}">
+            <span class="medie-slot-tekst">{{foto_kommer}}</span>
+          </div>
+          <h3>Tåkt</h3>
+          <p>{{taakt_tekst}}</p>
+          <p class="hus-fakta">{{taakt_tider}}</p>
+          <p class="hus-handling"><a class="tekstlenke" href="{{url_taakt}}" rel="noopener" target="_blank">{{taakt_besok}}{{ny_fane}}</a></p>
+        </div>
+      </li>
+      <li class="meny-kort hus-kort hus-kort-her">
+        <div class="meny-kort-indre">
+          <!-- PLACEHOLDER: stemningsbilde (stock, Pexels), byttes med ekte foto av Alibi (TODO P16). -->
+          <figure class="medie-slot medie-slot-hus medie-slot-foto">
+            <picture>
+              <source type="image/webp" srcset="{{rot}}img/alibi-lampe-480.webp 480w, {{rot}}img/alibi-lampe-800.webp 800w" sizes="(min-width: 46rem) 15rem, calc(100vw - 5.7rem)">
+              <img src="{{rot}}img/alibi-lampe-800.jpg" width="800" height="533" alt="{{alt_lampe}}" loading="lazy" decoding="async">
+            </picture>
+          </figure>
+          <h3>Alibi</h3>
+          <p>{{alibi_tekst}}</p>
+          <p class="hus-fakta">{{alibi_tider}}</p>
+          <p class="hus-handling"><span class="hus-her" aria-current="page">{{alibi_her}}</span></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <hr class="skille" aria-hidden="true">
+
+  <!-- ============ MENYEN – kortene genereres fra tekst/meny.json ============ -->
+  <section id="menyen" class="seksjon">
+    <h2>{{menyen_tittel}}</h2>
+    <p class="seksjon-ingress">{{menyen_ingress}}</p>
+
+    <!-- PLACEHOLDER: prisene er midlertidig satt til 159 på alle kort i tekst/meny.json – byttes med reelle priser når de leveres (TODO P5) -->
+    <ul class="meny-liste">
+{{meny_kort}}    </ul>
+    <p class="meny-fotnote">{{fotnote_alkoholfritt}}</p>
+    <!-- Allergilinja er formulert generelt med vilje: den dekker Adventure i
+         Bakrommet uten å røpe hva som ligger der. Skal stå synlig uten opplåsing. -->
+    <p class="meny-fotnote">{{fotnote_allergi}}</p>
+    <p class="meny-fotnote">{{fotnote_urter}}</p>
+
+    <!-- ============ BAKROMMET (på siden: «den skjulte menyen») – skjult til passordet er gitt ============ -->
+    <div class="bakrom-inngang">
+      <p class="bakrom-linje" id="bakrom-linje">{{bakrom_linje_for}}
+        <button type="button" id="bakrom-utloser" class="bakrom-utloser" aria-expanded="false" aria-controls="bakrom-laas">{{bakrom_utloser}}<svg class="nokkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M11.2 12H20M16.8 12v3M20 12v2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>{{bakrom_linje_etter}}</p>
+      <form id="bakrom-laas" class="bakrom-laas" hidden>
+        <label class="sr-only" for="bakrom-felt">{{bakrom_etikett}}</label>
+        <input type="password" id="bakrom-felt" class="passord-input" autocomplete="off" spellcheck="false" placeholder="{{bakrom_plassholder}}">
+      </form>
+      <p class="bakrom-status" id="bakrom-status" role="status" aria-live="polite"></p>
+    </div>
+
+    <div id="bakrommet" class="bakrom" hidden>
+      <h3 class="bakrom-tittel" tabindex="-1">{{bakrom_tittel}}</h3>
+      <p class="seksjon-ingress">{{bakrom_ingress}}</p>
+      <!-- PLACEHOLDER: prisene er midlertidig satt til 159 på alle kort i tekst/meny.json – byttes med reelle priser når de leveres (TODO P5) -->
+      <!-- PLACEHOLDER: glass og mengde mangler for Bakroms-drinkene – ikke oppgitt
+           av eierne, derfor ingen glasstegning eller cl-linje her ennå (TODO P18).
+           Sett «glass» og «cl» i tekst/meny.json når de kommer, så genereres linja. -->
+      <ul class="meny-liste bakrom-liste">
+{{bakrom_kort}}      </ul>
+    </div>
+  </section>
+
+  <hr class="skille" aria-hidden="true">
+
+  <!-- ============ FINN OSS ============ -->
+  <section id="finn-oss" class="seksjon">
+    <h2>{{finn_oss_tittel}}</h2>
+    <div class="to-spalter">
+      <div class="prosa">
+        <!-- PLACEHOLDER: adresse må bekreftes – se TODO P15 (Raus/Tåkt oppgir Markedsgata 6) -->
+        <p class="adresse-linje">{{adresse_linje}}</p>
+        <p>{{finn_oss_1}}</p>
+        <p>{{finn_oss_2}}</p>
+        <p><a class="tekstlenke" href="{{kart_url}}" rel="noopener" target="_blank">{{vis_vei}}{{ny_fane}}</a></p>
+      </div>
+      <!-- PLACEHOLDER: stemningsbilde (stock, Pexels), byttes med ekte foto av inngangen.
+           Forventet fil: assets/inngang.jpg (TODO P7). -->
+      <figure class="medie-slot medie-slot-staaende medie-slot-foto">
+        <picture>
+          <source type="image/webp" srcset="{{rot}}img/alibi-bardisk-480.webp 480w, {{rot}}img/alibi-bardisk-800.webp 800w" sizes="(max-width: 22rem) calc(100vw - 2.5rem), 19.2rem">
+          <img src="{{rot}}img/alibi-bardisk-800.jpg" width="800" height="1000" alt="{{alt_bardisk}}" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <hr class="skille" aria-hidden="true">
+
+  <!-- ============ PRAKTISK ============ -->
+  <section id="praktisk" class="seksjon">
+    <h2>{{praktisk_tittel}}</h2>
+    <!-- Fast rekkefølge etter husets mønster (Raus/Tåkt):
+         Beliggenhet, Åpningstider, Aldersgrense, Kontakt, Sosiale medier -->
+    <dl class="praktisk-liste">
+      <div class="praktisk-rad">
+        <dt>{{praktisk_beliggenhet}}</dt>
+        <!-- PLACEHOLDER: adresse må bekreftes – se TODO P15 -->
+        <dd>{{praktisk_beliggenhet_tekst}}</dd>
+      </div>
+      <div class="praktisk-rad">
+        <dt>{{praktisk_tider}}</dt>
+        <!-- PLACEHOLDER: erstattes med reelle åpningstider -->
+        <dd>{{praktisk_tider_tekst}}</dd>
+      </div>
+      <div class="praktisk-rad">
+        <dt>{{praktisk_alder}}</dt>
+        <!-- PLACEHOLDER: erstattes med reell aldersgrense -->
+        <dd>{{praktisk_alder_tekst}}</dd>
+      </div>
+      <div class="praktisk-rad">
+        <dt>{{praktisk_kontakt}}</dt>
+        <!-- PLACEHOLDER: erstattes med e-post/telefon -->
+        <dd>{{praktisk_kontakt_tekst}}</dd>
+      </div>
+      <div class="praktisk-rad">
+        <dt>{{praktisk_some}}</dt>
+        <dd>
+          <!-- PLACEHOLDER: sosiale medier. Bytt <span> til <a href="…"> når kontoene er klare. -->
+          <span class="some-ikon" aria-label="{{some_instagram_aria}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg>
+          </span>
+          <span class="some-ikon" aria-label="{{some_facebook_aria}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.5 21v-7h2.6l.4-3h-3V9.1c0-.9.3-1.5 1.6-1.5H16.7V4.9c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V11H8v3h2.5v7z" fill="currentColor"/></svg>
+          </span>
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+</main>
+
+<footer class="bunn">
+  <div class="bunn-spalter">
+    <nav class="bunn-spalte" aria-label="{{bunn_nav_aria}}">
+      <h2 class="bunn-tittel">Alibi</h2>
+      <ul>
+        <li><a href="#historien">{{nav_historien}}</a></li>
+        <li><a href="#huset">{{nav_huset}}</a></li>
+        <li><a href="#menyen">{{nav_menyen}}</a></li>
+        <li><a href="#finn-oss">{{nav_finn_oss}}</a></li>
+        <li><a href="#praktisk">{{nav_praktisk}}</a></li>
+      </ul>
+    </nav>
+    <div class="bunn-spalte">
+      <h2 class="bunn-tittel">{{bunn_folg}}</h2>
+      <!-- PLACEHOLDER: Alibis egne SoMe-kontoer (se TODO P17). Bytt <span> til <a>
+           når de finnes – ikke lenk til Raus' eller Tåkts kontoer som om de var våre. -->
+      <ul>
+        <li><span class="bunn-kommer">{{bunn_instagram}}</span></li>
+        <li><span class="bunn-kommer">{{bunn_facebook}}</span></li>
+      </ul>
+    </div>
+  </div>
+  <!-- Søsterstedene som logoer, i stedenes egen gull (#ca9e67) – ikke Alibis
+       messing (beslutning #13/#24). <img>, ikke inline: det er andres merker. -->
+  <nav class="bunn-familie" aria-label="{{bunn_familie_aria}}">
+    <h2 class="bunn-tittel">{{bunn_familie}}</h2>
+    <ul class="bunn-logoer">
+      <li><a href="{{url_aeventyr}}" rel="noopener" target="_blank"><img class="logo-aeventyr" src="{{rot}}img/logo/aeventyr.svg" alt="Æventyr" width="377" height="189" loading="lazy" decoding="async">{{ny_fane}}</a></li>
+      <li><a href="{{url_raus}}" rel="noopener" target="_blank"><img class="logo-raus" src="{{rot}}img/logo/raus.svg" alt="Raus Social" width="434" height="382" loading="lazy" decoding="async">{{ny_fane}}</a></li>
+      <li><a href="{{url_taakt}}" rel="noopener" target="_blank"><img class="logo-taakt" src="{{rot}}img/logo/taakt-1x.webp" srcset="{{rot}}img/logo/taakt-1x.webp 1x, {{rot}}img/logo/taakt-2x.webp 2x" alt="Tåkt" width="53" height="48" loading="lazy" decoding="async">{{ny_fane}}</a></li>
+      <li><a href="{{url_canyon}}" rel="noopener" target="_blank"><img class="logo-canyon" src="{{rot}}img/logo/canyon.svg" alt="Canyon Hotell" width="330" height="189" loading="lazy" decoding="async">{{ny_fane}}</a></li>
+      <li><a href="{{url_gargia}}" rel="noopener" target="_blank"><img class="logo-gargia" src="{{rot}}img/logo/gargia.svg" alt="Gargia Lodge" width="670" height="432" loading="lazy" decoding="async">{{ny_fane}}</a></li>
+    </ul>
+  </nav>
+  <div class="bunn-linje">
+    <p class="bunn-merke"><a class="bunn-alibi" href="#velkommen"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-bunn"><title id="ordmerke-bunn">Alibi</title><use href="#alibi-ordmerke"/></svg><span class="sr-only">{{bunn_til_toppen}}</span></a></p>
+    <p class="bunn-jus">
+      <a class="tekstlenke" href="{{url_vilkaar}}" rel="noopener" target="_blank">{{bunn_vilkaar}}{{ny_fane}}</a>
+      <span aria-hidden="true">·</span>
+      <a class="tekstlenke" href="{{url_personvern}}" rel="noopener" target="_blank">{{bunn_personvern}}{{ny_fane}}</a>
+    </p>
+  </div>
+  <p class="bunn-c">{{bunn_c}}</p>
+</footer>
+
+</body>
+</html>

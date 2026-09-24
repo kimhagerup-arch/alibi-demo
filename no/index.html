@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nb">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,23 +9,23 @@
   <!-- PLACEHOLDER: fjernes ved lansering på ekte domene -->
   <meta name="robots" content="noindex">
 
-  <title>Alibi – a speakeasy in the cellar, Alta</title>
-  <meta name="description" content="Alibi is a speakeasy in a cellar at Sentrumsparken 2, Alta. Cocktails, dimmed lights and darkened wood. Knock – what you see here stays between us.">
+  <title>Alibi – speakeasy i kjelleren, Alta</title>
+  <meta name="description" content="Alibi er en speakeasy i en kjeller i Sentrumsparken 2, Alta. Cocktails, dimmet lys og mørknet tre. Bank på – det du ser her, blir mellom oss.">
 
   <!-- Språkvarianter – selvrefererende canonical + hreflang. Domenet ligger
        i tekst/felles.json (byttes ved lansering, TODO P2). -->
-  <link rel="canonical" href="https://alibi-demo.vercel.app/">
+  <link rel="canonical" href="https://alibi-demo.vercel.app/no/">
   <link rel="alternate" hreflang="en" href="https://alibi-demo.vercel.app/">
   <link rel="alternate" hreflang="nb" href="https://alibi-demo.vercel.app/no/">
   <link rel="alternate" hreflang="x-default" href="https://alibi-demo.vercel.app/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://alibi-demo.vercel.app/">
-  <meta property="og:title" content="Alibi – a speakeasy in the cellar, Alta">
-  <meta property="og:description" content="A cellar in Alta. A door without a sign – almost. Knock.">
-  <meta property="og:locale" content="en_GB">
-  <meta property="og:locale:alternate" content="nb_NO">
+  <meta property="og:url" content="https://alibi-demo.vercel.app/no/">
+  <meta property="og:title" content="Alibi – speakeasy i kjelleren, Alta">
+  <meta property="og:description" content="En kjeller i Alta. En dør uten skilt – nesten. Bank på.">
+  <meta property="og:locale" content="nb_NO">
+  <meta property="og:locale:alternate" content="en_GB">
   <meta property="og:site_name" content="Alibi">
   <meta name="twitter:card" content="summary_large_image">
   <!-- PLACEHOLDER: og:image, canonical, hreflang og og:url bruker previewens
@@ -34,31 +34,19 @@
   <meta property="og:image" content="https://alibi-demo.vercel.app/assets/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="The Alibi logo in brass on a dark background, with the Norwegian line «Speakeasy i kjelleren · Alta»">
+  <meta property="og:image:alt" content="Alibi-logoen i messing på mørk bunn, med teksten «Speakeasy i kjelleren · Alta»">
   <meta name="twitter:image" content="https://alibi-demo.vercel.app/assets/og-image.png">
 
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
 
   <!-- Fonter: Limelight (display) + Cormorant Garamond (brødtekst) –
        selvhostet i assets/fonts/. Preload kun de to som brukes over folden. -->
-  <link rel="preload" href="assets/fonts/limelight-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/limelight-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Husket språkvalg: har gjesten valgt norsk i språkvelgeren («alibi-sprak»
-       i localStorage), sendes hen til /no/ før noe tegnes. Ingen gjetting ut
-       fra nettleserspråk, ingen omdirigering uten lagret valg – søkeroboter
-       får alltid siden de ber om. -->
-  <script>
-    try {
-      if (location.protocol !== 'file:' && localStorage.getItem('alibi-sprak') === 'nb') {
-        location.replace('/no/' + location.hash);
-      }
-    } catch (e) {}
-  </script>
+  <link rel="stylesheet" href="../css/style.css">
 
   <!-- Hindrer at døra blinker forbi for besøkende som allerede er sluppet inn -->
   <script>
@@ -68,7 +56,7 @@
   </script>
 
   <!-- Tekstene JavaScript skriver ut (dør og skjult meny) – fra tekst/*.json -->
-  <script id="alibi-tekst" type="application/json">{"bakromAapnet":"You know the password. The hidden menu is yours.","feilPassord":"That wasn't it.","lydPaa":"Sound: on","lydAv":"Sound: off","bank1":"Once more.","bank2":"One more …","fantOss":"You found us.","somDuVil":"As you wish.","velkommenTilbake":"Welcome back."}</script>
+  <script id="alibi-tekst" type="application/json">{"bakromAapnet":"Du kan passordet. Den skjulte menyen er din.","feilPassord":"Det var ikke det.","lydPaa":"Lyd: på","lydAv":"Lyd: av","bank1":"En gang til.","bank2":"Én til …","fantOss":"Du fant oss.","somDuVil":"Som du vil.","velkommenTilbake":"Velkommen tilbake."}</script>
 
   <!-- PLACEHOLDER: adresse må bekreftes – se TODO P15. Gjelder «address» i
        JSON-LD-en under (JSON kan ikke bære kommentaren selv). Feil adresse her
@@ -80,9 +68,9 @@
     "@context": "https://schema.org",
     "@type": "BarOrPub",
     "name": "Alibi",
-    "url": "https://alibi-demo.vercel.app/",
-    "inLanguage": "en",
-    "description": "Speakeasy bar in the cellar beneath the restaurant Raus in Alta town centre, inspired by Prohibition-era America.",
+    "url": "https://alibi-demo.vercel.app/no/",
+    "inLanguage": "nb",
+    "description": "Speakeasy-bar i kjelleren under restaurant Raus i Alta sentrum, inspirert av forbudstidens USA.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Sentrumsparken 2",
@@ -93,18 +81,18 @@
     "containedInPlace": {
       "@type": "Hotel",
       "name": "Canyon Hotell",
-      "url": "https://canyonhotell.no/en"
+      "url": "https://canyonhotell.no/nb"
     },
     "parentOrganization": {
       "@type": "Organization",
       "name": "Æventyr",
-      "url": "https://aeventyr.no/en/"
+      "url": "https://aeventyr.no/nb/"
     },
     "servesCuisine": "Cocktails"
   }
   </script>
 
-  <script src="js/main.js" defer></script>
+  <script src="../js/main.js" defer></script>
 </head>
 <body>
 
@@ -159,7 +147,7 @@
   </symbol>
 </svg>
 
-<a class="skip-lenke" href="#hoved">Skip to content</a>
+<a class="skip-lenke" href="#hoved">Hopp til innholdet</a>
 
 <!-- ============================================================
      DØRA – inngangsscenen. Et overlay: alt innhold ligger bak i
@@ -169,7 +157,7 @@
   <div class="dor-vegg">
 
     <div class="dor-ramme">
-      <button type="button" id="dor-knapp" class="dor" aria-label="Knock on the door. Three knocks will let you in.">
+      <button type="button" id="dor-knapp" class="dor" aria-label="Bank på døra. Tre bank slipper deg inn.">
         <span class="dor-blad" aria-hidden="true">
           <!-- Dørluka med øyet bak -->
           <span class="luke">
@@ -196,7 +184,7 @@
         </span>
       </button>
 
-      <p class="dor-status" id="dor-status" role="status" aria-live="polite">Knock on the door.</p>
+      <p class="dor-status" id="dor-status" role="status" aria-live="polite">Bank på døra.</p>
 
       <div class="bank-spor" aria-hidden="true">
         <span class="bank-prikk"></span><span class="bank-prikk"></span><span class="bank-prikk"></span>
@@ -204,46 +192,46 @@
     </div>
 
     <div class="dor-valg">
-      <a class="dor-hopp" id="gaa-rett-inn" href="#velkommen">Walk straight in</a>
+      <a class="dor-hopp" id="gaa-rett-inn" href="#velkommen">Gå rett inn</a>
       <span class="dor-valg-skille" aria-hidden="true">·</span>
-      <button type="button" class="dor-passord-knapp" id="passord-vis" aria-expanded="false" aria-controls="passord-felt-wrap">Got a password?</button>
+      <button type="button" class="dor-passord-knapp" id="passord-vis" aria-expanded="false" aria-controls="passord-felt-wrap">Har du et passord?</button>
       <span class="dor-valg-skille" aria-hidden="true">·</span>
-      <button type="button" class="dor-lyd" id="lyd-knapp" aria-pressed="false">Sound: off</button>
+      <button type="button" class="dor-lyd" id="lyd-knapp" aria-pressed="false">Lyd: av</button>
       <span class="dor-valg-skille" aria-hidden="true">·</span>
       <!-- Diskret språkbytte før man går inn – samme lagring som språkvelgeren i topplinja -->
-      <a class="dor-hopp dor-sprak" href="/no/" hreflang="nb" lang="nb" data-sprak="nb">Norsk</a>
+      <a class="dor-hopp dor-sprak" href="/" hreflang="en" lang="en" data-sprak="en">English</a>
     </div>
 
     <!-- Easter egg: passordet «Æventyr» åpner døra umiddelbart -->
     <form class="passord-felt-wrap" id="passord-felt-wrap" hidden>
-      <label class="sr-only" for="passord-felt">Password</label>
-      <input type="password" id="passord-felt" class="passord-input" autocomplete="off" spellcheck="false" placeholder="Whisper it here …">
+      <label class="sr-only" for="passord-felt">Passord</label>
+      <input type="password" id="passord-felt" class="passord-input" autocomplete="off" spellcheck="false" placeholder="Hvisk det her …">
     </form>
   </div>
 </div>
 
 <header class="topplinje">
-  <nav aria-label="Main menu">
+  <nav aria-label="Hovedmeny">
     <a class="topplinje-merke" href="#velkommen"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-topp"><title id="ordmerke-topp">Alibi</title><use href="#alibi-ordmerke"/></svg></a>
     <ul class="topplinje-lenker">
-      <li><a href="#historien">The story</a></li>
-      <li><a href="#huset">The house</a></li>
-      <li><a href="#menyen">The menu</a></li>
-      <li><a href="#finn-oss">Find us</a></li>
-      <li><a href="#praktisk">Practical</a></li>
+      <li><a href="#historien">Historien</a></li>
+      <li><a href="#huset">Huset</a></li>
+      <li><a href="#menyen">Menyen</a></li>
+      <li><a href="#finn-oss">Finn oss</a></li>
+      <li><a href="#praktisk">Praktisk</a></li>
     </ul>
     <!-- Stedsbytteren: resten av huset, ett blikk unna – samme mønster som søstersidene -->
-    <ul class="topplinje-steder" aria-label="The rest of the house">
-      <li><a href="https://raussocial.no/en" rel="noopener" target="_blank">Raus<span class="sr-only"> (opens in a new tab)</span></a></li>
-      <li><a href="https://raussocial.no/en/takt" rel="noopener" target="_blank">Tåkt<span class="sr-only"> (opens in a new tab)</span></a></li>
+    <ul class="topplinje-steder" aria-label="Resten av huset">
+      <li><a href="https://raussocial.no/no" rel="noopener" target="_blank">Raus<span class="sr-only"> (åpnes i ny fane)</span></a></li>
+      <li><a href="https://raussocial.no/no/takt" rel="noopener" target="_blank">Tåkt<span class="sr-only"> (åpnes i ny fane)</span></a></li>
     </ul>
     <!-- Språkvelgeren: <details> så den virker uten JS. JS lukker på Esc og
          klikk utenfor, og lagrer valget («alibi-sprak» i localStorage). -->
     <details class="sprak">
-      <summary class="sprak-knapp"><span class="sr-only">Language: </span><svg class="sprak-flagg" aria-hidden="true" focusable="false"><use href="#flagg-gb"/></svg><span class="sprak-kode">EN</span><svg class="sprak-pil" viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="M1,1 L5,5 L9,1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <summary class="sprak-knapp"><span class="sr-only">Språk: </span><svg class="sprak-flagg" aria-hidden="true" focusable="false"><use href="#flagg-no"/></svg><span class="sprak-kode">NO</span><svg class="sprak-pil" viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="M1,1 L5,5 L9,1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <ul class="sprak-liste">
-        <li><a href="/" hreflang="en" lang="en" data-sprak="en" aria-current="page"><svg class="sprak-flagg" aria-hidden="true" focusable="false"><use href="#flagg-gb"/></svg>English</a></li>
-        <li><a href="/no/" hreflang="nb" lang="nb" data-sprak="nb"><svg class="sprak-flagg" aria-hidden="true" focusable="false"><use href="#flagg-no"/></svg>Norsk</a></li>
+        <li><a href="/" hreflang="en" lang="en" data-sprak="en"><svg class="sprak-flagg" aria-hidden="true" focusable="false"><use href="#flagg-gb"/></svg>English</a></li>
+        <li><a href="/no/" hreflang="nb" lang="nb" data-sprak="nb" aria-current="page"><svg class="sprak-flagg" aria-hidden="true" focusable="false"><use href="#flagg-no"/></svg>Norsk</a></li>
       </ul>
     </details>
   </nav>
@@ -253,14 +241,14 @@
 
   <!-- ============ VELKOMMEN ============ -->
   <section id="velkommen" class="seksjon seksjon-velkommen">
-    <p class="overtekst">Alta · the cellar · since tonight</p>
+    <p class="overtekst">Alta · kjelleren · siden i kveld</p>
     <h1 class="logotype" tabindex="-1"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-hero"><title id="ordmerke-hero">Alibi</title><use href="#alibi-ordmerke"/></svg></h1>
-    <p class="velkomst-linje">You found us. What you see here stays between us.</p>
+    <p class="velkomst-linje">Du fant oss. Det du ser her, blir mellom oss.</p>
 
     <!-- PLACEHOLDER: hero-video. Erstatt denne flaten med <video> når filen foreligger.
          Forventet fil: assets/hero.mp4 (se README for spesifikasjoner). -->
-    <div class="medie-slot medie-slot-hero" role="img" aria-label="Placeholder for a video from the bar">
-      <span class="medie-slot-tekst">Film to come</span>
+    <div class="medie-slot medie-slot-hero" role="img" aria-label="Plassholder for video fra lokalet">
+      <span class="medie-slot-tekst">Film kommer</span>
     </div>
   </section>
 
@@ -268,19 +256,19 @@
 
   <!-- ============ HISTORIEN ============ -->
   <section id="historien" class="seksjon">
-    <h2>The story</h2>
+    <h2>Historien</h2>
     <div class="to-spalter">
       <div class="prosa">
-        <p>In the twenties, in the country across the sea, they closed the bars and thought people would stop meeting. People did not stop meeting. They simply went down one flight of stairs, knocked three times and gave a name that was not their own. Down there, behind doors without signs, they sat closer, spoke lower and drank better than ever before.</p>
-        <p>Alibi is our flight of stairs. A bar in a cellar in Alta town centre, furnished for those who would rather have a good conversation than a good picture of it. The pace here is slow and the music slower: dimmed lights, wood that has been allowed to darken, and cocktails made as though someone might still knock on the door and ask what we are up to.</p>
-        <p>We are not going to shout about this place. We don't need to. The right people always find their way.</p>
+        <p>På tjuetallet, i landet over havet, stengte de barene og trodde folk ville slutte å møtes. Folk sluttet ikke å møtes. De gikk bare ned én trapp, banket tre ganger og oppga et navn som ikke var deres eget. Der nede, bak dører uten skilt, satt de tettere, snakket lavere og drakk bedre enn noen gang.</p>
+        <p>Alibi er vår trapp ned. En bar i en kjeller i Alta sentrum, innredet for dem som heller vil ha en god samtale enn et godt bilde av den. Her er tempoet lavt og musikken lavere: dimmet lys og tre som har fått lov til å mørkne, og cocktails laget som om noen fortsatt kunne finne på å banke på døra og spørre hva vi driver med.</p>
+        <p>Vi kommer ikke til å rope om dette stedet. Det trenger vi ikke. De rette folkene finner alltid frem.</p>
       </div>
       <!-- PLACEHOLDER: stemningsbilde (stock, Pexels), byttes med ekte foto av Alibi.
            Forventet fil: assets/interior-1.jpg (TODO P4). -->
       <figure class="medie-slot medie-slot-staaende medie-slot-foto">
         <picture>
-          <source type="image/webp" srcset="img/alibi-telefon-480.webp 480w, img/alibi-telefon-800.webp 800w" sizes="(max-width: 22rem) calc(100vw - 2.5rem), 19.2rem">
-          <img src="img/alibi-telefon-800.jpg" width="800" height="1000" alt="Old wall telephone with a rotary dial against patterned wallpaper" loading="lazy" decoding="async">
+          <source type="image/webp" srcset="../img/alibi-telefon-480.webp 480w, ../img/alibi-telefon-800.webp 800w" sizes="(max-width: 22rem) calc(100vw - 2.5rem), 19.2rem">
+          <img src="../img/alibi-telefon-800.jpg" width="800" height="1000" alt="Gammel veggtelefon med nummerskive mot mønstret tapet" loading="lazy" decoding="async">
         </picture>
       </figure>
     </div>
@@ -289,29 +277,29 @@
   <!-- ============ FOTOBÅND – pusterom mellom Historien og Huset (ingen overskrift, ikke i navigasjonen) ============ -->
   <!-- PLACEHOLDER: stemningsbilde (stock), byttes med ekte foto av Alibi -->
   <div class="fotoband">
-    <div class="fotoband-rull" tabindex="0" role="region" aria-label="Atmosphere photos">
+    <div class="fotoband-rull" tabindex="0" role="region" aria-label="Stemningsbilder">
       <ul class="fotoband-liste">
         <li>
           <figure class="medie-slot medie-slot-foto fotoband-bilde">
             <picture>
-              <source type="image/webp" srcset="img/alibi-dame-480.webp 480w, img/alibi-dame-640.webp 640w, img/alibi-dame-800.webp 800w" sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw">
-              <img src="img/alibi-dame-800.jpg" width="800" height="1000" alt="Woman in 1920s dress with a feather and headband" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="../img/alibi-dame-480.webp 480w, ../img/alibi-dame-640.webp 640w, ../img/alibi-dame-800.webp 800w" sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw">
+              <img src="../img/alibi-dame-800.jpg" width="800" height="1000" alt="Kvinne i 1920-tallsantrekk med fjær og pannebånd" loading="lazy" decoding="async">
             </picture>
           </figure>
         </li>
         <li>
           <figure class="medie-slot medie-slot-foto fotoband-bilde">
             <picture>
-              <source type="image/webp" srcset="img/alibi-par-dans-480.webp 480w, img/alibi-par-dans-640.webp 640w, img/alibi-par-dans-800.webp 800w" sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw">
-              <img src="img/alibi-par-dans-800.jpg" width="800" height="1000" alt="A couple in 1920s clothes, dancing" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="../img/alibi-par-dans-480.webp 480w, ../img/alibi-par-dans-640.webp 640w, ../img/alibi-par-dans-800.webp 800w" sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw">
+              <img src="../img/alibi-par-dans-800.jpg" width="800" height="1000" alt="Et par i 1920-tallsklær som danser" loading="lazy" decoding="async">
             </picture>
           </figure>
         </li>
         <li>
           <figure class="medie-slot medie-slot-foto fotoband-bilde">
             <picture>
-              <source type="image/webp" srcset="img/alibi-ford-480.webp 480w, img/alibi-ford-640.webp 640w, img/alibi-ford-800.webp 800w" sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw">
-              <img src="img/alibi-ford-800.jpg" width="800" height="1000" alt="A 1920s vintage car seen from the front" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="../img/alibi-ford-480.webp 480w, ../img/alibi-ford-640.webp 640w, ../img/alibi-ford-800.webp 800w" sizes="(min-width: 62.5rem) 18rem, (min-width: 46rem) calc((92vw - 3rem) / 3), 75vw">
+              <img src="../img/alibi-ford-800.jpg" width="800" height="1000" alt="Veteranbil fra 1920-tallet sett forfra" loading="lazy" decoding="async">
             </picture>
           </figure>
         </li>
@@ -323,33 +311,33 @@
 
   <!-- ============ HUSET – familien: Raus, Tåkt og oss ============ -->
   <section id="huset" class="seksjon">
-    <h2>The house</h2>
-    <p class="huset-motto">Eat upstairs. Nightclub next door. Talk here.</p>
-    <p class="seksjon-ingress">One house, three places: Raus at street level, Tåkt and Alibi side by side in the cellar below. Our neighbours are a step away – the rest of the evening takes care of itself.</p>
+    <h2>Huset</h2>
+    <p class="huset-motto">Spis oppe. Nattklubb ved siden av. Snakk her.</p>
+    <p class="seksjon-ingress">Ett hus, tre steder: Raus på gateplan, Tåkt og Alibi vegg i vegg i kjelleren under. Naboene våre er et trappetrinn unna – resten av kvelden ordner seg selv.</p>
 
     <ul class="meny-liste hus-liste">
       <li class="meny-kort hus-kort">
         <div class="meny-kort-indre">
           <!-- PLACEHOLDER: foto av Raus (fasade eller lokale). Forventet fil: assets/raus.jpg – se TODO P16. Ikke hotlink fra aeventyr-CDN. -->
-          <div class="medie-slot medie-slot-hus" role="img" aria-label="Placeholder for a photo of Raus">
-            <span class="medie-slot-tekst">Photo to come</span>
+          <div class="medie-slot medie-slot-hus" role="img" aria-label="Plassholder for foto av Raus">
+            <span class="medie-slot-tekst">Foto kommer</span>
           </div>
           <h3>Raus</h3>
-          <p>Arctic tapas at street level. It's the house you see from the street.</p>
-          <p class="hus-fakta">Wed–Thu 15–22 · Fri–Sat 15–23</p>
-          <p class="hus-handling"><a class="tekstlenke" href="https://raussocial.no/en" rel="noopener" target="_blank">Visit Raus<span class="sr-only"> (opens in a new tab)</span></a></p>
+          <p>Arktisk tapas på gateplan. Det er huset du ser fra gata.</p>
+          <p class="hus-fakta">Ons–tor 15–22 · fre–lør 15–23</p>
+          <p class="hus-handling"><a class="tekstlenke" href="https://raussocial.no/no" rel="noopener" target="_blank">Besøk Raus<span class="sr-only"> (åpnes i ny fane)</span></a></p>
         </div>
       </li>
       <li class="meny-kort hus-kort">
         <div class="meny-kort-indre">
           <!-- PLACEHOLDER: foto av Tåkt (dansegulv eller inngang). Forventet fil: assets/taakt.jpg – se TODO P16. Ikke hotlink fra aeventyr-CDN. -->
-          <div class="medie-slot medie-slot-hus" role="img" aria-label="Placeholder for a photo of Tåkt">
-            <span class="medie-slot-tekst">Photo to come</span>
+          <div class="medie-slot medie-slot-hus" role="img" aria-label="Plassholder for foto av Tåkt">
+            <span class="medie-slot-tekst">Foto kommer</span>
           </div>
           <h3>Tåkt</h3>
-          <p>Nightclub in the cellar, right next door to us. They take care of the dancing.</p>
-          <p class="hus-fakta">Fri–Sat 22–03</p>
-          <p class="hus-handling"><a class="tekstlenke" href="https://raussocial.no/en/takt" rel="noopener" target="_blank">Visit Tåkt<span class="sr-only"> (opens in a new tab)</span></a></p>
+          <p>Nattklubb i kjelleren, vegg i vegg med oss. De tar seg av dansingen.</p>
+          <p class="hus-fakta">Fre–lør 22–03</p>
+          <p class="hus-handling"><a class="tekstlenke" href="https://raussocial.no/no/takt" rel="noopener" target="_blank">Besøk Tåkt<span class="sr-only"> (åpnes i ny fane)</span></a></p>
         </div>
       </li>
       <li class="meny-kort hus-kort hus-kort-her">
@@ -357,14 +345,14 @@
           <!-- PLACEHOLDER: stemningsbilde (stock, Pexels), byttes med ekte foto av Alibi (TODO P16). -->
           <figure class="medie-slot medie-slot-hus medie-slot-foto">
             <picture>
-              <source type="image/webp" srcset="img/alibi-lampe-480.webp 480w, img/alibi-lampe-800.webp 800w" sizes="(min-width: 46rem) 15rem, calc(100vw - 5.7rem)">
-              <img src="img/alibi-lampe-800.jpg" width="800" height="533" alt="Fringed table lamp lighting a corner with a brick wall and a leather sofa" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="../img/alibi-lampe-480.webp 480w, ../img/alibi-lampe-800.webp 800w" sizes="(min-width: 46rem) 15rem, calc(100vw - 5.7rem)">
+              <img src="../img/alibi-lampe-800.jpg" width="800" height="533" alt="Bordlampe med frynser som lyser opp et hjørne med murvegg og skinnsofa" loading="lazy" decoding="async">
             </picture>
           </figure>
           <h3>Alibi</h3>
-          <p>Bar in the same cellar. Slow pace, slower music, good conversation.</p>
-          <p class="hus-fakta">Opening hours to come</p>
-          <p class="hus-handling"><span class="hus-her" aria-current="page">You are here.</span></p>
+          <p>Bar i samme kjeller. Lavt tempo, lavere musikk, god samtale.</p>
+          <p class="hus-fakta">Åpningstider kommer</p>
+          <p class="hus-handling"><span class="hus-her" aria-current="page">Du er her.</span></p>
         </div>
       </li>
     </ul>
@@ -374,110 +362,110 @@
 
   <!-- ============ MENYEN – kortene genereres fra tekst/meny.json ============ -->
   <section id="menyen" class="seksjon">
-    <h2>The menu</h2>
-    <p class="seksjon-ingress">Our own handwriting. Some of these we made up ourselves.</p>
+    <h2>Menyen</h2>
+    <p class="seksjon-ingress">Vår egen håndskrift. Noen av dem har vi funnet på selv.</p>
 
     <!-- PLACEHOLDER: prisene er midlertidig satt til 159 på alle kort i tekst/meny.json – byttes med reelle priser når de leveres (TODO P5) -->
     <ul class="meny-liste">
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Æventonic</h3><span class="meny-pris">NOK 159</span></div>
+          <div class="meny-kort-topp"><h3>Æventonic</h3><span class="meny-pris">kr 159</span></div>
           <div class="meny-glass">
             <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-vin"/></svg>
             <span class="meny-glass-tekst">30 cl</span>
           </div>
-          <p class="meny-ingredienser">Gin Mare · Fever-Tree Mediterranean Tonic · rosemary</p>
-          <p>The house's own. Mediterranean gin, tonic with herbs, and a sprig of rosemary that smells of somewhere warmer.</p>
+          <p class="meny-ingredienser">Gin Mare · Fever-Tree Mediterranean Tonic · rosmarin</p>
+          <p>Husets egen. Middelhavsgin, tonic med urter, og en rosmarinkvist som lukter av et varmere sted.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Aurora Fizz</h3><span class="meny-pris">NOK 159</span></div>
+          <div class="meny-kort-topp"><h3>Aurora Fizz</h3><span class="meny-pris">kr 159</span></div>
           <div class="meny-glass">
             <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-highball"/></svg>
             <span class="meny-glass-tekst">25 cl</span>
           </div>
-          <p class="meny-ingredienser">Gin · blue curaçao · lemon · sugar syrup · soda · lemon peel</p>
-          <p>Northern lights in the cellar. It glows blue without shouting about it.</p>
+          <p class="meny-ingredienser">Gin · blå curaçao · sitron · sukkerlake · soda · sitronskall</p>
+          <p>Nordlys i kjelleren. Den lyser blått uten å rope om det.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Basil Smash</h3><span class="meny-pris">NOK 159</span></div>
+          <div class="meny-kort-topp"><h3>Basil Smash</h3><span class="meny-pris">kr 159</span></div>
           <div class="meny-glass">
             <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-rocks"/></svg>
             <span class="meny-glass-tekst">15 cl</span>
           </div>
-          <p class="meny-ingredienser">Gin · lemon · sugar syrup · fresh basil</p>
-          <p>Basil crushed in the bottom, gin on top. Green, fresh and a little rude.</p>
+          <p class="meny-ingredienser">Gin · sitron · sukkerlake · fersk basilikum</p>
+          <p>Basilikum knust i bunnen, gin over. Grønn, frisk og litt uhøflig.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Manito</h3><span class="meny-pris">NOK 159</span></div>
+          <div class="meny-kort-topp"><h3>Manito</h3><span class="meny-pris">kr 159</span></div>
           <div class="meny-glass">
             <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-highball"/></svg>
             <span class="meny-glass-tekst">25 cl</span>
           </div>
-          <p class="meny-ingredienser">White rum · Mannsverk strawberry · mint · lime · sugar syrup · soda · strawberry</p>
-          <p>The mojito's strawberry-loving relative. The mint is picked in here.</p>
+          <p class="meny-ingredienser">Hvit rom · Mannsverk jordbær · mynte · lime · sukkerlake · soda · jordbær</p>
+          <p>Mojitoens jordbærglade slektning. Mynten er plukket her inne.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Mezcalita</h3><span class="meny-pris">NOK 159</span></div>
+          <div class="meny-kort-topp"><h3>Mezcalita</h3><span class="meny-pris">kr 159</span></div>
           <div class="meny-glass">
             <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-margarita"/></svg>
             <span class="meny-glass-tekst">15 cl</span>
           </div>
-          <p class="meny-ingredienser">Mezcal · triple sec · lime · sugar syrup · salt · flamed lime</p>
-          <p>A margarita with smoke in it. The lime wedge stopped by the flame on the way.</p>
+          <p class="meny-ingredienser">Mezcal · triple sec · lime · sukkerlake · salt · flambert lime</p>
+          <p>Margarita med røyk i. Limebåten har vært innom flammen på veien.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Maltfassioned</h3><span class="meny-pris">NOK 159</span></div>
+          <div class="meny-kort-topp"><h3>Maltfassioned</h3><span class="meny-pris">kr 159</span></div>
           <div class="meny-glass">
             <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-rocks"/></svg>
             <span class="meny-glass-tekst">10 cl</span>
           </div>
-          <p class="meny-ingredienser">Single malt · Angostura · sugar cube · orange</p>
-          <p>An Old Fashioned that took a wrong turn and ended up in Scotland.</p>
+          <p class="meny-ingredienser">Single malt · Angostura · sukkerbit · appelsin</p>
+          <p>En Old Fashioned som tok feil avkjøring og havnet i Skottland.</p>
         </div>
       </li>
       <li class="meny-kort">
         <div class="meny-kort-indre">
-          <div class="meny-kort-topp"><h3>Canyon Tea</h3><span class="meny-pris">NOK 159</span></div>
+          <div class="meny-kort-topp"><h3>Canyon Tea</h3><span class="meny-pris">kr 159</span></div>
           <div class="meny-glass">
             <svg class="glass-ikon" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#glass-highball"/></svg>
             <span class="meny-glass-tekst">25 cl</span>
           </div>
-          <p class="meny-ingredienser">Vodka · triple sec · gin · white rum · mezcal · lemon · sugar syrup · Coca-Cola · orange</p>
-          <p>Five bottles and a cola. We'll say no more.</p>
+          <p class="meny-ingredienser">Vodka · triple sec · gin · hvit rom · mezcal · sitron · sukkerlake · Coca-Cola · appelsin</p>
+          <p>Fem flasker og en cola. Vi sier ikke mer.</p>
         </div>
       </li>
     </ul>
-    <p class="meny-fotnote">There is an alcohol-free version of everything. Ask whoever is behind the bar.</p>
+    <p class="meny-fotnote">Alkoholfritt alternativ finnes til alt. Spør den bak disken.</p>
     <!-- Allergilinja er formulert generelt med vilje: den dekker Adventure i
          Bakrommet uten å røpe hva som ligger der. Skal stå synlig uten opplåsing. -->
-    <p class="meny-fotnote">Some of our drinks contain raw egg white. Tell us about any allergies and we will find you something else.</p>
-    <p class="meny-fotnote">We grow the mint, basil and rosemary ourselves.</p>
+    <p class="meny-fotnote">Enkelte av drinkene våre inneholder rå eggehvite. Si fra om allergier, så finner vi noe annet til deg.</p>
+    <p class="meny-fotnote">Mynte, basilikum og rosmarin dyrker vi selv.</p>
 
     <!-- ============ BAKROMMET (på siden: «den skjulte menyen») – skjult til passordet er gitt ============ -->
     <div class="bakrom-inngang">
-      <p class="bakrom-linje" id="bakrom-linje">We have a
-        <button type="button" id="bakrom-utloser" class="bakrom-utloser" aria-expanded="false" aria-controls="bakrom-laas">hidden menu<svg class="nokkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M11.2 12H20M16.8 12v3M20 12v2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>.
-        Those who know the password know what to do.</p>
+      <p class="bakrom-linje" id="bakrom-linje">Vi har en
+        <button type="button" id="bakrom-utloser" class="bakrom-utloser" aria-expanded="false" aria-controls="bakrom-laas">skjult meny<svg class="nokkel" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M11.2 12H20M16.8 12v3M20 12v2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>.
+        De som kan passordet, vet hva de skal gjøre.</p>
       <form id="bakrom-laas" class="bakrom-laas" hidden>
-        <label class="sr-only" for="bakrom-felt">Password for the hidden menu</label>
-        <input type="password" id="bakrom-felt" class="passord-input" autocomplete="off" spellcheck="false" placeholder="Whisper it here too …">
+        <label class="sr-only" for="bakrom-felt">Passord til den skjulte menyen</label>
+        <input type="password" id="bakrom-felt" class="passord-input" autocomplete="off" spellcheck="false" placeholder="Hvisk det her òg …">
       </form>
       <p class="bakrom-status" id="bakrom-status" role="status" aria-live="polite"></p>
     </div>
 
     <div id="bakrommet" class="bakrom" hidden>
-      <h3 class="bakrom-tittel" tabindex="-1">The hidden menu</h3>
-      <p class="seksjon-ingress">Two more, for those who asked nicely. These are not on the menu, because this is not the menu.</p>
+      <h3 class="bakrom-tittel" tabindex="-1">Den skjulte menyen</h3>
+      <p class="seksjon-ingress">To til, for deg som spurte pent. Dette står ikke på menyen, for dette er ikke menyen.</p>
       <!-- PLACEHOLDER: prisene er midlertidig satt til 159 på alle kort i tekst/meny.json – byttes med reelle priser når de leveres (TODO P5) -->
       <!-- PLACEHOLDER: glass og mengde mangler for Bakroms-drinkene – ikke oppgitt
            av eierne, derfor ingen glasstegning eller cl-linje her ennå (TODO P18).
@@ -485,16 +473,16 @@
       <ul class="meny-liste bakrom-liste">
         <li class="meny-kort meny-kort-invers">
           <div class="meny-kort-indre">
-            <div class="meny-kort-topp"><h4>Mandaquiri</h4><span class="meny-pris">NOK 159</span></div>
-            <p class="meny-ingredienser">White rum · Mannsverk strawberry · lime</p>
-            <p>A daiquiri, but red. Short, cold and straight to the point.</p>
+            <div class="meny-kort-topp"><h4>Mandaquiri</h4><span class="meny-pris">kr 159</span></div>
+            <p class="meny-ingredienser">Hvit rom · Mannsverk jordbær · lime</p>
+            <p>Daiquiri, men rød. Kort, kald og rett på sak.</p>
           </div>
         </li>
         <li class="meny-kort meny-kort-invers">
           <div class="meny-kort-indre">
-            <div class="meny-kort-topp"><h4>Adventure</h4><span class="meny-pris">NOK 159</span></div>
-            <p class="meny-ingredienser">Gin · triple sec · lime · egg white</p>
-            <p>Shaken until the foam settles like a lid. Looks innocent.</p>
+            <div class="meny-kort-topp"><h4>Adventure</h4><span class="meny-pris">kr 159</span></div>
+            <p class="meny-ingredienser">Gin · triple sec · lime · eggehvite</p>
+            <p>Ristet til skummet legger seg som et lokk. Ser uskyldig ut.</p>
           </div>
         </li>
       </ul>
@@ -505,21 +493,21 @@
 
   <!-- ============ FINN OSS ============ -->
   <section id="finn-oss" class="seksjon">
-    <h2>Find us</h2>
+    <h2>Finn oss</h2>
     <div class="to-spalter">
       <div class="prosa">
         <!-- PLACEHOLDER: adresse må bekreftes – se TODO P15 (Raus/Tåkt oppgir Markedsgata 6) -->
-        <p class="adresse-linje">Sentrumsparken 2, 9510 Alta.<br>The cellar. A door without a sign – almost.</p>
-        <p>Look for the restaurant <a class="soster-lenke" href="https://raussocial.no/en" rel="noopener" target="_blank">Raus<span class="sr-only"> (opens in a new tab)</span></a> – you can see it from the street. Beneath it lies the cellar: if you can hear the bass, you are standing at <a class="soster-lenke" href="https://raussocial.no/en/takt" rel="noopener" target="_blank">Tåkt<span class="sr-only"> (opens in a new tab)</span></a>. Our door is the quiet one.</p>
-        <p>You will find us in the same building as <a class="soster-lenke" href="https://canyonhotell.no/en" rel="noopener" target="_blank">Canyon Hotell<span class="sr-only"> (opens in a new tab)</span></a>.</p>
-        <p><a class="tekstlenke" href="https://maps.google.com/?q=Sentrumsparken+2,+9510+Alta" rel="noopener" target="_blank">Directions in Google Maps<span class="sr-only"> (opens in a new tab)</span></a></p>
+        <p class="adresse-linje">Sentrumsparken 2, 9510 Alta.<br>Kjelleren. Dør uten skilt – nesten.</p>
+        <p>Se etter restaurant <a class="soster-lenke" href="https://raussocial.no/no" rel="noopener" target="_blank">Raus<span class="sr-only"> (åpnes i ny fane)</span></a> – den ser du fra gata. Under den ligger kjelleren: hører du bassen, står du ved <a class="soster-lenke" href="https://raussocial.no/no/takt" rel="noopener" target="_blank">Tåkt<span class="sr-only"> (åpnes i ny fane)</span></a>. Vår dør er den rolige.</p>
+        <p>Du finner oss i samme bygg som <a class="soster-lenke" href="https://canyonhotell.no/nb" rel="noopener" target="_blank">Canyon Hotell<span class="sr-only"> (åpnes i ny fane)</span></a>.</p>
+        <p><a class="tekstlenke" href="https://maps.google.com/?q=Sentrumsparken+2,+9510+Alta" rel="noopener" target="_blank">Vis vei i Google Maps<span class="sr-only"> (åpnes i ny fane)</span></a></p>
       </div>
       <!-- PLACEHOLDER: stemningsbilde (stock, Pexels), byttes med ekte foto av inngangen.
            Forventet fil: assets/inngang.jpg (TODO P7). -->
       <figure class="medie-slot medie-slot-staaende medie-slot-foto">
         <picture>
-          <source type="image/webp" srcset="img/alibi-bardisk-480.webp 480w, img/alibi-bardisk-800.webp 800w" sizes="(max-width: 22rem) calc(100vw - 2.5rem), 19.2rem">
-          <img src="img/alibi-bardisk-800.jpg" width="800" height="1000" alt="Bar counter in dark wood with a newspaper, a few banknotes and a hat" loading="lazy" decoding="async">
+          <source type="image/webp" srcset="../img/alibi-bardisk-480.webp 480w, ../img/alibi-bardisk-800.webp 800w" sizes="(max-width: 22rem) calc(100vw - 2.5rem), 19.2rem">
+          <img src="../img/alibi-bardisk-800.jpg" width="800" height="1000" alt="Bardisk i mørkt tre med en avis, noen sedler og en hatt" loading="lazy" decoding="async">
         </picture>
       </figure>
     </div>
@@ -529,38 +517,38 @@
 
   <!-- ============ PRAKTISK ============ -->
   <section id="praktisk" class="seksjon">
-    <h2>Practical</h2>
+    <h2>Praktisk</h2>
     <!-- Fast rekkefølge etter husets mønster (Raus/Tåkt):
          Beliggenhet, Åpningstider, Aldersgrense, Kontakt, Sosiale medier -->
     <dl class="praktisk-liste">
       <div class="praktisk-rad">
-        <dt>Location</dt>
+        <dt>Beliggenhet</dt>
         <!-- PLACEHOLDER: adresse må bekreftes – se TODO P15 -->
-        <dd>Sentrumsparken 2, 9510 Alta. The cellar – the way in is described under ‘Find us’.</dd>
+        <dd>Sentrumsparken 2, 9510 Alta. Kjelleren – veien inn står under «Finn oss».</dd>
       </div>
       <div class="praktisk-rad">
-        <dt>Opening hours</dt>
+        <dt>Åpningstider</dt>
         <!-- PLACEHOLDER: erstattes med reelle åpningstider -->
-        <dd>To come. Cellars keep their own hours.</dd>
+        <dd>Kommer. Kjellere har sin egen døgnrytme.</dd>
       </div>
       <div class="praktisk-rad">
-        <dt>Age limit</dt>
+        <dt>Aldersgrense</dt>
         <!-- PLACEHOLDER: erstattes med reell aldersgrense -->
-        <dd>To come. Bring ID regardless.</dd>
+        <dd>Kommer. Ta med legitimasjon uansett.</dd>
       </div>
       <div class="praktisk-rad">
-        <dt>Contact</dt>
+        <dt>Kontakt</dt>
         <!-- PLACEHOLDER: erstattes med e-post/telefon -->
-        <dd>To come. Until then: knock.</dd>
+        <dd>Kommer. Inntil da: bank på.</dd>
       </div>
       <div class="praktisk-rad">
-        <dt>Social media</dt>
+        <dt>Sosiale medier</dt>
         <dd>
           <!-- PLACEHOLDER: sosiale medier. Bytt <span> til <a href="…"> når kontoene er klare. -->
-          <span class="some-ikon" aria-label="Instagram (coming)">
+          <span class="some-ikon" aria-label="Instagram (kommer)">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg>
           </span>
-          <span class="some-ikon" aria-label="Facebook (coming)">
+          <span class="some-ikon" aria-label="Facebook (kommer)">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.5 21v-7h2.6l.4-3h-3V9.1c0-.9.3-1.5 1.6-1.5H16.7V4.9c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V11H8v3h2.5v7z" fill="currentColor"/></svg>
           </span>
         </dd>
@@ -572,47 +560,47 @@
 
 <footer class="bunn">
   <div class="bunn-spalter">
-    <nav class="bunn-spalte" aria-label="Contents of this page">
+    <nav class="bunn-spalte" aria-label="Innholdet på siden">
       <h2 class="bunn-tittel">Alibi</h2>
       <ul>
-        <li><a href="#historien">The story</a></li>
-        <li><a href="#huset">The house</a></li>
-        <li><a href="#menyen">The menu</a></li>
-        <li><a href="#finn-oss">Find us</a></li>
-        <li><a href="#praktisk">Practical</a></li>
+        <li><a href="#historien">Historien</a></li>
+        <li><a href="#huset">Huset</a></li>
+        <li><a href="#menyen">Menyen</a></li>
+        <li><a href="#finn-oss">Finn oss</a></li>
+        <li><a href="#praktisk">Praktisk</a></li>
       </ul>
     </nav>
     <div class="bunn-spalte">
-      <h2 class="bunn-tittel">Follow us</h2>
+      <h2 class="bunn-tittel">Følg oss</h2>
       <!-- PLACEHOLDER: Alibis egne SoMe-kontoer (se TODO P17). Bytt <span> til <a>
            når de finnes – ikke lenk til Raus' eller Tåkts kontoer som om de var våre. -->
       <ul>
-        <li><span class="bunn-kommer">Instagram – coming</span></li>
-        <li><span class="bunn-kommer">Facebook – coming</span></li>
+        <li><span class="bunn-kommer">Instagram – kommer</span></li>
+        <li><span class="bunn-kommer">Facebook – kommer</span></li>
       </ul>
     </div>
   </div>
   <!-- Søsterstedene som logoer, i stedenes egen gull (#ca9e67) – ikke Alibis
        messing (beslutning #13/#24). <img>, ikke inline: det er andres merker. -->
-  <nav class="bunn-familie" aria-label="The sister venues in Æventyr">
-    <h2 class="bunn-tittel">The family</h2>
+  <nav class="bunn-familie" aria-label="Søsterstedene i Æventyr">
+    <h2 class="bunn-tittel">Familien</h2>
     <ul class="bunn-logoer">
-      <li><a href="https://aeventyr.no/en/" rel="noopener" target="_blank"><img class="logo-aeventyr" src="img/logo/aeventyr.svg" alt="Æventyr" width="377" height="189" loading="lazy" decoding="async"><span class="sr-only"> (opens in a new tab)</span></a></li>
-      <li><a href="https://raussocial.no/en" rel="noopener" target="_blank"><img class="logo-raus" src="img/logo/raus.svg" alt="Raus Social" width="434" height="382" loading="lazy" decoding="async"><span class="sr-only"> (opens in a new tab)</span></a></li>
-      <li><a href="https://raussocial.no/en/takt" rel="noopener" target="_blank"><img class="logo-taakt" src="img/logo/taakt-1x.webp" srcset="img/logo/taakt-1x.webp 1x, img/logo/taakt-2x.webp 2x" alt="Tåkt" width="53" height="48" loading="lazy" decoding="async"><span class="sr-only"> (opens in a new tab)</span></a></li>
-      <li><a href="https://canyonhotell.no/en" rel="noopener" target="_blank"><img class="logo-canyon" src="img/logo/canyon.svg" alt="Canyon Hotell" width="330" height="189" loading="lazy" decoding="async"><span class="sr-only"> (opens in a new tab)</span></a></li>
-      <li><a href="https://gargialodge.no/en/winter" rel="noopener" target="_blank"><img class="logo-gargia" src="img/logo/gargia.svg" alt="Gargia Lodge" width="670" height="432" loading="lazy" decoding="async"><span class="sr-only"> (opens in a new tab)</span></a></li>
+      <li><a href="https://aeventyr.no/nb/" rel="noopener" target="_blank"><img class="logo-aeventyr" src="../img/logo/aeventyr.svg" alt="Æventyr" width="377" height="189" loading="lazy" decoding="async"><span class="sr-only"> (åpnes i ny fane)</span></a></li>
+      <li><a href="https://raussocial.no/no" rel="noopener" target="_blank"><img class="logo-raus" src="../img/logo/raus.svg" alt="Raus Social" width="434" height="382" loading="lazy" decoding="async"><span class="sr-only"> (åpnes i ny fane)</span></a></li>
+      <li><a href="https://raussocial.no/no/takt" rel="noopener" target="_blank"><img class="logo-taakt" src="../img/logo/taakt-1x.webp" srcset="../img/logo/taakt-1x.webp 1x, ../img/logo/taakt-2x.webp 2x" alt="Tåkt" width="53" height="48" loading="lazy" decoding="async"><span class="sr-only"> (åpnes i ny fane)</span></a></li>
+      <li><a href="https://canyonhotell.no/nb" rel="noopener" target="_blank"><img class="logo-canyon" src="../img/logo/canyon.svg" alt="Canyon Hotell" width="330" height="189" loading="lazy" decoding="async"><span class="sr-only"> (åpnes i ny fane)</span></a></li>
+      <li><a href="https://gargialodge.no/nb/winter" rel="noopener" target="_blank"><img class="logo-gargia" src="../img/logo/gargia.svg" alt="Gargia Lodge" width="670" height="432" loading="lazy" decoding="async"><span class="sr-only"> (åpnes i ny fane)</span></a></li>
     </ul>
   </nav>
   <div class="bunn-linje">
-    <p class="bunn-merke"><a class="bunn-alibi" href="#velkommen"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-bunn"><title id="ordmerke-bunn">Alibi</title><use href="#alibi-ordmerke"/></svg><span class="sr-only"> – to the top</span></a></p>
+    <p class="bunn-merke"><a class="bunn-alibi" href="#velkommen"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-bunn"><title id="ordmerke-bunn">Alibi</title><use href="#alibi-ordmerke"/></svg><span class="sr-only"> – til toppen</span></a></p>
     <p class="bunn-jus">
-      <a class="tekstlenke" href="https://raussocial.no/en/terms" rel="noopener" target="_blank">Terms<span class="sr-only"> (opens in a new tab)</span></a>
+      <a class="tekstlenke" href="https://raussocial.no/no/terms" rel="noopener" target="_blank">Vilkår<span class="sr-only"> (åpnes i ny fane)</span></a>
       <span aria-hidden="true">·</span>
-      <a class="tekstlenke" href="https://raussocial.no/en/privacy" rel="noopener" target="_blank">Privacy<span class="sr-only"> (opens in a new tab)</span></a>
+      <a class="tekstlenke" href="https://raussocial.no/no/privacy" rel="noopener" target="_blank">Personvern<span class="sr-only"> (åpnes i ny fane)</span></a>
     </p>
   </div>
-  <p class="bunn-c">© 2026 Alibi – part of Æventyr.</p>
+  <p class="bunn-c">© 2026 Alibi – en del av Æventyr.</p>
 </footer>
 
 </body>
