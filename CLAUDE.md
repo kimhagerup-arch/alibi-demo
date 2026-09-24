@@ -38,6 +38,8 @@ ingen gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg.
 - **Vercel er ikke koblet til GitHub** (per runde 15) – deployene gjøres fra
   CLI. Forhåndsvisning av `dev`: `vercel` (uten `--prod`) fra `dev`-treet, som
   gir aliaset `alibi-demo-git-dev-kimhagerups-projects.vercel.app`.
+  Previews er beskyttet med Vercel Authentication (302 til innlogging) –
+  Kim ser dem innlogget; automatiske tester kjøres derfor mot lokal server.
   **`vercel --prod` kjøres aldri fra `dev`** – det ville overskrevet kundens
   lenke. Produksjon deployes fra `main`, kun på Kims beskjed.
 

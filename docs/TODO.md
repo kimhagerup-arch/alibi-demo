@@ -63,6 +63,9 @@ Sist verifisert mot koden: 2026-09-24, runde 15 (21 `PLACEHOLDER`-merker i
   forhåndsvisning, og «Production Branch» kan ikke bekreftes. Kim bør koble
   repoet i Vercel (Settings → Git, produksjonsgren `main`) – da får hver gren
   sin preview automatisk. Inntil da: `vercel` (uten `--prod`) fra `dev`.
+  Previews er beskyttet med Vercel Authentication (Settings → Deployment
+  Protection) – de kan bare åpnes innlogget i Vercel. Skal kunden se en
+  preview, må beskyttelsen skrus av eller en delingslenke lages der.
 - **Engelske søsterlenker:** ingen mangler – raussocial.no/en (+ /en/takt,
   /en/terms, /en/privacy), canyonhotell.no/en og gargialodge.no/en/winter
   svarer alle 200 (2026-09-24). Sjekk sesongsidene (gargia/aeventyr `/en/winter`)

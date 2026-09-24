@@ -99,7 +99,13 @@ datoene for runde 1–2 er antatt.
 - Skjermbilder (begge språk, 1440 og 375: dør, topp lukket/åpen, meny,
   footer, hele siden, samt 404) i `..\alibi-skjermbilder\runde-15\`.
 - `alibi-demo.vercel.app` (main) er uendret: index.html, style.css, main.js
-  og 404.html lastet ned før og etter runden er identiske med `main`.
+  og 404.html lastet ned før og etter runden er identiske med `main`;
+  `/no/` gir 404 der, som før.
+- Forhåndsvisning av `dev` deployet med `vercel` (preview):
+  `alibi-demo-eprnl7vq6-kimhagerups-projects.vercel.app`, alias
+  `alibi-demo-git-dev-kimhagerups-projects.vercel.app`. Begge svarer 302 til
+  Vercel-innlogging (Deployment Protection) – testene over er derfor kjørt
+  mot lokal server med samme filer.
 
 ## Runde 14 – 2026-09-24 – Strammere ford-utsnitt, lettere ford-filer, bildekilder
 

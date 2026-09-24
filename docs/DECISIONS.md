@@ -520,7 +520,8 @@ usikre rekonstruksjoner er merket «(antatt)».
   `dev` gir derfor ingen automatisk forhåndsvisning. Forhåndsvisning av
   `dev` lages med `vercel` (uten `--prod`) fra `dev`-arbeidstreet – det gir
   en preview-URL og aliaset `alibi-demo-git-dev-kimhagerups-projects.vercel.app`,
-  og rører ikke produksjon. `vercel --prod` kjøres aldri fra `dev`.
+  og rører ikke produksjon. Previews er beskyttet med Vercel Authentication
+  (kun innlogget). `vercel --prod` kjøres aldri fra `dev`.
 - **Alternativer vurdert:** Feature-grener per runde (unødig for én
   utvikler + én AI; `dev` er nok). Koble Vercel til GitHub med `main` som
   produksjonsgren (anbefalt på sikt – gir automatisk preview per gren;
