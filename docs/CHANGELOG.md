@@ -5,7 +5,57 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
-## Runde 17b – 2026-09-24 – Fade i loopen, ny måling (på `dev`, ikke slått sammen – målingen ble ugyldig)
+## Runde 17c – 2026-09-24 – Slått sammen til `main` (tag `runde-17`), målt med PageSpeed Insights
+
+### Endret
+- **Runde 17 og 17b er slått sammen til `main`** (`aa87e81`, `--no-ff`,
+  tag `runde-17`), Vercel deployet produksjonen automatisk, og `dev` er
+  fast-forwardet til samme commit. Hero-filmen (vannmerket eksempel) er
+  dermed synlig for kunden på `alibi-demo.vercel.app`.
+- **Ny måleregel (beslutning #35):** det absolutte ytelseskravet måles med
+  PageSpeed Insights mot den deployede siden; lokal Lighthouse brukes bare
+  til å sammenligne `main` og `dev` under like forhold. CLAUDE.md
+  («Ytelse») og README («Design-referanse») oppdatert.
+
+### Verifisert (mot produksjonen `alibi-demo.vercel.app`)
+- `python tools/bygg-sider.py --sjekk` i synk før sammenslåingen.
+- **Testsettet fra runde 16: 47/47 OK** (Chromium): engelsk på `/`
+  (`lang="en"`), norsk på `/no/` (`lang="nb"`), språkvelger med tastatur/Esc/
+  klikk utenfor, husket språkvalg (`alibi-sprak`), døra og dørlenka, skjult
+  meny med `æventyr`/`aeventyr`/`AEVENTYR` på begge språk, ingen norske ord på
+  engelsk side, ingen horisontal rulling på 375. I tillegg med `curl`:
+  `<meta name="robots" content="noindex">` på begge sider, `/finnes-ikke` gir
+  HTTP 404 med `404.html` (tittel + ordmerke), mp4 (342 350 B, `video/mp4`)
+  og plakat (`image/webp`) svarer 200, sitemap har to `<loc>`.
+- **Filmtestene: 23/23 Chromium, 19/19 Firefox, 20/21 WebKit** – samme
+  kjente avvik som i runde 17/17b («mp4 lastet»-sjekken: Playwrights WebKit
+  rapporterer ikke medieforespørsler; filmen spiller og looper). Ingen
+  lasting bak lukket dør, start etter døra, lydløs loop, pauseknapp med mus/
+  Enter/Space, pause ute av syne, redusert bevegelse/sparemodus/uten JS.
+- **PageSpeed Insights, mobil, Googles servere, tre kjøringer per språk
+  (median):**
+
+  | Side | Performance | Accessibility | Best Practices | SEO | FCP | LCP | TBT | CLS | Speed Index |
+  |---|---|---|---|---|---|---|---|---|---|
+  | `/` (engelsk) | **100** (100/100/100) | 100 | 100 | 63 | 1,1 s | 1,6 s | 0 ms | 0 | 1,1 s |
+  | `/no/` (norsk) | **100** (100/100/100) | 100 | 100 | 63 | 1,1 s | 1,6 s | 0 ms | 0 | 1,1 s |
+
+  Enkeltkjøringer engelsk (15:57:47, 15:58:16, 15:58:31): identiske
+  (FCP 1,1 / LCP 1,6 / SI 1,1). Norsk: LCP 1,6 / 1,6 / 1,4 s, SI 1,1 / 2,3 /
+  0,9 s, **CLS 0,012 / 0 / 0** – én kjøring viste et lite skift (0,012, godt
+  under 0,1 og uten utslag i poengsummen); medianen er 0 og kravet er
+  oppfylt, men det bør sjekkes i en senere runde hvilket element som
+  flyttet seg (auditen «layout-shifts» i PSI-rapporten). SEO 63 er
+  `noindex` (P14), forventet. **Alle krav oppfylt: Performance ≥ 95,
+  Accessibility 100, Best Practices 100, CLS 0.**
+- **Avvik i målingen:** det nøkkelløse PSI-API-et svarte `429 Quota
+  exceeded … Queries per day` (kvoten for Googles delte prosjekt var brukt
+  opp), så målingene ble gjort på pagespeed.web.dev i headless Chromium
+  (Playwright), tallene lest fra rapporten. To av fem norske forsøk feilet
+  hos PSI med «Kunne ikke laste inn https://alibi-demo.vercel.app/no/» før
+  noe ble målt (forbigående; tre gyldige rapporter ble hentet i tillegg).
+
+## Runde 17b – 2026-09-24 – Fade i loopen, ny måling (slått sammen til `main` i runde 17c)
 
 ### Endret
 - **Myk loop-overgang:** `tools/lag-hero-film.py` legger nå på fade fra svart
@@ -38,9 +88,10 @@ datoene for runde 1–2 er antatt.
   fade-en koster ingenting målbart (ingenting lastes før døra uansett).
   **Kravet «dev ≥ 95» er dermed verken bestått eller motbevist – runde 17 er
   ikke slått sammen.** Mål på nytt med laderen i (og VS Code i ro) før
-  sammenslåing.
+  sammenslåing. *Runde 17c:* slått sammen; PSI mot produksjonen ga 100 på
+  begge språk (beslutning #35).
 
-## Runde 17 – 2026-09-24 – Hero-video i loop (på `dev`, ikke slått sammen til `main`)
+## Runde 17 – 2026-09-24 – Hero-video i loop (slått sammen til `main` i runde 17c, tag `runde-17`)
 
 ### Lagt til
 - **Hero-filmen** i `#velkommen` erstatter «Film kommer»-flaten på begge

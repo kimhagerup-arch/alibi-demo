@@ -607,6 +607,36 @@ usikre rekonstruksjoner er merket «(antatt)».
 - **Begrunnelse:** Levende bilde i hero-en uten å røre layout (ingen CLS),
   ytelse (lastes først etter døra), tilgjengelighet eller batteri. Én
   kommando bytter fila når den lisensierte versjonen kommer.
-- **Status:** Gjeldende (på `dev`, ikke slått sammen til `main` – runde 17b
-  fikk ikke en gyldig Lighthouse-måling, se changelog). Eksempelfilmen er
-  midlertidig.
+- **Status:** Gjeldende. *Runde 17c:* slått sammen til `main` (tag
+  `runde-17`) etter PSI-måling mot produksjonen (100/100/100, CLS 0 på
+  begge språk, beslutning #35). Eksempelfilmen er fortsatt midlertidig.
+
+## #35 – Absolutt ytelseskrav måles med PageSpeed Insights, lokal Lighthouse bare relativt
+- **Dato:** 2026-09-24 (runde 17c)
+- **Beslutning:** Kravet Performance ≥ 95 / Accessibility 100 /
+  Best Practices 100 / CLS 0 (mobil) verifiseres med **PageSpeed Insights**
+  (pagespeed.web.dev eller PSI-API-et, dvs. Lighthouse på Googles servere)
+  mot den **deployede** siden, som median av tre kjøringer per språk.
+  Lokal Lighthouse mot `python -m http.server 8000` brukes **bare relativt**:
+  `main` og `dev` måles om hverandre under like forhold før en
+  sammenslåing, og `dev` skal ikke være dårligere enn `main`. Rekkefølgen
+  er dermed: relativ lokal sjekk → sammenslåing → absolutt PSI-måling.
+  Faller PSI under kravet, rulles det ikke tilbake; avviket rapporteres med
+  auditene som trekker ned og tas i egen runde.
+- **Alternativer vurdert:** Lokal Lighthouse som absolutt gulv (forkastet:
+  runde 17b ga 89 på batteri og runde 16 ga 97 på lader for samme kode –
+  tallet måler maskinen, ikke siden). PSI før sammenslåing mot
+  dev-forhåndsvisningen (forkastet: previews er bak Vercel Authentication,
+  så Googles servere får 302 til innlogging). Lighthouse CI i GitHub
+  Actions (ikke nå: ville innført en avhengighet og et byggsteg, se
+  beslutning #14/#31; kan vurderes senere). Krav om lokal måling på
+  lader med `benchmarkIndex`-terskel (forkastet: fortsatt maskinavhengig).
+- **Begrunnelse:** Googles servere gir stabile, sammenlignbare forhold og
+  er det kunden og Google selv måler med. Det lokale tallet er likevel
+  nyttig som A/B-sammenligning fordi begge sider av sammenligningen deler
+  samme støy.
+- **Status:** Gjeldende. Første måling etter regelen (runde 17c):
+  100/100/100, CLS 0, LCP 1,6 s, TBT 0 ms på begge språk. Praktisk merknad:
+  det nøkkelløse PSI-API-et har en delt dagskvote som kan være brukt opp
+  (`429`); da måles det på pagespeed.web.dev (manuelt, eller headless med
+  Playwright som i runde 17c).

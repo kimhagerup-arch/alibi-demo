@@ -96,7 +96,7 @@ ingen gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg.
 | `sitemap.xml` | **Generert** – begge URL-ene med `xhtml:link` |
 | `404.html` | Håndskrevet, felles for begge språk, rot-absolutte stier, kopi av logosymbolet |
 | `css/style.css` | All stil – **kilden**. Palett/typografi som variabler i `:root` øverst |
-| `css/style.min.css` | **Generert** minifisert kopi som sidene lenker til (40 → 25 kB, Lighthouse 97+). Rediger aldri; bygg etter hver CSS-endring |
+| `css/style.min.css` | **Generert** minifisert kopi som sidene lenker til (40 → 25 kB, PSI 100). Rediger aldri; bygg etter hver CSS-endring |
 | `js/main.js` | Døra, Bakrommet, språkvelgeren, bevegelseslaget. Passordet: `ALIBI_PASSORD` øverst |
 | `assets/` | Favicon (SVG + PNG), og-image, fonter i `fonts/`; video kommer (spesifisert i `README.md`) |
 | `img/` | Stemningsbilder (WebP + JPEG-fallback, midlertidig stock) og `img/logo/` (ordmerket + søsterstedenes logoer) |
@@ -155,9 +155,15 @@ ingen gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg.
   flimrende lyskilde på siden (kammerlyset i hero-en). Kammerlys og støv er
   pauset (`html.dor-lukket`, satt av inline-skriptet i `<head>`) til døra
   begynner å åpne seg – de er usynlige bak den og koster bare rastrering.
-- **Ytelse:** Lighthouse mobil 97+ måles som median av tre kjøringer mot
-  lokal server (`python -m http.server 8000`); enkeltkjøringer varierer ±1.
-  Preload kun fontene som brukes over folden (Cormorant 400 + kursiv).
+- **Ytelse (beslutning #35):** det *absolutte* kravet – Performance ≥ 95,
+  Accessibility 100, Best Practices 100, CLS 0, mobil – måles med
+  **PageSpeed Insights** (pagespeed.web.dev / PSI-API-et, Googles servere)
+  mot den deployede siden, median av tre kjøringer per språk. Lokal
+  Lighthouse (`python -m http.server 8000`) brukes **bare relativt**: `main`
+  mot `dev` om hverandre under like forhold, og `dev` skal ikke være dårligere.
+  Grunn: lokale tall varierer med strøm/CPU-klokke (runde 17b: 89 på batteri,
+  97 på lader for samme kode). Preload kun fontene som brukes over folden
+  (Cormorant 400 + kursiv).
 - **Tilgjengelighet:** WCAG AA-kontrast (messing på brunsort ≈ 7,7:1 er OK;
   sjekk alt nytt), synlig fokus, semantisk HTML, skip-lenke.
 - **Passordet** («æventyr») ligger som konstanten `ALIBI_PASSORD` øverst i

@@ -4,10 +4,10 @@ Restanseliste i tre deler. **Plassholder-tabellen skal alltid stemme med
 koden** – verifiser med søk på `PLACEHOLDER` i repoet. Lukkede punkter
 markeres med dato, ikke slettes.
 
-Sist verifisert mot koden: 2026-09-24, runde 17b (21 `PLACEHOLDER`-merker i
+Sist verifisert mot koden: 2026-09-24, runde 17c (21 `PLACEHOLDER`-merker i
 `tools/mal.html` – de følger med i begge genererte filer, `index.html` og
-`no/index.html`). Runde 17 og 17b ligger på `dev` og er ikke slått sammen til
-`main` – se punktet om Lighthouse på batteri i del 2.
+`no/index.html`). Runde 17 og 17b er slått sammen til `main` (tag
+`runde-17`); `dev` = `main`.
 
 ## 1. Plassholdere
 
@@ -66,13 +66,16 @@ Sist verifisert mot koden: 2026-09-24, runde 17b (21 `PLACEHOLDER`-merker i
   alle tre er fra Pexels (https://www.pexels.com/nb-no/), samme lisens som
   telefon/lampe/bardisk (fri bruk, kreditering ikke påkrevd). Ført i
   `BILDEKILDER.md`.
-- **Sammenslåing av runde 17/17b venter på gyldig Lighthouse-måling.**
-  Runde 17b (2026-09-24) målte `main` og `dev` likt (median 89/89 engelsk,
-  89/93 norsk), men maskinen sto på batteri (CPU 710–1 440 MHz,
-  `benchmarkIndex` 100–925 mot 1 400–1 570 i runde 16), så tallene sier
-  ingenting om koden. Gjør: lader i, VS Code i ro, Chrome lukket, og kjør
-  del 2–3 i `docs/prompts/runde-17b-fade-maaling-main.md` på nytt. Kravet er
-  dev ≥ 95 / 100 / 100 / CLS 0 som median av tre.
+- ~~**Sammenslåing av runde 17/17b venter på gyldig Lighthouse-måling.**~~
+  **Lukket 2026-09-24** (runde 17c): slått sammen til `main` etter det
+  relative kravet fra 17b (`dev` ikke dårligere enn `main` under like
+  forhold), og målt absolutt med PageSpeed Insights mot produksjonen:
+  100/100/100, CLS 0, LCP 1,6 s på begge språk (beslutning #35).
+- **Lite layout-skift i én norsk PSI-kjøring (CLS 0,012).** Runde 17c:
+  én av tre kjøringer på `/no/` viste CLS 0,012 (de to andre 0, engelsk 0
+  på alle tre). Under terskelen og uten utslag i poengsummen, men finn
+  elementet (auditen «layout-shifts» i PSI-rapporten, ev. skriftbytte på
+  norsk tekst bak døra) og fjern årsaken hvis den er reell. Lav prioritet.
 - **HØY PRIORITET – FØR LANSERING: Hero-filmen er en Envato-forhåndsvisning
   med vannmerke** (`assets/video/alibi-hero.mp4`, runde 17). Den må
   lisensieres (VideoHive/Elements, last ned full oppløsning og kjør

@@ -6,6 +6,36 @@ Nyeste øverst.
 
 ---
 
+## Runde 17c – 2026-09-24 – Slått sammen til `main`, målt med PageSpeed Insights
+**Prompt:** [`prompts/runde-17c-main-psi.md`](prompts/runde-17c-main-psi.md)
+
+**Bestilt:** (0) Nytt målekrav: relativt lokalt før sammenslåing (oppfylt i
+17b), absolutt med PSI etter. (1) `--sjekk`, merge `--no-ff` til `main`, tag
+`runde-17`, push, vent på Vercel, hele testsettet (47 + film) mot
+produksjonen. (2) PSI-API-et uten nøkkel, 3 × mobil per språk, median;
+krav ≥ 95 / 100 / 100 / CLS 0; ikke rull tilbake ved avvik; skriv i
+rapporten hvis API-et ikke svarer. (3) `dev` = `main`. (4) Sporbarhet, ny
+regel i CLAUDE.md, ny beslutning. (5) Sluttrapport.
+
+**Levert:** Alt. Merge `aa87e81`, tag `runde-17`, produksjon deployet
+automatisk; 47/47 + curl-sjekker (noindex, 404, mp4/plakat, sitemap),
+film 23/23 / 19/19 / 20/21 (kjent WebKit-avvik). PSI median 100/100/100,
+SEO 63, LCP 1,6 s, TBT 0 ms, CLS 0 på begge språk. Beslutning #35,
+CLAUDE.md, README, changelog, TODO.
+
+**Avvik:**
+- **PSI-API-et svarte `429` (dagskvoten for det nøkkelløse, delte
+  Google-prosjektet var brukt opp).** I stedet for å be Kim måle manuelt ble
+  pagespeed.web.dev kjørt i headless Chromium (Playwright) og tallene lest
+  fra rapporten – samme Lighthouse på Googles servere. To norske forsøk
+  feilet hos PSI («Kunne ikke laste inn …») før måling og ble kjørt på nytt.
+- Én norsk kjøring viste CLS 0,012 (median 0). Ført som lavprioritert
+  TODO-punkt, ikke undersøkt i denne runden.
+- Dokumentasjonen for runde 17c ligger på `dev` (én docs-commit foran
+  `main`) – `main` røres ikke uten ny beskjed (#32).
+
+---
+
 ## Runde 17b – 2026-09-24 – Fade i loopen, ny måling, (ikke) sammenslåing
 **Prompt:** [`prompts/runde-17b-fade-maaling-main.md`](prompts/runde-17b-fade-maaling-main.md)
 
