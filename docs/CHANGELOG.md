@@ -5,6 +5,41 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 17b – 2026-09-24 – Fade i loopen, ny måling (på `dev`, ikke slått sammen – målingen ble ugyldig)
+
+### Endret
+- **Myk loop-overgang:** `tools/lag-hero-film.py` legger nå på fade fra svart
+  (0–0,4 s) og til svart (siste 0,4 s) på alle filmer som kjøres gjennom
+  skriptet (`FADE_SEK`; fade-out regnes ut fra varigheten via ffprobe, som
+  nå er påkrevd). Eksempelfilmen er kodet på nytt: **334 kB** (fra 336 kB
+  – uvesentlig, +1,8 % i bytes), samme 960×540, 25 fps, 8,2 s. Sømmen går
+  nå 23 → 16 i gjennomsnittlig lysstyrke (Y) mellom siste og første bilde,
+  mot 87 → 73 før, og hvert steg i fadene er 5–7 – hoppet ser tilsiktet ut.
+  Plakaten tas ved 0,4 s (rett etter fade-in, ikke et svart bilde): **24 kB**,
+  tydelig bilde, vannmerket synlig. README («Hero-filmen») og
+  `BILDEKILDER.md` oppdatert.
+
+### Verifisert (lokalt, `dev`)
+- `python tools/bygg-sider.py --sjekk` i synk. **Testsettet fra runde 16:
+  47/47 OK** (Chromium). **Filmtestene: 23/23 Chromium, 19/19 Firefox,
+  20/21 WebKit** (den samme «mp4 lastet»-sjekken som i runde 17 – Playwrights
+  WebKit rapporterer ikke medieforespørsler; loopen går).
+- **Lighthouse mobil, median av tre, `main` (runde 16) og `dev` om
+  hverandre, ren profil, Chrome lukket:** `main` engelsk **89** (81/89/92),
+  `dev` engelsk **89** (81/89/94), `main` norsk **89** (80/89/93), `dev` norsk
+  **93** (94/82/93). Accessibility 100, Best Practices 100, CLS 0 på alle;
+  SEO 63 (noindex, P14). **Tallene er ugyldige som gulv:** maskinen sto på
+  batteri med CPU-klokke 710–1 440 MHz (maks 3 244), og Lighthouse sin
+  `benchmarkIndex` var 100–925 mot 1 400–1 570 da 96–97 ble målt i runde 16;
+  Lighthouse selv advarte «slower CPU than expected» i 11 av 12 kjøringer.
+  Det som koster er Speed Index (4,7–12,6 s mot 3,5–3,8 s i runde 16) og
+  TBT (70–320 ms) – ren CPU-tid, ikke bytes; LCP og FCP er som før
+  (2,2 s / 1,5 s). `main` og `dev` måler likt innenfor støyen, så filmen og
+  fade-en koster ingenting målbart (ingenting lastes før døra uansett).
+  **Kravet «dev ≥ 95» er dermed verken bestått eller motbevist – runde 17 er
+  ikke slått sammen.** Mål på nytt med laderen i (og VS Code i ro) før
+  sammenslåing.
+
 ## Runde 17 – 2026-09-24 – Hero-video i loop (på `dev`, ikke slått sammen til `main`)
 
 ### Lagt til

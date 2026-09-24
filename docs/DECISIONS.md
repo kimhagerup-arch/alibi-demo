@@ -597,10 +597,16 @@ usikre rekonstruksjoner er merket «(antatt)».
   lages elementet av JS). Kopiere kildefila uendret (forkastet: ny
   koding ga 514 → 336 kB uten synlig tap i 2x-zoom). WebM i tillegg
   (forkastet, se over). Ikke egen knapp (forkastet: WCAG 2.2.2 krever
-  pause for bevegelse over 5 s). Sømløs loop med kryssfading (ikke gjort:
-  eksempelfilmen byttes uansett; hoppet ved omstart er synlig, se changelog).
+  pause for bevegelse over 5 s). Sømløs loop med kryssfading (forkastet i
+  runde 17b: krever at skriptet dupliserer og overlapper starten, og
+  resultatet avhenger av motivet). *Runde 17b:* i stedet **fade fra og til
+  svart, 0,4 s i hver ende**, lagt inn i `tools/lag-hero-film.py`
+  (`FADE_SEK`) så det gjelder alle fremtidige filmer – omstarten går via
+  svart og ser tilsiktet ut, plakaten tas ved 0,4 s så den ikke er svart,
+  og fila ble ikke større (334 kB).
 - **Begrunnelse:** Levende bilde i hero-en uten å røre layout (ingen CLS),
   ytelse (lastes først etter døra), tilgjengelighet eller batteri. Én
   kommando bytter fila når den lisensierte versjonen kommer.
-- **Status:** Gjeldende (på `dev`, ikke slått sammen til `main`). Eksempelfilmen
-  er midlertidig.
+- **Status:** Gjeldende (på `dev`, ikke slått sammen til `main` – runde 17b
+  fikk ikke en gyldig Lighthouse-måling, se changelog). Eksempelfilmen er
+  midlertidig.

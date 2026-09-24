@@ -6,6 +6,37 @@ Nyeste øverst.
 
 ---
 
+## Runde 17b – 2026-09-24 – Fade i loopen, ny måling, (ikke) sammenslåing
+**Prompt:** [`prompts/runde-17b-fade-maaling-main.md`](prompts/runde-17b-fade-maaling-main.md)
+
+**Bestilt:** (1) Fade fra/til svart ≈ 0,4 s i `lag-hero-film.py` for alle
+fremtidige filmer, kjør på eksempelfilmen, plakat etter fade-in, vannmerke
+synlig, ikke vesentlig større fil, `--sjekk` + filmtester + 47 sjekker,
+push `dev`. (2) Lighthouse på rolig maskin, `main` mot `dev` om hverandre,
+median av tre, begge språk; krav dev ≥ 95 / 100 / 100 / CLS 0 – ellers
+stopp. (3) Kun hvis bestått: merge `--no-ff` til `main`, tag `runde-17`,
+tester og Lighthouse mot produksjonen, `dev` = `main`. (4) Sporbarhet.
+(5) Sluttrapport.
+
+**Levert:** Del 1 fullt (fade, ny film 334 kB, plakat 24 kB med vannmerke,
+47/47 + 23/23/19/20 tester OK, pushet). Del 2 målt (12 kjøringer), del 4
+og 5 gjort.
+
+**Avvik:**
+- **Ikke slått sammen til `main`.** Del 2 ga `dev` median 89 (engelsk) og
+  93 (norsk), under kravet – men `main` (som målte 97 i runde 16) ga 89 og
+  89 i de samme kjøringene. Maskinen sto på **batteri** (CPU-klokke
+  710–1 440 MHz av 3 244, Lighthouse `benchmarkIndex` 100–925 mot
+  1 400–1 570 i runde 16, «slower CPU than expected» i 11 av 12
+  kjøringer). Chrome var lukket og samlet CPU-bruk lav (≈ 9 %), men én
+  VS Code-prosess lå på ≈ 45 % av én kjerne. Tallene er derfor ugyldige som
+  gulv, og regelen «under kravet → stopp» er fulgt. Del 3 er ikke gjort.
+  Ny måling med laderen i før sammenslåing.
+- Kryssfading (sømløs loop) ble ikke vurdert på nytt; fade til svart er
+  det som ble bestilt.
+
+---
+
 ## Runde 17 – 2026-09-24 – Hero-video i loop (på `dev`)
 **Prompt:** [`prompts/runde-17-hero-video.md`](prompts/runde-17-hero-video.md)
 
