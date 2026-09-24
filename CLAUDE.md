@@ -35,13 +35,14 @@ ingen gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg.
   underveis. Finnes grenen: `git checkout dev && git merge main` først.
 - **Runde-tagger** (`runde-N`) settes først når runden er slått sammen til
   `main`.
-- **Vercel er ikke koblet til GitHub** (per runde 15) – deployene gjøres fra
-  CLI. Forhåndsvisning av `dev`: `vercel` (uten `--prod`) fra `dev`-treet, som
-  gir aliaset `alibi-demo-git-dev-kimhagerups-projects.vercel.app`.
+- **Vercel er koblet til GitHub** (bekreftet runde 16): push til `dev` gir
+  automatisk en forhåndsvisning med aliaset
+  `alibi-demo-git-dev-kimhagerups-projects.vercel.app` (ett–to minutter,
+  sjekk med `vercel ls alibi-demo`); push til `main` deployer produksjon.
   Previews er beskyttet med Vercel Authentication (302 til innlogging) –
   Kim ser dem innlogget; automatiske tester kjøres derfor mot lokal server.
   **`vercel --prod` kjøres aldri fra `dev`** – det ville overskrevet kundens
-  lenke. Produksjon deployes fra `main`, kun på Kims beskjed.
+  lenke. Produksjon kommer fra `main`, kun på Kims beskjed.
 
 ## Teknisk stack og drift
 
@@ -50,10 +51,11 @@ ingen gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg.
   `assets/fonts/`, se beslutning #14). Dette er et bevisst valg – ikke innfør
   npm, bundlere, CDN-er eller biblioteker uten eksplisitt beskjed.
 - **Forsidene genereres lokalt** (beslutning #31): `python tools/bygg-sider.py`
-  bygger `index.html`, `no/index.html` og `sitemap.xml` fra `tools/mal.html`
-  og `tekst/*.json`. Kun standard-Python. De genererte filene **commites**.
-  `python tools/bygg-sider.py --sjekk` feiler hvis de ikke er i synk – kjør
-  den før commit.
+  bygger `index.html`, `no/index.html`, `sitemap.xml` og `css/style.min.css`
+  fra `tools/mal.html`, `tekst/*.json` og `css/style.css`. Kun standard-Python.
+  De genererte filene **commites**. `python tools/bygg-sider.py --sjekk`
+  feiler hvis de ikke er i synk – kjør den før commit. **CSS redigeres i
+  `css/style.css`**, og generatoren kjøres etterpå (beslutning #33).
 - Kjøre lokalt: `python -m http.server 8000` (språkbytte og 404 krever
   server; `index.html` kan også åpnes rett fra fil).
 - Deploy: statisk hosting hvor som helst (Netlify/Vercel/GitHub Pages/one.com) –
@@ -93,7 +95,8 @@ ingen gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg.
 | `no/index.html` | **Generert** – norsk forside (`/no/`), `../`-stier |
 | `sitemap.xml` | **Generert** – begge URL-ene med `xhtml:link` |
 | `404.html` | Håndskrevet, felles for begge språk, rot-absolutte stier, kopi av logosymbolet |
-| `css/style.css` | All stil. Palett/typografi som variabler i `:root` øverst |
+| `css/style.css` | All stil – **kilden**. Palett/typografi som variabler i `:root` øverst |
+| `css/style.min.css` | **Generert** minifisert kopi som sidene lenker til (40 → 25 kB, Lighthouse 97+). Rediger aldri; bygg etter hver CSS-endring |
 | `js/main.js` | Døra, Bakrommet, språkvelgeren, bevegelseslaget. Passordet: `ALIBI_PASSORD` øverst |
 | `assets/` | Favicon (SVG + PNG), og-image, fonter i `fonts/`; video kommer (spesifisert i `README.md`) |
 | `img/` | Stemningsbilder (WebP + JPEG-fallback, midlertidig stock) og `img/logo/` (ordmerket + søsterstedenes logoer) |
@@ -140,7 +143,12 @@ ingen gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg.
 - **Bevegelse:** kun `transform`/`opacity`. Alt gates bak `html.js-klar` som
   bare settes når JS kjører og brukeren ikke har `prefers-reduced-motion` –
   med redusert bevegelse vises alt statisk, ingenting skjules. Maks én
-  flimrende lyskilde på siden (kammerlyset i hero-en).
+  flimrende lyskilde på siden (kammerlyset i hero-en). Kammerlys og støv er
+  pauset (`html.dor-lukket`, satt av inline-skriptet i `<head>`) til døra
+  begynner å åpne seg – de er usynlige bak den og koster bare rastrering.
+- **Ytelse:** Lighthouse mobil 97+ måles som median av tre kjøringer mot
+  lokal server (`python -m http.server 8000`); enkeltkjøringer varierer ±1.
+  Preload kun fontene som brukes over folden (Cormorant 400 + kursiv).
 - **Tilgjengelighet:** WCAG AA-kontrast (messing på brunsort ≈ 7,7:1 er OK;
   sjekk alt nytt), synlig fokus, semantisk HTML, skip-lenke.
 - **Passordet** («æventyr») ligger som konstanten `ALIBI_PASSORD` øverst i

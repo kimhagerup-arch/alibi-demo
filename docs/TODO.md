@@ -4,9 +4,9 @@ Restanseliste i tre deler. **Plassholder-tabellen skal alltid stemme med
 koden** – verifiser med søk på `PLACEHOLDER` i repoet. Lukkede punkter
 markeres med dato, ikke slettes.
 
-Sist verifisert mot koden: 2026-09-24, runde 15 (21 `PLACEHOLDER`-merker i
+Sist verifisert mot koden: 2026-09-24, runde 16 (21 `PLACEHOLDER`-merker i
 `tools/mal.html` – de følger med i begge genererte filer, `index.html` og
-`no/index.html`). Runde 15 ligger på `dev` og er ikke slått sammen til `main`.
+`no/index.html`).
 
 ## 1. Plassholdere
 
@@ -34,38 +34,28 @@ Sist verifisert mot koden: 2026-09-24, runde 15 (21 `PLACEHOLDER`-merker i
 
 ## 2. Kjente svakheter / gjeld
 
-- **FØR LANSERING – Kim kontrollerer den engelske teksten** (runde 15,
-  `tekst/en.json` og `tekst.en` i `tekst/meny.json`). Formuleringer
-  oversetteren var usikker på:
-  - Navigasjon/overskrifter «The story · The house · The menu · Find us ·
-    Practical» (bestemt form er valgt for å speile norsk; «Story/House/Menu»
-    er alternativet – kortere i mobilraden).
-  - Overteksten «Alta · the cellar · since tonight» («siden i kveld»).
-  - Huset-mottoet «Eat upstairs. Nightclub next door. Talk here.»
-  - Meny-ingressen «Our own handwriting. Some of these we made up ourselves.»
-  - «To come. Cellars keep their own hours.» («Kjellere har sin egen
-    døgnrytme.») og «To come.» for «Kommer.» generelt.
-  - Æventonic: «The house's own.» – Basil Smash: «a little rude» («litt
-    uhøflig») – Mezcalita: «The lime wedge stopped by the flame on the way.»
-  - Ingredienser: «sugar syrup» (britisk; amerikansk er «simple syrup»),
-    «flamed lime» («flambert lime»), «Mannsverk strawberry» for «Mannsverk
-    jordbær» – hva er produktet (likør? sirup?), «strawberry» som pynt.
-  - «Directions in Google Maps» for «Vis vei i Google Maps».
-  - «Atmosphere photos» (aria-label på fotobåndet).
-  - 404: «This door doesn't exist. Ours does.» / «Back to the door».
-  - `og:image:alt` på engelsk siterer den norske linja på delingsbildet
-    («Speakeasy i kjelleren · Alta») – se backlog om engelsk og-image.
-  - Æventyr-lenka på engelsk er `https://aeventyr.no/en/` (som norsk `/nb/`):
-    svarer 308 → `/en` → 307 → `/en/winter`. `https://aeventyr.no/en` sparer
-    ett hopp hvis Kim vil.
-- **Vercel er ikke koblet til GitHub** (funnet runde 15): deployene er gjort
-  fra CLI (`vercel --prod`), så `dev`-grenen får ingen automatisk
-  forhåndsvisning, og «Production Branch» kan ikke bekreftes. Kim bør koble
-  repoet i Vercel (Settings → Git, produksjonsgren `main`) – da får hver gren
-  sin preview automatisk. Inntil da: `vercel` (uten `--prod`) fra `dev`.
-  Previews er beskyttet med Vercel Authentication (Settings → Deployment
-  Protection) – de kan bare åpnes innlogget i Vercel. Skal kunden se en
-  preview, må beskyttelsen skrus av eller en delingslenke lages der.
+- ~~**FØR LANSERING – Kim kontrollerer den engelske teksten**~~ – **Lukket
+  2026-09-24** (runde 16): Kim gikk gjennom lista fra runde 15. Endret:
+  navigasjonen til kort form («Story · House · Menu · Find us · Practical»,
+  overskriftene beholder «The story» osv.), «Alta · the cellar · tonight»,
+  «House special», «a little cheeky» (norsk kilde er «litt uhøflig», ikke
+  «litt frekk» – «cheeky» valgt som nærmeste naturlige med samme glimt),
+  «The lime wedge passes through the flame on its way in», «Mannsverk Farm
+  strawberries». Beholdt: «Eat upstairs. Nightclub next door. Talk here.»,
+  «Cellars keep their own hours», 404-teksten, «Directions in Google Maps»,
+  «Atmosphere photos», «sugar syrup», «flamed lime». Gjenstår i backlog:
+  engelsk delingsbilde (`og:image:alt` siterer fortsatt den norske linja)
+  og ev. `https://aeventyr.no/en` uten avsluttende skråstrek (sparer ett
+  redirect-hopp).
+- ~~**Vercel er ikke koblet til GitHub**~~ – **Rettet 2026-09-24** (runde
+  16): koblingen fantes allerede (`vercel git connect` → «already
+  connected»). Push til `dev` gir preview med aliaset
+  `alibi-demo-git-dev-kimhagerups-projects.vercel.app`; runde 15-antakelsen
+  skyldtes at den første pushen (samme commit som `main`) ikke ga noen
+  synlig deployment i løpet av det første minuttet. Previews er beskyttet
+  med Vercel Authentication (Settings → Deployment Protection) – de kan bare
+  åpnes innlogget i Vercel. Skal kunden se en preview, må beskyttelsen skrus
+  av eller en delingslenke lages der.
 - **Engelske søsterlenker:** ingen mangler – raussocial.no/en (+ /en/takt,
   /en/terms, /en/privacy), canyonhotell.no/en og gargialodge.no/en/winter
   svarer alle 200 (2026-09-24). Sjekk sesongsidene (gargia/aeventyr `/en/winter`)
@@ -155,5 +145,5 @@ Sist verifisert mot koden: 2026-09-24, runde 15 (21 `PLACEHOLDER`-merker i
   «Speakeasy i kjelleren · Alta». En engelsk variant (f.eks.
   `og-image-en.png`, «Speakeasy in the cellar · Alta») kan legges inn med en
   egen nøkkel i språkfilene når/hvis Kim vil – da byttes også `og:image:alt`.
-- **Vercel-kobling til GitHub** med `main` som produksjonsgren, så `dev`
-  får automatisk forhåndsvisning (se punkt 2).
+- ~~**Vercel-kobling til GitHub**~~ – **Lukket 2026-09-24** (runde 16):
+  koblingen fantes, se punkt 2.

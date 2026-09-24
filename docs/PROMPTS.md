@@ -6,6 +6,37 @@ Nyeste øverst.
 
 ---
 
+## Runde 16 – 2026-09-24 – Rettet engelsk, ytelse, Vercel–GitHub, sammenslåing til `main`
+**Prompt:** [`prompts/runde-16-engelsk-ytelse-vercel-main.md`](prompts/runde-16-engelsk-ytelse-vercel-main.md)
+
+**Bestilt:** (1) Seks engelske rettelser, resten beholdes, lukk
+lanseringskravet. (2) Finn årsaken til 97 → 95, rett uten å fjerne
+funksjonalitet, mål 97+ som median av tre. (3) `vercel git connect`,
+`--sjekk`, push `dev`, kontroller preview, skjermbilder. (4) Kun hvis 3 er
+bestått: tag `runde-15`, merge `--no-ff` til `main`, tag `runde-16`, push,
+kontroller produksjon, `dev` = `main`. (5) Sporbarhet.
+
+**Levert:** Alt. Median 97 på begge språk (fra 96). Vercel var allerede
+koblet. Slått sammen til `main` og publisert.
+
+**Avvik:**
+- **«a little cheeky»:** norsk kilde er «litt uhøflig», ikke «litt frekk».
+  «cheeky» er valgt likevel (nærmeste naturlige engelsk med samme glimt);
+  ordrett alternativ «a little impolite» er notert i CHANGELOG.
+- **Årsaken til fallet var målestøy**, ikke runde 15: `main` måler også 96
+  som median i dag. 97 er nådd med minifisert CSS fra generatoren
+  (beslutning #33) pluss tre mindre, tapsfrie grep – ikke ved å rulle noe
+  tilbake.
+- **Vercel-koblingen fantes**; runde 15-rapporten om manglende kobling var
+  feil og er rettet i alle dokumenter.
+- Headerhøyden på engelsk 375 gikk *ned* (124,8 → 85,1 px) fordi den korte
+  navigasjonen får plass på to linjer; norsk er uendret.
+- Previewen kan ikke testes automatisk (innloggingsbeskyttet); kontrollene i
+  del 3 er kjørt mot lokal server med de samme filene, og deploymenten er
+  bekreftet opprettet.
+
+---
+
 ## Runde 15 – 2026-09-24 – Engelsk og norsk, engelsk først (på `dev`)
 **Prompt:** [`prompts/runde-15-engelsk-og-norsk.md`](prompts/runde-15-engelsk-og-norsk.md)
 

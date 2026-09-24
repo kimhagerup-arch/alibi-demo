@@ -5,7 +5,62 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
-## Runde 15 – 2026-09-24 – Engelsk og norsk, engelsk først (på `dev`, ikke slått sammen til `main`)
+## Runde 16 – 2026-09-24 – Rettet engelsk, ytelse 97, Vercel–GitHub bekreftet, slått sammen til `main`
+
+### Endret
+- **Engelske formuleringer** (Kims gjennomgang av runde 15-lista):
+  navigasjonen (topp og bunn) i kort form «Story · House · Menu · Find us ·
+  Practical» (overskriftene beholder «The story» osv.), «Alta · the cellar ·
+  tonight», Æventonic «House special.», Basil Smash «a little cheeky» (norsk
+  kilde er «litt uhøflig» – «cheeky» valgt som nærmeste naturlige med samme
+  glimt; «a little impolite» er det ordrette alternativet), Mezcalita «The
+  lime wedge passes through the flame on its way in.», ordlista «Mannsverk
+  jordbær» → «Mannsverk Farm strawberries». Norsk side er uendret (bekreftet:
+  `no/index.html` ikke i diffen). Headerhøyden på engelsk 375 er nå 85,1 px
+  (nav-raden bryter på to linjer i stedet for tre); norsk uendret 124,8 px.
+- **Ytelse – årsak og tiltak (beslutning #33).** Runde 15-fallet fra 97 til
+  95 var målestøy: under like forhold i dag måler `main` 96/96/95 (median
+  96), `dev` engelsk 96/96/95 og `dev` norsk 95/96/96 – ingen forskjell.
+  Lighthouse sin observerte første paint kommer ~2 s etter `load` på alle
+  varianter (rastrering av de fullskjerms dekorlagene på programvare-GPU),
+  og LCP-elementet er velkomstlinja bak døra. Tiltak, alle tapsfrie:
+  - `css/style.min.css` generert av `tools/bygg-sider.py` (40 → 25 kB),
+    lenket fra malen og `404.html`. Rendringen er pikselidentisk mot
+    `style.css` (dør, forside begge språk, 404; 1440 og 375). Dette var det
+    eneste enkelttiltaket som flyttet scoren (eksperiment: 98/97).
+  - Preload: Cormorant 400 + 400 kursiv i stedet for Limelight + 400
+    (Limelight brukes bare av h1–h4 under folden).
+  - Inline-skriptene i `<head>` står før `<link rel="stylesheet">`.
+  - `html.dor-lukket` (satt av inline-skriptet når døra skal vises, fjernet
+    av `main.js` idet døra åpner) pauser kammerlyset og støvet bak døra.
+  - Forkastet etter måling: uten font-preload (95), fjerne enkeltlag som
+    korn/vignett/dørgradienter/kammerlys (ingen målbar effekt hver for seg,
+    og det er designet).
+- **Vercel–GitHub:** koblingen fantes allerede (`vercel git connect` →
+  «already connected»). Runde 15-antakelsen er rettet i CLAUDE.md,
+  beslutning #32, TODO og changelog. Push til `dev` gir preview med aliaset
+  `alibi-demo-git-dev-kimhagerups-projects.vercel.app` (innloggingsbeskyttet).
+- Dokumentasjon: CLAUDE.md (filkart med `style.min.css`, ytelsesregel om
+  median av tre), README, ONBOARDING, TODO (engelsk tekstkontroll lukket,
+  Vercel-punktene lukket, «Sist verifisert»), DECISIONS #32 oppdatert, #33 ny.
+
+### Verifisert (lokal server, headless Chromium)
+- Lighthouse mobil, **median av tre**: **engelsk 97/97/97** – Performance 97 /
+  Accessibility 100 / Best Practices 100 / SEO 63 (noindex, P14), FCP 1,4 s,
+  LCP 2,18 s, TBT 61 ms, CLS 0, SI 3,5 s. **Norsk 97/97/97** – 97/100/100/63,
+  FCP 1,4 s, LCP 2,18 s, TBT 61 ms, CLS 0, SI 3,4 s. Før tiltakene: 96 på
+  begge (LCP 2,4–2,5 s).
+- Funksjonstestene fra runde 15 (47 sjekker): språkflyt med tom lagring,
+  språkvelger med tastatur/Esc/klikk utenfor/uten JS, skjult meny med
+  «æventyr»/«aeventyr»/«AEVENTYR» via tre veier på begge språk, engelske
+  meldinger, ingen horisontal rulling på 375 – alle OK etter endringene.
+  `dor-lukket` bekreftet: `paused` bak døra, `running` fra døra åpner, ikke
+  satt ved gjenbesøk.
+- `python tools/bygg-sider.py --sjekk` → i synk (inkl. `style.min.css`).
+- Skjermbilder av endrede steder (engelsk topp/hero og meny, 1440 og 375) i
+  `..\alibi-skjermbilder\runde-16\`.
+
+## Runde 15 – 2026-09-24 – Engelsk og norsk, engelsk først (slått sammen til `main` i runde 16)
 
 ### Lagt til
 - **Engelsk versjon** på `/` (`index.html`, `<html lang="en">`) og **norsk**
@@ -105,7 +160,8 @@ datoene for runde 1–2 er antatt.
   `alibi-demo-eprnl7vq6-kimhagerups-projects.vercel.app`, alias
   `alibi-demo-git-dev-kimhagerups-projects.vercel.app`. Begge svarer 302 til
   Vercel-innlogging (Deployment Protection) – testene over er derfor kjørt
-  mot lokal server med samme filer.
+  mot lokal server med samme filer. *(Rettet i runde 16: Vercel var koblet
+  til GitHub hele tiden; pushene til `dev` ga egne previews.)*
 
 ## Runde 14 – 2026-09-24 – Strammere ford-utsnitt, lettere ford-filer, bildekilder
 

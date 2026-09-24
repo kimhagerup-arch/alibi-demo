@@ -478,7 +478,7 @@ usikre rekonstruksjoner er merket «(antatt)».
   Språk som query-parameter (forkastet: dårlig for hreflang og deling).
 - **Begrunnelse:** To ekte URL-er gir riktig SEO per språk og fungerer uten
   JS; lagret valg uten gjetting gir forutsigbar oppførsel.
-- **Status:** Gjeldende (på `dev`, ikke slått sammen til `main`).
+- **Status:** Gjeldende (slått sammen til `main` i runde 16).
 
 ## #31 – Én mal og én menyfil: generator i standard-Python, genererte filer commites
 - **Dato:** 2026-09-24 (runde 15)
@@ -507,7 +507,7 @@ usikre rekonstruksjoner er merket «(antatt)».
   ordlista gir én redigering + én oversettelse per nytt ord).
 - **Begrunnelse:** Menyen og prisene endres ett sted; strukturen kan ikke
   drive fra hverandre; ingen ny driftsavhengighet.
-- **Status:** Gjeldende (på `dev`). Erstatter delvis #1.
+- **Status:** Gjeldende (slått sammen til `main` i runde 16). Erstatter delvis #1.
 
 ## #32 – `dev`-gren for alt arbeid, `main` er kundens visning
 - **Dato:** 2026-09-24 (runde 15)
@@ -527,4 +527,37 @@ usikre rekonstruksjoner er merket «(antatt)».
   produksjonsgren (anbefalt på sikt – gir automatisk preview per gren;
   krever at Kim gjør koblingen i Vercel-dashbordet).
 - **Begrunnelse:** Kunden skal aldri se halvferdig arbeid på sin lenke.
+- **Status:** Gjeldende. *Runde 16:* Antakelsen om manglende
+  GitHub-kobling var feil – `vercel git connect` svarte «already connected».
+  Push til `dev` gir automatisk preview (aliaset
+  `alibi-demo-git-dev-kimhagerups-projects.vercel.app`), og push til `main`
+  deployer produksjon. Alternativet «koble til GitHub» er dermed allerede
+  realiteten; CLI-deploy (`vercel`) er bare en reserve.
+
+## #33 – Minifisert CSS fra generatoren, og ingen rastrering bak lukket dør
+- **Dato:** 2026-09-24 (runde 16)
+- **Beslutning:** Sidene lenker til `css/style.min.css`, en minifisert kopi
+  som `tools/bygg-sider.py` lager fra `css/style.css` (kilden) med en egen
+  minifiserer i standard-Python som bevarer strenger og `url(...)` (data-
+  URI-en til kornet inneholder `url(%23n)`). Begge filene commites; `--sjekk`
+  feiler hvis kopien ikke er i synk. I tillegg: (a) preload byttet fra
+  Limelight til Cormorant 400 kursiv – Limelight brukes bare av h1–h4 under
+  folden, kursiven av dørstatusen og velkomstlinja (LCP-elementet);
+  (b) inline-skriptene står før `<link rel="stylesheet">`, så de ikke venter
+  på CSS-en; (c) kammerlyset og støvet pauses (`html.dor-lukket`, satt av
+  inline-skriptet, fjernet av `main.js` idet døra begynner å åpne seg) – de er
+  usynlige bak døra. Rendringen med minifisert CSS er verifisert
+  pikselidentisk (dør, forside på begge språk, 404 – 1440 og 375).
+- **Alternativer vurdert:** Ikke minifisere (forkastet: 40 kB
+  render-blokkerende CSS er det som holder Lighthouse på 96 – målt median
+  96 på `main`, `dev` engelsk og `dev` norsk; med minifisert CSS 97–98).
+  Minifisere med npm-verktøy (forkastet: ny avhengighet, jf. #1/#31).
+  Inline kritisk CSS (forkastet: dobbelt vedlikehold av stil). Fjerne korn,
+  vignett eller dørgradientene, som koster rastrering på Lighthouse sin
+  programvare-GPU (forkastet: det er designet, jf. #3). Droppe font-preload
+  helt (forkastet: målt 95).
+- **Begrunnelse:** Runde 15-fallet fra 97 til 95 var målestøy (enkeltkjøringer;
+  `main` måler også 96 i dag som median). Den eneste reelle, tapsfrie
+  reduksjonen av den kritiske stien er CSS-bytes, og generatoren finnes
+  allerede. Ytelseskravet måles heretter som median av tre kjøringer.
 - **Status:** Gjeldende.

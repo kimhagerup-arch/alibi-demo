@@ -48,9 +48,10 @@ språkvalget. Passordet er `æventyr` (konstanten `ALIBI_PASSORD` øverst i
 - `index.html`, `no/index.html`, `sitemap.xml` – **generert**, commites,
   redigeres aldri for hånd.
 - `404.html` – felles 404 for begge språk (håndskrevet).
-- `css/style.css` – all stil. Palett og typografi ligger som variabler i
-  `:root` øverst; seksjonene er tydelig kommentert (døra, topplinje med
-  språkvelger, meny, Bakrommet, bevegelse).
+- `css/style.css` – all stil (kilden). Palett og typografi ligger som
+  variabler i `:root` øverst; seksjonene er tydelig kommentert (døra,
+  topplinje med språkvelger, meny, Bakrommet, bevegelse). Sidene laster den
+  **genererte** `css/style.min.css` – kjør generatoren etter CSS-endringer.
 - `js/main.js` – fire deler: døra, Bakrommet, språkvelgeren,
   bevegelseslaget. Tekstene JS skriver ut, kommer fra `<head>`
   (`#alibi-tekst`, generert fra «js»-blokka i språkfilene).

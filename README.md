@@ -55,6 +55,8 @@ Slik gjør du det:
 
 Strukturendringer (ny seksjon, nye attributter) gjøres i `tools/mal.html`; ny tekst får en ny nøkkel i begge språkfilene.
 
+**CSS:** rediger `css/style.css` og kjør generatoren – den skriver den minifiserte kopien `css/style.min.css` som sidene faktisk laster (rendringen er identisk, bare 15 kB lettere). Begge filene commites.
+
 ## Deploye
 
 Siden kan hostes hvor som helst som serverer statiske filer. Last opp **hele mappa** (behold mappestrukturen):
@@ -168,7 +170,8 @@ index.html        – GENERERT: engelsk forside (/)
 no/index.html     – GENERERT: norsk forside (/no/)
 sitemap.xml       – GENERERT
 404.html          – felles 404 på begge språk (håndskrevet)
-css/style.css     – all stil; palett og typografi som variabler øverst i :root
+css/style.css     – all stil (kilden); palett og typografi som variabler øverst i :root
+css/style.min.css – GENERERT minifisert kopi som sidene lenker til – rediger style.css og bygg
 js/main.js        – døra, Bakrommet, språkvelgeren, bevegelseslaget; tekstene kommer fra <head>
 assets/           – favicon (SVG + PNG), og-image, selvhostede fonter; video kommer
 img/              – stemningsbilder (WebP + JPEG) og img/logo/ (ordmerket + søsterstedenes logoer)
@@ -180,4 +183,4 @@ tools/eksporter-bilder.py – lokal bildeeksport (Pillow)
 - Palett: brunsort `#141110`, messing `#C9A227`, oksblod `#5E1F24`, røykgrønn `#3A4A3F`, kritt `#E8E0D0` – definert i `:root` i `css/style.css`.
 - Typografi: Limelight (display) + Cormorant Garamond (brødtekst), selvhostet som latin-subset woff2 i `assets/fonts/` (SIL OFL, se `assets/fonts/LICENSE.txt`) med `font-display: swap`.
 - Kontrast: messing på brunsort måler ca. 7,7:1 og består WCAG AA (også AAA for stor tekst).
-- Lighthouse (målt 2026-09-24, runde 15, emulert mobil, lokal server): engelsk 95 / 100 / 100 / 63, norsk 95 / 100 / 100 / 63 (Performance / Accessibility / Best Practices / SEO), CLS 0 på begge. SEO-tallet skyldes previewens midlertidige `noindex` (TODO P14) og går opp når den fjernes ved lansering.
+- Lighthouse (målt 2026-09-24, runde 16, emulert mobil, lokal server, median av tre kjøringer): se `docs/CHANGELOG.md` runde 16 – Performance 97+ / Accessibility 100 / Best Practices 100 / SEO 63 på begge språk, CLS 0. SEO-tallet skyldes previewens midlertidige `noindex` (TODO P14) og går opp når den fjernes ved lansering.
