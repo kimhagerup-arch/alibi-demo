@@ -21,7 +21,7 @@
       "ingredienser": ["Gin Mare", "Fever-Tree Mediterranean Tonic", "rosmarin"],
       "tekst": {
         "nb": "Husets egen. Middelhavsgin, tonic med urter, og en rosmarinkvist som lukter av et varmere sted.",
-        "en": "The house's own. Mediterranean gin, tonic with herbs, and a sprig of rosemary that smells of somewhere warmer."
+        "en": "House special. Mediterranean gin, tonic with herbs, and a sprig of rosemary that smells of somewhere warmer."
       }
     },
     {
@@ -45,7 +45,7 @@
       "ingredienser": ["Gin", "sitron", "sukkerlake", "fersk basilikum"],
       "tekst": {
         "nb": "Basilikum knust i bunnen, gin over. Grønn, frisk og litt uhøflig.",
-        "en": "Basil crushed in the bottom, gin on top. Green, fresh and a little rude."
+        "en": "Basil crushed in the bottom, gin on top. Green, fresh and a little cheeky."
       }
     },
     {
@@ -69,7 +69,7 @@
       "ingredienser": ["Mezcal", "triple sec", "lime", "sukkerlake", "salt", "flambert lime"],
       "tekst": {
         "nb": "Margarita med røyk i. Limebåten har vært innom flammen på veien.",
-        "en": "A margarita with smoke in it. The lime wedge stopped by the flame on the way."
+        "en": "A margarita with smoke in it. The lime wedge passes through the flame on its way in."
       }
     },
     {
@@ -133,7 +133,7 @@
     "fersk basilikum": "fresh basil",
     "Hvit rom": "White rum",
     "hvit rom": "white rum",
-    "Mannsverk jordbær": "Mannsverk strawberry",
+    "Mannsverk jordbær": "Mannsverk Farm strawberries",
     "mynte": "mint",
     "lime": "lime",
     "jordbær": "strawberry",

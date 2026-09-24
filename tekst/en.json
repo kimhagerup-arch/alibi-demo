@@ -42,9 +42,9 @@
   "passord_plassholder": "Whisper it here …",
 
   "nav_aria": "Main menu",
-  "nav_historien": "The story",
-  "nav_huset": "The house",
-  "nav_menyen": "The menu",
+  "nav_historien": "Story",
+  "nav_huset": "House",
+  "nav_menyen": "Menu",
   "nav_finn_oss": "Find us",
   "nav_praktisk": "Practical",
   "steder_aria": "The rest of the house",
@@ -54,7 +54,7 @@
   "sprak_engelsk": "English",
   "sprak_norsk": "Norsk",
 
-  "hero_overtekst": "Alta · the cellar · since tonight",
+  "hero_overtekst": "Alta · the cellar · tonight",
   "hero_linje": "You found us. What you see here stays between us.",
   "hero_video_aria": "Placeholder for a video from the bar",
   "hero_video_tekst": "Film to come",
