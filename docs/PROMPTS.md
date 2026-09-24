@@ -6,6 +6,45 @@ Nyeste øverst.
 
 ---
 
+## Runde 17 – 2026-09-24 – Hero-video i loop (på `dev`)
+**Prompt:** [`prompts/runde-17-hero-video.md`](prompts/runde-17-hero-video.md)
+
+**Bestilt:** Envato-eksempelfilmen (med vannmerke) inn i hero-feltet på
+begge språk via malen; mp4 kopiert/kodet, ev. webm, plakat; ffmpeg-skript i
+`tools/`; `<video muted loop playsinline autoplay preload="metadata">`,
+`aria-hidden`, egen pauseknapp (WCAG 2.2.2, navn per språk), ingen
+autoavspilling ved redusert bevegelse/sparemodus, pause ute av syne og ved
+skjult fane, ingen lasting bak lukket dør, no-JS-fallback. Verifisering i
+tre nettlesere + mobil, vannmerke synlig, loop-hopp, Lighthouse median av
+tre (≥ 95, rapporter kostnad, LCP-element, CLS 0), nettverk, `--sjekk`,
+skjermbilder. Sporbarhet, TODO-lanseringskrav, BILDEKILDER, push `dev`.
+
+**Levert:** Alt, i fire kode-commits + docs på `dev`. 336 kB mp4 + 25 kB
+plakat, ett skript, alle tester OK i Chromium/Firefox, WebKit med
+forbehold.
+
+**Avvik:**
+- **Ingen `autoplay`/`preload="metadata"` og ingen `<video>` i markupen.**
+  `autoplay` ville startet filmen bak døra og ved redusert bevegelse; og
+  WebKit lastet hele fila for en `<video preload="none">` selv uten JS.
+  Derfor plakat-`<img>` + `<noscript>`-video i markupen, og JS lager
+  videoelementet når det skal spille. Samme resultat for alle som skal ha
+  autoavspilling.
+- **Lighthouse-kravet ≥ 95 er ikke bekreftet i absolutte tall:** maskinen
+  var belastet (brukerens Chrome, 40–48 % CPU), så også runde 16-koden
+  målte 94 i samme økt (97 tidligere på dagen). Relativt koster filmen
+  ≈ 1 poeng, LCP og CLS uendret. Må måles på nytt på rolig maskin før
+  sammenslåing.
+- **WebKit:** Playwrights WebKit på Windows rapporterer ikke
+  medieforespørsler, og pauset ved loop-punktet – lagt inn en liten reserve
+  (uønsket `pause` → `play()`), som fikk loopen til å gå. Ekte Safari/iPhone
+  bør sjekkes av Kim.
+- Loop-hoppet er tydelig synlig (hånda er borte i siste bilde, på knappen i
+  første). Ikke utbedret – eksempelfilmen byttes.
+- Ingen WebM (bare 17 % mindre, litt mykere).
+
+---
+
 ## Runde 16 – 2026-09-24 – Rettet engelsk, ytelse, Vercel–GitHub, sammenslåing til `main`
 **Prompt:** [`prompts/runde-16-engelsk-ytelse-vercel-main.md`](prompts/runde-16-engelsk-ytelse-vercel-main.md)
 

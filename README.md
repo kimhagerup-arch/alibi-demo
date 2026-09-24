@@ -133,7 +133,7 @@ Plassholder-flatene («Foto kommer» / «Film kommer») i `index.html` viser hvo
 
 | Fil | Brukes i | Anbefalt format |
 |---|---|---|
-| `assets/hero.mp4` | `#velkommen` – bytt ut `.medie-slot-hero` med en `<video autoplay muted loop playsinline>` | MP4 (H.264), 1920×1080, < 8 MB, uten lyd |
+| `assets/video/alibi-hero.mp4` + `alibi-hero-poster.webp` | `#velkommen` – **inne siden runde 17** som vannmerket Envato-eksempel (ikke lisensiert). Bytt kilden med `tools/lag-hero-film.py`, se «Hero-filmen» under | MP4 (H.264), 16:9, lages av skriptet (maks 960 px bred, s/h, uten lyd) |
 | `assets/interior-1.jpg` | `#historien` – i dag stemningsbilde (stock) i `<picture>`; bytt kildene i `img/` | JPG/WebP, 1200×1600 (3:4) |
 | `assets/inngang.jpg` | `#finn-oss` – i dag stemningsbilde (stock) i `<picture>`; bytt kildene i `img/` | JPG/WebP, 1200×1600 (3:4) |
 | Tre foto til fotobåndet | `.fotoband` mellom `#historien` og `#huset` – i dag tre stemningsbilder (stock) i `<picture>`; bytt kildene i `img/` og alt-tekstene | JPG/WebP, 4:5 (eksporteres i 480/640/800) |
@@ -142,6 +142,20 @@ Plassholder-flatene («Foto kommer» / «Film kommer») i `index.html` viser hvo
 | `assets/og-image.png` | `<head>` – `og:image` | Finnes (generert fra logofila, 1200×630); kan byttes med foto senere |
 
 Husk `alt`-tekst på norsk på alle bilder, og `loading="lazy"` på bilder under folden.
+
+### Hero-filmen
+
+Feltet øverst på forsiden viser en lydløs film i loop (`assets/video/alibi-hero.mp4`, plakat `alibi-hero-poster.webp`). **Fila i repoet er en Envato-forhåndsvisning med vannmerke og er ikke lisensiert** – den må lisensieres eller byttes med eget materiale før lansering (se `docs/TODO.md` og `docs/BILDEKILDER.md`).
+
+Bytte filmen – én kommando (krever ffmpeg på PATH, f.eks. `winget install Gyan.FFmpeg`):
+
+```
+python tools/lag-hero-film.py <ny-kildefil.mp4>
+```
+
+Skriptet skalerer ned til maks 960 px bredde (aldri opp), gjør filmen sort-hvitt, fjerner lyd, koder H.264 (crf 26, `+faststart`) og lager plakaten (første bilde, 736 px bred WebP). Samme filnavn ut, så ingenting i malen må endres. `--webm` lager i tillegg en VP9-fil (ikke i bruk – ble ikke tydelig mindre). Kilden bør være 16:9; feltet er 16:9 og filmen fyller det med `object-fit: cover`.
+
+Avspilling: dekor (`aria-hidden`), lydløs, i loop, uten nettleserkontroller, med en egen pause/spill-knapp i hjørnet (WCAG 2.2.2). Markupen har bare plakaten som `<img>`; `main.js` lager `<video>`-elementet første gang filmen skal spille (kildene ligger i `data-film`/`data-plakat` på feltet), så ingenting lastes før døra er åpnet – heller ikke i Safari/WebKit, som ellers laster hele fila for en `<video preload="none">`. Filmen pauses når feltet er ute av syne eller fanen er skjult, og autostarter ikke ved `prefers-reduced-motion` eller sparemodus (`saveData`) – da vises plakaten, og knappen starter filmen. Uten JavaScript vises `<noscript>`-videoen med nettleserens egne kontroller.
 
 ### Stemningsbilder (midlertidige) og eksport
 
@@ -176,6 +190,8 @@ js/main.js        – døra, Bakrommet, språkvelgeren, bevegelseslaget; teksten
 assets/           – favicon (SVG + PNG), og-image, selvhostede fonter; video kommer
 img/              – stemningsbilder (WebP + JPEG) og img/logo/ (ordmerket + søsterstedenes logoer)
 tools/eksporter-bilder.py – lokal bildeeksport (Pillow)
+tools/lag-hero-film.py – lager hero-filmen og plakaten fra én kildefil (ffmpeg)
+assets/video/      – alibi-hero.mp4 (Envato-eksempel med vannmerke, ikke lisensiert) + plakat
 ```
 
 ## Design-referanse

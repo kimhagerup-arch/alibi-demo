@@ -5,6 +5,95 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 17 – 2026-09-24 – Hero-video i loop (på `dev`, ikke slått sammen til `main`)
+
+### Lagt til
+- **Hero-filmen** i `#velkommen` erstatter «Film kommer»-flaten på begge
+  språk (P3 midlertidig løst). Samme ramme og 16:9-felt, ingen
+  layout-endring, CLS 0. **Fila er en Envato-forhåndsvisning med synlig
+  vannmerke, ikke lisensiert** – kun for å vise kunden muligheten; vannmerket
+  er ikke fjernet, beskåret bort eller dekket, og er synlig i feltet på 1440
+  (736 × 414) og 375 (335 × 188). Lanseringskrav i TODO (høy prioritet),
+  kilde/lisens i `BILDEKILDER.md`. Beslutning #34.
+- **Filer** i `assets/video/`: `alibi-hero.mp4` (H.264 High, yuv420p,
+  960×540, 25 fps, 8,2 s, s/h, uten lyd, `+faststart`, crf 26) **336 kB** –
+  kilden var 514 kB, ny koding uten synlig tap (sjekket i 2x-zoom);
+  `alibi-hero-poster.webp` (første bilde, 736 × 414, q 75) **25 kB**.
+  Ingen WebM: VP9 crf 40 ga 279 kB (−17 %) og var litt mykere – ikke
+  «tydelig mindre».
+- **`tools/lag-hero-film.py`** (ffmpeg): én kommando bytter filmen – ny
+  kildefil inn, samme filnavn ut, nedskalering til maks 960 px (aldri opp),
+  sort-hvitt (`hue=s=0`), lyd fjernet, plakat generert. `--webm` valgfritt.
+  Dokumentert i README («Hero-filmen»).
+- **Markup:** ingen `<video>` i DOM-en – `#hero-felt` har plakaten som
+  `<img>` (`.hero-plakat`), `data-film`/`data-plakat`, og en
+  `<noscript>`-video med `controls` for besøkende uten JS. `main.js`
+  lager `<video muted loop playsinline aria-hidden>` første gang filmen skal
+  spille. Grunn: WebKit hentet hele mp4-en for en `<video preload="none">` i
+  markupen, også bak lukket dør og med JS avslått (målt via serverlogg).
+  Chromium og Firefox lastet ingenting, men elementet må være borte for
+  alle.
+- **Pause/spill-knapp** (WCAG 2.2.2): 44 × 44 px, messing på mørk bunn,
+  nedre høyre hjørne, ikon bytter (pause ⇄ spill), navn per språk fra
+  «js»-tekstene («Pause film»/«Play film», «Sett film på pause»/«Spill av
+  film»), synlig fokus. Gjestens valg huskes så lenge siden er åpen.
+- **Regler for avspilling** i `main.js`: spiller bare når gjesten ikke har
+  trykket pause, døra ikke er lukket (`dorLukket`, fjernes idet døra begynner
+  å åpne seg), feltet er i syne (IntersectionObserver, terskel 0,1), fanen er
+  synlig, og verken `prefers-reduced-motion` eller
+  `navigator.connection.saveData` er satt – i de to siste vises plakat +
+  knapp, og knappen starter filmen. Reserve for loop: en `pause`-hendelse vi
+  ikke ba om (WebKit pauser ved 0 etter omstarten) starter filmen igjen.
+
+### Endret
+- `hero_video_aria`/`hero_video_tekst` («Film kommer») er fjernet fra
+  språkfilene; `film_spill`/`film_pause` er nye (topp + «js»).
+- `PLACEHOLDER`-antallet er uendret (21): hero-kommentaren er byttet til
+  «eksempelfilm med vannmerke (Envato-forhåndsvisning), lisensieres eller
+  byttes før lansering».
+
+### Verifisert (lokalt, samme filer som previewen)
+- **Filmtestsett (23 sjekker) i Chromium 143:** alle OK – ingen
+  videoforespørsel og ingen `<video>` bak lukket dør; spiller automatisk,
+  lydløst og i loop etter «Walk straight in»; klikk/Enter/Space på knappen;
+  pause huskes ved scroll bort/tilbake; ute av syne → pauset, tilbake →
+  spiller; skjult fane → pauset; redusert bevegelse og sparemodus → plakat +
+  knapp uten lasting, knappen starter; mobil med berøring; uten JS →
+  `<noscript>`-video med kontroller. **Firefox 141:** 19/19 (de fire
+  mobil-/fane-sjekkene kjøres bare i Chromium/WebKit). **WebKit 26:** 20 OK;
+  «mp4 lastet»-sjekken feiler fordi Playwright ikke rapporterer
+  medieforespørsler i WebKit (fila lastes – bekreftet via serverlogg), og
+  loopen krevde reserven over. Kim bør sjekke på ekte iPhone.
+- **Loop-sømmen er synlig:** siste bilde (hånda er ute av bildet) og første
+  bilde (hånda på knappen) avviker med gjennomsnittlig 23,0 gråtoneverdier,
+  mot 0,2–0,5 mellom nabobilder. Filmen «hopper» ved omstart; ikke gjort noe
+  med (eksempelfilmen byttes uansett).
+- **Range-forespørsler:** loop og søk i WebKit krever en server med
+  `Accept-Ranges` (Vercel har det; Pythons `http.server` har det ikke) –
+  WebKit-testene er kjørt mot `npx http-server`.
+- **Full feltbredde på 1440:** feltet er 736 × 414 css-px, filmen 960 × 540
+  – vises nedskalert, aldri opp. Skarpt nok; på 2x-skjermer er 960 px under
+  feltets 1472 fysiske piksler, så en lisensiert 1080p-fil vil bli skarpere.
+- **Testsettet fra runde 16 (47 sjekker):** alle OK.
+- **Lighthouse mobil, median av tre, kjørt om hverandre med runde 16-koden
+  som kontroll på samme maskin:** kontroll (uten film) **94** (91/94),
+  engelsk med film **93** (92/93/94), norsk med film **93** (93/93/92).
+  Accessibility 100, Best Practices 100, SEO 63 (noindex), **CLS 0** på alle.
+  FCP 1,5–1,6 s, **LCP 2,19 s (en) / 2,26 s (nb)**, LCP-elementet er nå
+  **plakaten** (`img.hero-film`, 25 kB) mot velkomstlinja før; TBT 110–120 ms.
+  **Filmen koster ≈ 1 poeng** og ingen LCP. Absoluttallene er lavere enn
+  runde 16 (97) fordi maskinen var belastet under målingene (brukerens egen
+  Chrome, 19 prosesser, 40–48 % CPU) – kontrollen viser det: samme kode
+  målte 97/97/97 tidligere i dag og 94 nå. Kravet ≥ 95 er dermed ikke
+  bekreftet i absolutte tall i denne økten; relativt til kontrollen er
+  kostnaden 1 poeng, og LCP/CLS er uendret. Bør måles på nytt på rolig
+  maskin (`bash`-oppsettet i CLAUDE.md, median av tre).
+- Nettverk før døra åpnes: kun plakaten (25 295 B); mp4 (336 301 B) hentes
+  først når filmen skal spille.
+- `python tools/bygg-sider.py --sjekk` → i synk.
+- Skjermbilder (1440 og 375, begge språk, film spiller og pauset, samt hero
+  og dør uten JS) i `..\alibi-skjermbilder\runde-17\`.
+
 ## Runde 16 – 2026-09-24 – Rettet engelsk, ytelse 97, Vercel–GitHub bekreftet, slått sammen til `main`
 
 ### Endret

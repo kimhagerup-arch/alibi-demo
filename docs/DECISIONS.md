@@ -561,3 +561,46 @@ usikre rekonstruksjoner er merket «(antatt)».
   reduksjonen av den kritiske stien er CSS-bytes, og generatoren finnes
   allerede. Ytelseskravet måles heretter som median av tre kjøringer.
 - **Status:** Gjeldende.
+
+## #34 – Hero-film: format, plakat, pauseknapp, lasting bak døra – og at den er en vannmerket eksempelfilm
+- **Dato:** 2026-09-24 (runde 17)
+- **Beslutning:** Hero-feltet (16:9, samme ramme som plassholderen) viser en
+  lydløs film i loop: `assets/video/alibi-hero.mp4` (H.264 High, yuv420p,
+  960×540, crf 26, `+faststart`, uten lyd – 336 kB) med plakat
+  `alibi-hero-poster.webp` (første bilde, 736 px = feltets bredde, 25 kB).
+  Ingen WebM: VP9 ble ikke tydelig mindre (crf 40 = 279 kB, litt mykere).
+  Filene lages av `tools/lag-hero-film.py` (ffmpeg): ny kildefil inn, samme
+  navn ut, nedskalering (aldri opp), sort-hvitt, lyd fjernet. Markup:
+  **ingen `<video>` i DOM-en** – feltet (`#hero-felt`, med `data-film` og
+  `data-plakat`) har plakaten som `<img>` og en `<noscript>`-video med
+  `controls`. `main.js` viser en egen pause/spill-knapp (44 × 44 px,
+  messing, nedre høyre hjørne, navn per språk fra «js»-tekstene) og lager
+  `<video muted loop playsinline aria-hidden>` første gang alt stemmer:
+  gjesten har ikke trykket pause, døra er ikke lukket (`dorLukket`, samme
+  idé som `dor-lukket` for kammerlyset), feltet er i syne
+  (IntersectionObserver), fanen er synlig, og verken
+  `prefers-reduced-motion` eller `navigator.connection.saveData` er satt
+  (da vises plakat + knapp, og knappen starter filmen). Gjestens pausevalg
+  huskes ut siden (i minnet). Uten JS: plakat + nettleserens kontroller.
+  **Fila er en Envato-
+  forhåndsvisning med synlig vannmerke, ikke lisensiert, kun for å vise
+  kunden muligheten** – vannmerket fjernes, beskjæres eller dekkes ikke, og
+  fila må lisensieres eller byttes før lansering (TODO, lanseringskrav;
+  `docs/BILDEKILDER.md`).
+- **Alternativer vurdert:** `autoplay preload="metadata"` i markupen som
+  bestilt (forkastet: nettleseren ville lastet og startet filmen bak den
+  lukkede døra, og også ved redusert bevegelse/sparemodus og uten JS – i
+  strid med de andre kravene; JS-styrt `play()` gir samme resultat for alle
+  som skal ha autoavspilling). `<video preload="none">` i markupen uten
+  autoplay (forkastet etter test: Chromium og Firefox laster ingenting, men
+  WebKit henter hele mp4-en bak lukket dør, også med JS avslått – derfor
+  lages elementet av JS). Kopiere kildefila uendret (forkastet: ny
+  koding ga 514 → 336 kB uten synlig tap i 2x-zoom). WebM i tillegg
+  (forkastet, se over). Ikke egen knapp (forkastet: WCAG 2.2.2 krever
+  pause for bevegelse over 5 s). Sømløs loop med kryssfading (ikke gjort:
+  eksempelfilmen byttes uansett; hoppet ved omstart er synlig, se changelog).
+- **Begrunnelse:** Levende bilde i hero-en uten å røre layout (ingen CLS),
+  ytelse (lastes først etter døra), tilgjengelighet eller batteri. Én
+  kommando bytter fila når den lisensierte versjonen kommer.
+- **Status:** Gjeldende (på `dev`, ikke slått sammen til `main`). Eksempelfilmen
+  er midlertidig.
