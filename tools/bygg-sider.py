@@ -44,7 +44,9 @@ def les_json(navn):
 
 
 def les(sti):
-    with open(sti, encoding="utf-8", newline="") as f:
+    # Universelle linjeskift: git på Windows (autocrlf) kan sjekke ut CRLF,
+    # generatoren skriver alltid LF – --sjekk skal ikke slå ut på det.
+    with open(sti, encoding="utf-8", newline=None) as f:
         return f.read()
 
 

@@ -2,7 +2,9 @@
    ALIBI – døra, Bakrommet (på siden: «den skjulte menyen») og bevegelsen
    Døra er et rent overlay: alt innhold ligger i DOM-en bak og er crawlbart
    uansett. sessionStorage: «alibi-inne» (døra vises én gang per økt) og
-   «alibi-bakrom» (Bakrommet forblir åpent i økten).
+   «alibi-bakrom» (Bakrommet forblir åpent i økten) – delt mellom / og /no/.
+   localStorage: «alibi-sprak» (valgt språk, leses av inline-skriptet på /).
+   Tekstene JS skriver ut, ligger ikke her: se «alibi-tekst» i <head>.
    ========================================================================== */
 
 /* Passordet – brukes av både døra og Bakrommet. Bytt det HER, ett sted.

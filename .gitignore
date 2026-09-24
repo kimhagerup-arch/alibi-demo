@@ -7,3 +7,6 @@ Desktop.ini
 *.log
 node_modules/
 .vscode/
+
+# Vercel CLI (vercel link)
+.vercel/
