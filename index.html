@@ -268,15 +268,20 @@
     <p class="velkomst-linje">You found us. What you see here stays between us.</p>
 
     <!-- PLACEHOLDER: eksempelfilm med vannmerke (Envato-forhåndsvisning), lisensieres eller byttes før lansering -->
-    <!-- Hero-filmen: dekor (aria-hidden), lydløs, i loop. Uten autoplay-attributt og
-         med preload="none" med vilje: filmen skal verken lastes eller spille bak lukket
-         dør, ved redusert bevegelse eller i sparemodus – main.js starter den når det
-         passer. Uten JS: plakat + nettleserens egne kontroller (controls fjernes av JS,
-         som viser sin egen pauseknapp). Filer og bytte: tools/lag-hero-film.py. -->
-    <div class="medie-slot medie-slot-hero medie-slot-film">
-      <video class="hero-film" id="hero-film" muted loop playsinline preload="none" controls width="960" height="540" poster="assets/video/alibi-hero-poster.webp" aria-hidden="true" tabindex="-1">
-        <source src="assets/video/alibi-hero.mp4" type="video/mp4">
-      </video>
+    <!-- Hero-filmen: dekor, lydløs, i loop. Det ligger med vilje INGEN <video> i DOM-en
+         her – bare plakaten som <img>. main.js lager videoelementet (fra data-film/
+         data-plakat) første gang filmen skal spille: når døra er åpnet, feltet er i
+         syne og verken redusert bevegelse eller sparemodus er på. Grunn: WebKit/Safari
+         laster hele fila for en <video preload="none"> som står i markupen, også bak
+         lukket dør. Uten JS: <noscript>-videoen med nettleserens egne kontroller.
+         Filer og bytte: tools/lag-hero-film.py. -->
+    <div class="medie-slot medie-slot-hero medie-slot-film" id="hero-felt" data-film="assets/video/alibi-hero.mp4" data-plakat="assets/video/alibi-hero-poster.webp">
+      <img class="hero-film hero-plakat" src="assets/video/alibi-hero-poster.webp" width="736" height="414" alt="" decoding="async">
+      <noscript>
+        <video class="hero-film" muted loop playsinline controls preload="none" width="960" height="540" poster="assets/video/alibi-hero-poster.webp" aria-hidden="true">
+          <source src="assets/video/alibi-hero.mp4" type="video/mp4">
+        </video>
+      </noscript>
       <button type="button" class="film-knapp" id="film-knapp" data-tilstand="pauset" aria-label="Play film" hidden>
         <svg class="film-ikon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2.5" width="3.4" height="11" fill="currentColor"/><rect x="9.6" y="2.5" width="3.4" height="11" fill="currentColor"/></svg>
         <svg class="film-ikon-spill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.5,2.5 L13,8 L4.5,13.5 Z" fill="currentColor"/></svg>

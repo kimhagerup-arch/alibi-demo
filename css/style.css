@@ -809,7 +809,9 @@ html.inne .dor-scene { display: none; }
    Samme ramme og 16:9-felt som plassholderen hadde; filmen fyller feltet med
    cover (kilden er også 16:9, så ingenting beskjæres bort – vannmerket står
    midt i bildet). Pauseknappen (WCAG 2.2.2) ligger i nedre høyre hjørne,
-   44 × 44 px, og vises av JS. */
+   44 × 44 px, og vises av JS. Plakaten er en <img>; <video> lages av JS oppå
+   den (samme klasse, samme utfylling), så plakaten dekker til første bilde er
+   klart. */
 .medie-slot-film { overflow: hidden; }
 
 .hero-film {

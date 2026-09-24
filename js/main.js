@@ -334,17 +334,46 @@ var ALIBI_PASSORD = "æventyr";
      ======================================================================== */
 
   (function initFilm() {
-    var film = document.getElementById("hero-film");
+    var felt = document.getElementById("hero-felt");
     var knapp = document.getElementById("film-knapp");
-    if (!film || !knapp) return;
+    if (!felt || !knapp) return;
 
     var forbindelse = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     var sparemodus = !!(forbindelse && forbindelse.saveData);
     var gjestPauset = reduserBevegelse || sparemodus; // startvalg – husker gjestens trykk ut siden
     var iSyne = true;
+    var film = null; // lages først når filmen skal spille (se kommentaren i malen)
 
-    film.removeAttribute("controls");
     knapp.hidden = false;
+
+    function lagFilm() {
+      film = document.createElement("video");
+      film.className = "hero-film";
+      film.id = "hero-film";
+      film.muted = true;
+      film.setAttribute("muted", "");
+      film.loop = true;
+      film.setAttribute("playsinline", "");
+      film.setAttribute("aria-hidden", "true");
+      film.tabIndex = -1;
+      film.preload = "auto";
+      film.poster = felt.getAttribute("data-plakat");
+      film.width = 960;
+      film.height = 540;
+      var kilde = document.createElement("source");
+      kilde.src = felt.getAttribute("data-film");
+      kilde.type = "video/mp4";
+      film.appendChild(kilde);
+      // Reserve for loop-attributtet: Playwrights WebKit pauser ved 0 etter
+      // omstarten. Pauser filmen uten at vi ba om det, starter vi den igjen.
+      film.addEventListener("pause", function () {
+        if (kanSpille()) film.play().catch(function () {});
+      });
+      film.addEventListener("ended", function () {
+        if (kanSpille()) { film.currentTime = 0; film.play().catch(function () {}); }
+      });
+      felt.insertBefore(film, knapp); // over plakaten, under knappen
+    }
 
     function kanSpille() {
       return !gjestPauset && !dorLukket && iSyne && !document.hidden;
@@ -352,11 +381,12 @@ var ALIBI_PASSORD = "æventyr";
 
     function oppdater() {
       if (kanSpille()) {
+        if (!film) lagFilm();
         if (film.paused) {
           var p = film.play();
           if (p && p.catch) p.catch(function () { /* autoplay nektet – knappen finnes */ });
         }
-      } else if (!film.paused) {
+      } else if (film && !film.paused) {
         film.pause();
       }
       var spiller = !gjestPauset;
@@ -374,7 +404,7 @@ var ALIBI_PASSORD = "æventyr";
       new IntersectionObserver(function (entries) {
         iSyne = entries[0].isIntersecting;
         oppdater();
-      }, { threshold: 0.1 }).observe(film);
+      }, { threshold: 0.1 }).observe(felt);
     }
     document.addEventListener("visibilitychange", oppdater);
 
