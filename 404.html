@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,18 +10,20 @@
 
   <title>404 – Alibi</title>
 
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <!-- Stiene er rot-absolutte: Vercel serverer denne fila for alle ukjente
+       adresser, også under /no/, og da virker ikke relative stier. -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 
-  <link rel="preload" href="assets/fonts/limelight-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/limelight-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<!-- Alibi-ordmerket: kopi av <symbol id="alibi-ordmerke"> i index.html
+<!-- Alibi-ordmerket: kopi av <symbol id="alibi-ordmerke"> i tools/mal.html
      (kilde: img/logo/alibi-logo.svg). 404-siden laster ikke JS og deler ikke
      DOM med forsiden, så symbolet må ligge her òg. Endres logoen, oppdater begge. -->
 <svg style="display:none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
@@ -30,12 +32,20 @@
   </symbol>
 </svg>
 
+<!-- Én felles 404 for begge språk: engelsk først, norsk under, lenke til
+     hver sin forside. -->
 <main class="feil-scene">
-  <a class="feil-ordmerke" href="/" aria-label="Alibi – til forsiden"><svg class="ordmerke" viewBox="0 0 236.88 188.95" aria-hidden="true" focusable="false"><use href="#alibi-ordmerke"/></svg></a>
-  <p class="overtekst">Feil dør</p>
+  <a class="feil-ordmerke" href="/" aria-label="Alibi – to the front page"><svg class="ordmerke" viewBox="0 0 236.88 188.95" aria-hidden="true" focusable="false"><use href="#alibi-ordmerke"/></svg></a>
+  <p class="overtekst">Wrong door</p>
   <h1 class="feil-kode">404</h1>
-  <p class="feil-tekst">Denne døra finnes ikke. Men vår gjør.</p>
-  <a class="feil-lenke" href="/">Tilbake til døra</a>
+  <p class="feil-tekst">This door doesn't exist. Ours does.</p>
+  <a class="feil-lenke" href="/" hreflang="en">Back to the door</a>
+
+  <div class="feil-norsk" lang="nb">
+    <p class="overtekst">Feil dør</p>
+    <p class="feil-tekst">Denne døra finnes ikke. Men vår gjør.</p>
+    <a class="feil-lenke" href="/no/" hreflang="nb">Tilbake til døra</a>
+  </div>
 </main>
 
 </body>
