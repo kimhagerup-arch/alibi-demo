@@ -2,7 +2,11 @@
 
 Nettsiden til **Alibi**, speakeasy-bar i en kjeller i Alta sentrum. Drevet av Æventyr (samme eiere som nattklubben Tåkt, vegg i vegg). NB: gateadressen er under avklaring – siden sier Sentrumsparken 2, søstersidene sier Markedsgata 6 (se TODO P15).
 
-Ren statisk side: HTML + CSS + vanilla JavaScript. Ingen rammeverk, ingen byggesteg, ingen eksterne avhengigheter – fontene selvhostes i `assets/fonts/`.
+Ren statisk side: HTML + CSS + vanilla JavaScript. Ingen rammeverk, intet byggesteg på serveren, ingen eksterne avhengigheter – fontene selvhostes i `assets/fonts/`.
+
+Siden finnes på **engelsk (`/`, standard) og norsk (`/no/`)**. Begge forsidene genereres lokalt fra én mal og felles tekst-/menyfiler med `python tools/bygg-sider.py` (kun standard-Python) – de genererte filene sjekkes inn. Se «Endre tekst eller meny» under.
+
+**Arbeidsflyt:** alt arbeid skjer på grenen `dev`. `main` er det kunden ser på `alibi-demo.vercel.app` og endres bare på eksplisitt beskjed fra Kim. Se `CLAUDE.md`.
 
 ## Dokumentasjon
 
@@ -27,16 +31,36 @@ python -m http.server 8000
 npx serve .
 ```
 
-Gå så til `http://localhost:8000`.
+Gå så til `http://localhost:8000` (engelsk) eller `http://localhost:8000/no/` (norsk). Språkbytte og 404 trenger en server – `index.html` kan åpnes rett fra fil, men språklenkene peker på `/` og `/no/`.
 
-**Tips under utvikling:** Døra vises kun én gang per økt, og Bakrommet husker at det er låst opp (`sessionStorage`). For å nullstille begge: åpne DevTools → Console og kjør `sessionStorage.clear()`, eller bruk et privat vindu.
+**Tips under utvikling:** Døra vises kun én gang per økt, og Bakrommet husker at det er låst opp (`sessionStorage`). For å nullstille begge: åpne DevTools → Console og kjør `sessionStorage.clear()`, eller bruk et privat vindu. Språkvalget ligger i `localStorage` (`alibi-sprak`): `localStorage.removeItem('alibi-sprak')`.
+
+## Endre tekst eller meny (begge språk)
+
+Ikke rediger `index.html` eller `no/index.html` – de er generert og overskrives. Kildene er:
+
+| Fil | Innhold |
+|---|---|
+| `tekst/nb.json` / `tekst/en.json` | All tekst, samme nøkler i begge. `js`-blokka er tekstene JavaScript skriver ut (dør, skjult meny) |
+| `tekst/meny.json` | Menyen, ett sted: per drink `navn`, `glass`, `cl`, `pris`, `ingredienser` (felles) og `tekst.nb`/`tekst.en`. `ordliste` oversetter ingrediensord til engelsk |
+| `tekst/felles.json` | Domene (canonical/hreflang/og:url/sitemap) og kart-URL |
+| `tools/mal.html` | Selve HTML-strukturen, med `{{nøkler}}` og alle `PLACEHOLDER`-kommentarer |
+
+Slik gjør du det:
+
+1. **Endre en tekst:** finn nøkkelen (søk på den norske setningen i `tekst/nb.json`), endre verdien der og under samme nøkkel i `tekst/en.json`.
+2. **Endre en drink / pris:** rediger objektet i `tekst/meny.json`. Ny drink: kopier et objekt og gi den ny `id`. Prisen skrives som tall (`159`) – «kr»/«NOK» settes av språkfilene. Nye ingrediensord på norsk føres i `ordliste` med engelsk oversettelse; ord som ikke står der (merkevarer), brukes uendret. `bakrom: true` legger drinken i den skjulte menyen. `glass`/`cl` kan være `null` (da vises ingen glasslinje).
+3. **Bygg:** `python tools/bygg-sider.py`. Generatoren stopper hvis et språk mangler en nøkkel, og varsler om ingrediensord uten oversettelse.
+4. Sjekk begge sidene lokalt, og commit kildene **og** de genererte filene sammen. `python tools/bygg-sider.py --sjekk` sier fra hvis noe ikke er i synk.
+
+Strukturendringer (ny seksjon, nye attributter) gjøres i `tools/mal.html`; ny tekst får en ny nøkkel i begge språkfilene.
 
 ## Deploye
 
 Siden kan hostes hvor som helst som serverer statiske filer. Last opp **hele mappa** (behold mappestrukturen):
 
 - **Netlify:** dra og slipp mappa på app.netlify.com, eller koble til repoet. Ingen build-kommando, publish directory = rot.
-- **Vercel:** `vercel` i mappa, eller importer repoet. Framework preset: «Other».
+- **Vercel:** `vercel` i mappa (forhåndsvisning) eller `vercel --prod` fra `main` (produksjon – kun på Kims beskjed), eller importer repoet. Framework preset: «Other». `/no/` serveres fra `no/index.html`, `404.html` for alt ukjent.
 - **GitHub Pages:** push til et repo → Settings → Pages → deploy fra `main`-branchen, rotmappa.
 - **one.com o.l.:** last opp alle filene til webroten via FTP/filbehandler.
 
@@ -44,10 +68,17 @@ Siden kan hostes hvor som helst som serverer statiske filer. Last opp **hele map
 
 - Døra er et **overlay** – alt innhold ligger i DOM-en bak og er fullt crawlbart for søkemotorer.
 - Bank tre ganger (klikk, eller Enter/Space – døra er en `<button>`), så vurderer øyet deg og døra åpnes.
-- Passordet (skjult felt bak «Har du et passord?», eller bare tast det) åpner umiddelbart med egen animasjon.
-- «Gå rett inn»-lenken hopper over hele seremonien.
-- `sessionStorage` husker at man er inne; `prefers-reduced-motion` gir en enkel fade i stedet for animasjon.
+- Passordet (skjult felt bak «Har du et passord?», eller bare tast det) åpner umiddelbart med egen animasjon. `æventyr` og `aeventyr` er like gode (æ/ø/å normaliseres til ae/oe/aa).
+- «Gå rett inn»-lenken hopper over hele seremonien. Sist i samme rad står en språklenke («Norsk»/«English»).
+- `sessionStorage` husker at man er inne – på tvers av språkene; `prefers-reduced-motion` gir en enkel fade i stedet for animasjon.
 - Bankelyden genereres med WebAudio (ingen lydfil) og er **av** som standard.
+
+## Språk
+
+- `/` er engelsk (`lang="en"`), `/no/` er norsk (`lang="nb"`). Engelsk er standard fordi målgruppen er turister og hotellgjester.
+- Språkvelgeren helt til høyre i topplinja er en `<details>` med flagg (inline-SVG) og tekst, og virker uten JavaScript. JS lukker den på Esc og klikk utenfor.
+- Valget lagres i `localStorage` som `alibi-sprak`. Har gjesten valgt norsk og kommer til `/`, sender et inline-skript i `<head>` hen til `/no/` før noe tegnes. Ingen gjetting ut fra nettleserspråk; uten lagret valg omdirigeres ingen, og `/no/` omdirigerer aldri.
+- Hver side har selvrefererende `canonical`, `hreflang` (en/nb/x-default → `/`), `og:locale` + alternate og `inLanguage` i JSON-LD; `sitemap.xml` har begge URL-ene.
 
 ## Bakrommet
 
@@ -69,7 +100,7 @@ Passordet ligger som **én konstant øverst i `js/main.js`**:
 var ALIBI_PASSORD = "æventyr";
 ```
 
-Bytt verdien der – både døra og Bakrommet bruker den, og store/små bokstaver spiller ingen rolle for gjestene. (Passordet står i klartekst i fila; dette er en lek, ikke sikkerhet.)
+Bytt verdien der – både døra og Bakrommet bruker den, og store/små bokstaver spiller ingen rolle for gjestene; æ/ø/å godtas også som ae/oe/aa. (Passordet står i klartekst i fila; dette er en lek, ikke sikkerhet.)
 
 ## Bevegelse
 
@@ -79,20 +110,20 @@ Med `prefers-reduced-motion` deaktiveres alt sammen – innholdet vises da stati
 
 ## Plassholdere – hva eierne skal bytte ut
 
-Alt som skal byttes er merket med `<!-- PLACEHOLDER -->` i `index.html`. Søk på ordet `PLACEHOLDER`.
+Alt som skal byttes er merket med `<!-- PLACEHOLDER -->` i `tools/mal.html` (og følger med i begge genererte sider). Søk på ordet `PLACEHOLDER`. Tekstene selv ligger i `tekst/*.json`.
 
-| Hva | Hvor i `index.html` | Merknad |
+| Hva | Hvor | Merknad |
 |---|---|---|
-| Priser i menyen | Seksjonen `#menyen` (også Bakrommet) | Menyen er ekte fra runde 9; erstatt `kr —` med reelle priser når de leveres |
-| Glass/mengde i Bakrommet | `#menyen`, `.bakrom-liste` | Ikke oppgitt av eierne ennå (TODO P18) |
-| Åpningstider | Seksjonen `#praktisk` | |
-| Aldersgrense | Seksjonen `#praktisk` | |
-| Kontaktinfo | Seksjonen `#praktisk` | E-post og/eller telefon |
-| Sosiale medier | Seksjonen `#praktisk` og footerens «Følg oss» | Bytt `<span>` til `<a href="…">` når Alibis egne kontoer finnes |
-| Adresse | `#finn-oss`, `#praktisk` og JSON-LD i `<head>` | Må bekreftes: siden sier Sentrumsparken 2, Raus/Tåkt oppgir Markedsgata 6 (TODO P15) |
-| Foto til «Huset»-kortene | Seksjonen `#huset` | `assets/raus.jpg`, `assets/taakt.jpg` + foto av Alibi |
-| Open Graph-bilde | `<head>` | Generert (`assets/og-image.png`); bytt domenet i URL-en ved lansering (TODO P2) |
-| Logo | `img/logo/alibi-logo.svg` (inline som `<symbol id="alibi-ordmerke">` i `index.html`, kopi i `404.html`) | Ordmerke med gruppens A (runde 11). Bekreftes med kunden; en offisiell fil fra Æventyr byttes inn i symbolet |
+| Priser i menyen | `pris` per drink i `tekst/meny.json` | Menyen er ekte fra runde 9; sett reelle priser (tall) når de leveres og bygg |
+| Glass/mengde i Bakrommet | `glass`/`cl` for Mandaquiri og Adventure i `tekst/meny.json` | Ikke oppgitt av eierne ennå (TODO P18) |
+| Åpningstider | `praktisk_tider_tekst` + `alibi_tider` i språkfilene | |
+| Aldersgrense | `praktisk_alder_tekst` i språkfilene | |
+| Kontaktinfo | `praktisk_kontakt_tekst` i språkfilene | E-post og/eller telefon |
+| Sosiale medier | `#praktisk` og footerens «Følg oss» i `tools/mal.html` | Bytt `<span>` til `<a href="…">` når Alibis egne kontoer finnes |
+| Adresse | `adresse_linje`, `praktisk_beliggenhet_tekst` (språkfilene), `kart_url` (felles) og JSON-LD i malen | Må bekreftes: siden sier Sentrumsparken 2, Raus/Tåkt oppgir Markedsgata 6 (TODO P15) |
+| Foto til «Huset»-kortene | `#huset` i `tools/mal.html` | `assets/raus.jpg`, `assets/taakt.jpg` + foto av Alibi |
+| Open Graph-bilde og domene | `domene` i `tekst/felles.json` | Bildet er generert (`assets/og-image.png`); bytt domenet ved lansering (TODO P2) |
+| Logo | `img/logo/alibi-logo.svg` (inline som `<symbol id="alibi-ordmerke">` i `tools/mal.html`, kopi i `404.html`) | Ordmerke med gruppens A (runde 11). Bekreftes med kunden; en offisiell fil fra Æventyr byttes inn i symbolet |
 
 ## Medier som forventes (i `assets/`)
 
@@ -130,12 +161,18 @@ eller alkohol-/tobakksmerker (se `CLAUDE.md`). Kilder og lisenser per bilde:
 ## Struktur
 
 ```
-index.html        – alt innhold (one-page med ankernavigasjon)
+tools/mal.html    – malen: all struktur og alle PLACEHOLDER-kommentarer (rediger denne)
+tekst/            – nb.json, en.json (all tekst), meny.json (menyen), felles.json (domene)
+tools/bygg-sider.py – generatoren (standard-Python): mal + tekst → index.html, no/index.html, sitemap.xml
+index.html        – GENERERT: engelsk forside (/)
+no/index.html     – GENERERT: norsk forside (/no/)
+sitemap.xml       – GENERERT
+404.html          – felles 404 på begge språk (håndskrevet)
 css/style.css     – all stil; palett og typografi som variabler øverst i :root
-js/main.js        – dørmekanikken; ingenting annet krever JavaScript
+js/main.js        – døra, Bakrommet, språkvelgeren, bevegelseslaget; tekstene kommer fra <head>
 assets/           – favicon (SVG + PNG), og-image, selvhostede fonter; video kommer
 img/              – stemningsbilder (WebP + JPEG) og img/logo/ (ordmerket + søsterstedenes logoer)
-tools/            – eksporter-bilder.py (lokal bildeeksport, Pillow)
+tools/eksporter-bilder.py – lokal bildeeksport (Pillow)
 ```
 
 ## Design-referanse
@@ -143,4 +180,4 @@ tools/            – eksporter-bilder.py (lokal bildeeksport, Pillow)
 - Palett: brunsort `#141110`, messing `#C9A227`, oksblod `#5E1F24`, røykgrønn `#3A4A3F`, kritt `#E8E0D0` – definert i `:root` i `css/style.css`.
 - Typografi: Limelight (display) + Cormorant Garamond (brødtekst), selvhostet som latin-subset woff2 i `assets/fonts/` (SIL OFL, se `assets/fonts/LICENSE.txt`) med `font-display: swap`.
 - Kontrast: messing på brunsort måler ca. 7,7:1 og består WCAG AA (også AAA for stor tekst).
-- Lighthouse (målt 2026-08-21, emulert mobil): Performance 99, Accessibility 100, Best Practices 100, SEO 60 – SEO-tallet skyldes previewens midlertidige `noindex` (TODO P14) og går tilbake til 100 når den fjernes ved lansering.
+- Lighthouse (målt 2026-09-24, runde 15, emulert mobil, lokal server): engelsk 95 / 100 / 100 / 63, norsk 95 / 100 / 100 / 63 (Performance / Accessibility / Best Practices / SEO), CLS 0 på begge. SEO-tallet skyldes previewens midlertidige `noindex` (TODO P14) og går opp når den fjernes ved lansering.

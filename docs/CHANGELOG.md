@@ -5,6 +5,102 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 15 – 2026-09-24 – Engelsk og norsk, engelsk først (på `dev`, ikke slått sammen til `main`)
+
+### Lagt til
+- **Engelsk versjon** på `/` (`index.html`, `<html lang="en">`) og **norsk**
+  på `/no/` (`no/index.html`, `lang="nb"`). Engelsk er standard. All synlig
+  tekst, alt-tekster, `aria-label`, sr-only, `<title>`, description, Open
+  Graph og JSON-LD-beskrivelsen er oversatt; egennavn (Alibi, Raus, Tåkt,
+  Æventyr, Canyon Hotell, Gargia Lodge, drinknavn, adresser) står uendret.
+  Priser på engelsk skrives «NOK 159» (norsk «kr 159»). Drinktekstene er
+  oversatt uten å bli mer selgende (beslutning #30).
+- **Generator** `tools/bygg-sider.py` (kun standard-Python) som bygger begge
+  forsidene og `sitemap.xml` fra `tools/mal.html` + `tekst/nb.json` +
+  `tekst/en.json` + `tekst/meny.json` + `tekst/felles.json`. Menyen ligger
+  ett sted: navn, glass, cl, pris og ingredienser felles, beskrivelse per
+  språk, ordliste for ingrediensoversettelse. `--sjekk` feiler hvis de
+  genererte filene ikke er i synk; generatoren stopper hvis et språk mangler
+  en nøkkel. Norsk utdata er verifisert byte-lik gammel `index.html` bortsett
+  fra de tilsiktede endringene (beslutning #31).
+- **Språkvelger** helt til høyre i topplinja: `<details>`/`<summary>` (virker
+  uten JS), flagg som inline-SVG-symboler (`#flagg-gb`, `#flagg-no`, 16 × 12,
+  dempede farger) alltid sammen med tekst («EN»/«NO», «English»/«Norsk»),
+  `hreflang` + `lang` på lenkene, `aria-current="page"` på gjeldende språk,
+  skjermlesernavn «Language: EN» / «Språk: NO». Knappen er 44 px høy som
+  touch-mål, men ligger med negativ marg i en 1,4 rem layoutboks (samme knep
+  som ordmerket) – topplinja er ikke blitt høyere. JS lukker på Esc (fokus
+  tilbake til knappen) og klikk utenfor, og lagrer valget i `localStorage`
+  («alibi-sprak»).
+- **Språklenke på døra** («Norsk» / «English») sist i raden med «Walk straight
+  in · Got a password? · Sound: off», med samme lagring.
+- **Husket språkvalg:** inline-skript i `<head>` på `/` sender gjester med
+  lagret «nb» til `/no/` (med `location.replace`, før noe tegnes). Ingen
+  gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg,
+  `localStorage` i try/catch, ikke på `file:`.
+- **SEO per side:** selvrefererende `canonical`, `hreflang` en/nb/x-default,
+  `og:url`, `og:locale` (`en_GB`/`nb_NO`) + `og:locale:alternate`,
+  `inLanguage` og `url` i JSON-LD, og ny `sitemap.xml` med `xhtml:link`.
+  Domenet ligger ett sted (`domene` i `tekst/felles.json`, TODO P2).
+- **Engelske søsterlenker** på den engelske siden – alle verifisert HTTP 200:
+  raussocial.no/en, raussocial.no/en/takt, canyonhotell.no/en,
+  gargialodge.no/en/winter, raussocial.no/en/terms og /en/privacy.
+  aeventyr.no/en/ svarer 308 → /en → 307 → /en/winter (som den norske
+  /nb/-lenka).
+- **Tekstene JS skriver ut** (bank-meldinger, «Du fant oss.», lyd av/på,
+  passordmeldinger) genereres inn som `<script id="alibi-tekst"
+  type="application/json">` i `<head>` fra «js»-blokka i språkfilene;
+  `js/main.js` inneholder ingen strenger på noe språk.
+- **Passordet godtar æ og ae:** input og fasit normaliseres (æ→ae, ø→oe,
+  å→aa, små bokstaver) før sammenligning – i døra, inline-feltet og
+  taste-easter-egget. `ALIBI_PASSORD` er fortsatt ett sted.
+- **`dev`-gren** for alt arbeid; `main` er kundens visning (beslutning #32).
+  `.vercel/` i `.gitignore`.
+
+### Endret
+- `index.html` er nå **generert** (engelsk) – redigeres aldri direkte.
+  Malen `tools/mal.html` bærer strukturen og alle `PLACEHOLDER`-kommentarene
+  (21 stk., mot 22 før: den egne canonical-kommentaren er borte fordi
+  canonical nå genereres; og:image-kommentaren dekker canonical/hreflang/
+  og:url). Begge genererte filer har samme 21 kommentarer.
+- `no/index.html` bruker `../`-stier til css/js/img/assets (prefikset
+  `{{rot}}` i malen), så siden fortsatt kan åpnes rett fra fil.
+- `404.html` er én felles side: engelsk øverst («Wrong door / This door
+  doesn't exist. Ours does. / Back to the door»), norsk under en tynn
+  messinglinje (`.feil-norsk`, `lang="nb"`), lenker til `/` og `/no/`.
+  Stiene er rot-absolutte, siden Vercel serverer fila også under `/no/`.
+  Logosymbolet er fortsatt en kopi (nå av `tools/mal.html`).
+- JSON-LD: `containedInPlace.url` og `parentOrganization.url` følger språket
+  (canyonhotell.no/en, aeventyr.no/en/ på engelsk).
+- `.sprak-pil` er med i reduced-motion-blokka (`transition: none`).
+
+### Verifisert (lokal server, headless Chromium)
+- Tom `localStorage`: `/` viser engelsk → velg norsk → `/no/` (døra vises
+  ikke igjen i samme økt) → gå til `/` → havner på `/no/` → velg engelsk →
+  `/` og blir der. Språklenka på døra gjør det samme.
+- Språkvelgeren: Enter åpner, Tab går til første lenke, Esc lukker med fokus
+  tilbake på knappen, klikk utenfor lukker; knapp 66,7 × 44 px, lenker 44 px
+  høye; uten JS finnes begge lenkene i HTML-en og dørlenka virker.
+- Skjult meny låses opp med «æventyr», «aeventyr» og «AEVENTYR» på begge
+  språk via alle tre veier (dør, inline-felt, tasting – tasting testet med
+  ekte `keydown`-hendelser, siden headless-tastaturet ikke har æ).
+- Feil passord og lyd/bank-meldinger vises på engelsk på `/`.
+- Norske ord på engelsk side (synlig tekst + alt/aria/placeholder/meta,
+  kommentarer unntatt): kun «kjelleren» i `og:image:alt`, som siterer den
+  norske teksten på selve delingsbildet. Ingen andre treff.
+- Headerhøyde **uendret**: 124,8 px på 375 (før: 124,8), 47,0 px på 1440
+  (før: 47,0), begge språk. Ingen horisontal rulling på 375; nedtrekket
+  ligger innenfor skjermen (x 203–355).
+- Lighthouse mobil (lokal server): **engelsk** Performance 95 /
+  Accessibility 100 / Best Practices 100 / SEO 63 (noindex, P14) – FCP 1,5 s,
+  LCP 2,5 s, TBT 100 ms, CLS 0. **Norsk** 95 / 100 / 100 / 63 – FCP 1,4 s,
+  LCP 2,6 s, TBT 60 ms, CLS 0.
+- `python tools/bygg-sider.py --sjekk` → i synk; `git diff` tom etter bygg.
+- Skjermbilder (begge språk, 1440 og 375: dør, topp lukket/åpen, meny,
+  footer, hele siden, samt 404) i `..\alibi-skjermbilder\runde-15\`.
+- `alibi-demo.vercel.app` (main) er uendret: index.html, style.css, main.js
+  og 404.html lastet ned før og etter runden er identiske med `main`.
+
 ## Runde 14 – 2026-09-24 – Strammere ford-utsnitt, lettere ford-filer, bildekilder
 
 ### Endret

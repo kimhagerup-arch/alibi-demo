@@ -454,3 +454,76 @@ usikre rekonstruksjoner er merket «(antatt)».
   hånda. Ford eksporteres med egne innstillinger (WebP q65 + gaussisk
   støyfjerning 0,55 px) – 640 = 76 kB, 800 = 109 kB – som erstatning for
   alternativ (7) over; de andre bildene beholder q78.
+
+## #30 – Engelsk som standardspråk på `/`, norsk på `/no/`, husket valg uten gjetting
+- **Dato:** 2026-09-24 (runde 15)
+- **Beslutning:** Siden finnes på engelsk (`/`, `<html lang="en">`) og norsk
+  (`/no/`, `lang="nb"`). Engelsk er standard: første besøk på hovedadressen
+  viser engelsk. Seksjons-ID-ene er like på begge språk. Språkvalget lagres i
+  `localStorage` («alibi-sprak») når gjesten velger i språkvelgeren (topplinja
+  eller døra); et inline-skript i `<head>` på `/` sender gjester med lagret
+  «nb» til `/no/` før noe tegnes. Ingen gjetting ut fra nettleserspråk, ingen
+  omdirigering uten lagret valg, og `/no/` omdirigerer aldri – søkeroboter får
+  alltid siden de ber om. `sessionStorage`-nøklene (dør, skjult meny) deles
+  mellom språkene. Én felles `404.html` med begge språk (engelsk først).
+  Passordet godtar æ/ø/å som ae/oe/aa. SEO: selvrefererende canonical,
+  `hreflang` (en/nb/x-default → `/`), `og:locale` + alternate, `inLanguage`
+  i JSON-LD og `sitemap.xml` med `xhtml:link`. Engelsk side lenker til
+  søstrenes engelske sider (alle svarer 200).
+- **Alternativer vurdert:** Norsk som standard (forkastet: målgruppen er
+  turister og hotellgjester). Automatisk språkvalg fra `Accept-Language`/
+  `navigator.language` (forkastet av bestillingen: uforutsigbart for
+  roboter og for norske gjester med engelsk telefon). Ett HTML-dokument med
+  begge språk og JS-bytte (forkastet: ikke crawlbart per språk, dobbelt DOM).
+  Språk som query-parameter (forkastet: dårlig for hreflang og deling).
+- **Begrunnelse:** To ekte URL-er gir riktig SEO per språk og fungerer uten
+  JS; lagret valg uten gjetting gir forutsigbar oppførsel.
+- **Status:** Gjeldende (på `dev`, ikke slått sammen til `main`).
+
+## #31 – Én mal og én menyfil: generator i standard-Python, genererte filer commites
+- **Dato:** 2026-09-24 (runde 15)
+- **Beslutning:** `index.html` og `no/index.html` (og `sitemap.xml`)
+  genereres av `tools/bygg-sider.py` fra `tools/mal.html` +
+  `tekst/nb.json`/`tekst/en.json` (all tekst, nøkkel for nøkkel) +
+  `tekst/meny.json` (drinker: navn, glass, cl, pris og ingredienser felles;
+  beskrivelse per språk; ordliste for oversatte ingredienser) +
+  `tekst/felles.json` (domene, kart-URL). Generatoren bruker bare Pythons
+  standardbibliotek, kjøres lokalt og de genererte filene sjekkes inn –
+  serveren serverer fortsatt kun statiske filer. `--sjekk` feiler hvis filene
+  på disk ikke er i synk med kildene, og generatoren stopper hvis et av
+  språkene mangler en nøkkel. Tekstene JS skriver ut, genereres inn som
+  `<script id="alibi-tekst" type="application/json">` i `<head>`, så
+  `js/main.js` inneholder ingen strenger på noe språk. **Endrer #1:** «ingen
+  byggesteg» presiseres til «intet byggesteg på serveren og ingen
+  avhengigheter»; den lokale generatoren er i samme klasse som
+  `eksporter-bilder.py` (byggtid, aldri runtime).
+- **Alternativer vurdert:** To håndskrevne HTML-filer med kontrollskript
+  (forkastet: menyen skal endres ofte, og to filer driver alltid fra
+  hverandre – kontrollskriptet ville bare fortalt at de gjorde det).
+  Jinja2/andre malbiblioteker (forkastet: ny avhengighet for tre
+  plassholdertyper). Byggesteg i Vercel (forkastet: bryter «statisk hvor som
+  helst» og gjør deploy avhengig av Python på serveren). Ingredienser
+  skrevet per språk (forkastet: samme drink ville måtte redigeres to steder;
+  ordlista gir én redigering + én oversettelse per nytt ord).
+- **Begrunnelse:** Menyen og prisene endres ett sted; strukturen kan ikke
+  drive fra hverandre; ingen ny driftsavhengighet.
+- **Status:** Gjeldende (på `dev`). Erstatter delvis #1.
+
+## #32 – `dev`-gren for alt arbeid, `main` er kundens visning
+- **Dato:** 2026-09-24 (runde 15)
+- **Beslutning:** Kunden har lenken `alibi-demo.vercel.app`, som viser
+  `main`. Alt arbeid skjer på `dev`; `main` endres bare når Kim eksplisitt
+  sier «slå sammen til main». Runde-tagger settes først når runden er slått
+  sammen til `main`. Ingen push, merge eller tag mot `main` uten beskjed.
+  Vercel-prosjektet er per i dag **ikke** koblet til GitHub-repoet
+  (deployene er gjort fra CLI: `vercel --prod` fra `main`); en push til
+  `dev` gir derfor ingen automatisk forhåndsvisning. Forhåndsvisning av
+  `dev` lages med `vercel` (uten `--prod`) fra `dev`-arbeidstreet – det gir
+  en preview-URL og aliaset `alibi-demo-git-dev-kimhagerups-projects.vercel.app`,
+  og rører ikke produksjon. `vercel --prod` kjøres aldri fra `dev`.
+- **Alternativer vurdert:** Feature-grener per runde (unødig for én
+  utvikler + én AI; `dev` er nok). Koble Vercel til GitHub med `main` som
+  produksjonsgren (anbefalt på sikt – gir automatisk preview per gren;
+  krever at Kim gjør koblingen i Vercel-dashbordet).
+- **Begrunnelse:** Kunden skal aldri se halvferdig arbeid på sin lenke.
+- **Status:** Gjeldende.
