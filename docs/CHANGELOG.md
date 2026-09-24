@@ -59,6 +59,14 @@ datoene for runde 1–2 er antatt.
 - `python tools/bygg-sider.py --sjekk` → i synk (inkl. `style.min.css`).
 - Skjermbilder av endrede steder (engelsk topp/hero og meny, 1440 og 375) i
   `..\alibi-skjermbilder\runde-16\`.
+- **Sammenslått og publisert:** `runde-15` tagget på 15effea, `dev` merget
+  `--no-ff` til `main` (7eb3f20), `runde-16` tagget, pushet med tagger.
+  Vercel bygde produksjon automatisk fra `main` innen to minutter
+  (bekrefter at produksjonsgrenen er `main`). Kontrollert på
+  `alibi-demo.vercel.app`: `/` engelsk, `/no/` og `/no` norsk, noindex på
+  begge, 404 på ukjent adresse, `sitemap.xml` og `style.min.css` servert –
+  og hele funksjonstestsettet (47 sjekker, inkl. språkvelger og språkflyt)
+  kjørt mot produksjonen: alle OK. `dev` = `main` etterpå.
 
 ## Runde 15 – 2026-09-24 – Engelsk og norsk, engelsk først (slått sammen til `main` i runde 16)
 
