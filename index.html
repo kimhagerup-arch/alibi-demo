@@ -42,12 +42,15 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
   <!-- Fonter: Limelight (display) + Cormorant Garamond (brødtekst) –
-       selvhostet i assets/fonts/. Preload kun de to som brukes over folden. -->
-  <link rel="preload" href="assets/fonts/limelight-400.woff2" as="font" type="font/woff2" crossorigin>
+       selvhostet i assets/fonts/. Preload kun de to som brukes over folden:
+       Cormorant 400 og 400 kursiv (dørstatusen og velkomstlinja – LCP-elementet).
+       Limelight brukes bare av overskriftene (h1–h4) under folden og lastes
+       når de trengs. -->
   <link rel="preload" href="assets/fonts/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/cormorant-garamond-400-italic.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="css/style.css">
-
+  <!-- Inline-skriptene står FØR stilarket: et skript etter <link rel="stylesheet">
+       må vente på at CSS-en er lastet, og omdirigeringen skal skje så tidlig som mulig. -->
   <!-- Husket språkvalg: har gjesten valgt norsk i språkvelgeren («alibi-sprak»
        i localStorage), sendes hen til /no/ før noe tegnes. Ingen gjetting ut
        fra nettleserspråk, ingen omdirigering uten lagret valg – søkeroboter
@@ -60,15 +63,22 @@
     } catch (e) {}
   </script>
 
-  <!-- Hindrer at døra blinker forbi for besøkende som allerede er sluppet inn -->
+  <!-- Hindrer at døra blinker forbi for besøkende som allerede er sluppet inn.
+       Ellers: «dor-lukket» pauser animasjonene bak døra (kammerlys, støv) til
+       døra åpnes – de er usynlige der og koster bare rastrering. main.js fjerner
+       klassen idet døra begynner å åpne seg. -->
   <script>
     if (sessionStorage.getItem('alibi-inne')) {
       document.documentElement.classList.add('inne');
+    } else {
+      document.documentElement.classList.add('dor-lukket');
     }
   </script>
 
   <!-- Tekstene JavaScript skriver ut (dør og skjult meny) – fra tekst/*.json -->
   <script id="alibi-tekst" type="application/json">{"bakromAapnet":"You know the password. The hidden menu is yours.","feilPassord":"That wasn't it.","lydPaa":"Sound: on","lydAv":"Sound: off","bank1":"Once more.","bank2":"One more …","fantOss":"You found us.","somDuVil":"As you wish.","velkommenTilbake":"Welcome back."}</script>
+
+  <link rel="stylesheet" href="css/style.min.css">
 
   <!-- PLACEHOLDER: adresse må bekreftes – se TODO P15. Gjelder «address» i
        JSON-LD-en under (JSON kan ikke bære kommentaren selv). Feil adresse her

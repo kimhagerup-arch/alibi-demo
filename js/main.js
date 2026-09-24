@@ -194,6 +194,8 @@ var ALIBI_PASSORD = "æventyr";
       aapnet = true;
       sessionStorage.setItem("alibi-inne", "1");
       scene.setAttribute("data-state", tilstand);
+      // Døra begynner å åpne seg – kammerlys og støv bak den kan starte (pauset av inline-skriptet i <head>)
+      document.documentElement.classList.remove("dor-lukket");
 
       var ferdig = false;
       function ryddOpp() {

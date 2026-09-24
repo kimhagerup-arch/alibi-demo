@@ -1274,8 +1274,10 @@ html.js-klar .seksjon h2.avslort::after { transform: scaleX(1); }
 
 /* Ambient-animasjonene pauses når fanen ikke er synlig (settes i main.js) */
 html.fane-skjult .seksjon-velkommen::before,
-html.fane-skjult .stov-korn {
-  animation-play-state: paused;
+html.fane-skjult .stov-korn,
+html.dor-lukket .seksjon-velkommen::before,
+html.dor-lukket .stov-korn {
+  animation-play-state: paused; /* fanen er skjult, eller døra er lukket – ingen ser dem */
 }
 
 /* ==========================================================================
