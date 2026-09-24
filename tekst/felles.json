@@ -1,0 +1,9 @@
+{
+  "_hjelp": [
+    "Verdier som er like på begge språk. tools/bygg-sider.py leser denne fila.",
+    "«domene» brukes i canonical, hreflang, og:url, og:image og sitemap.xml –",
+    "byttes til det endelige domenet ved lansering (TODO P2), ett sted."
+  ],
+  "domene": "https://alibi-demo.vercel.app",
+  "kart_url": "https://maps.google.com/?q=Sentrumsparken+2,+9510+Alta"
+}

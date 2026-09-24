@@ -2,11 +2,14 @@
    ALIBI – døra, Bakrommet (på siden: «den skjulte menyen») og bevegelsen
    Døra er et rent overlay: alt innhold ligger i DOM-en bak og er crawlbart
    uansett. sessionStorage: «alibi-inne» (døra vises én gang per økt) og
-   «alibi-bakrom» (Bakrommet forblir åpent i økten).
+   «alibi-bakrom» (Bakrommet forblir åpent i økten) – delt mellom / og /no/.
+   localStorage: «alibi-sprak» (valgt språk, leses av inline-skriptet på /).
+   Tekstene JS skriver ut, ligger ikke her: se «alibi-tekst» i <head>.
    ========================================================================== */
 
 /* Passordet – brukes av både døra og Bakrommet. Bytt det HER, ett sted.
-   Små/store bokstaver spiller ingen rolle for den som taster. */
+   Små/store bokstaver spiller ingen rolle for den som taster, og æ/ø/å
+   godtas som ae/oe/aa (turister med engelsk tastatur kommer også inn). */
 var ALIBI_PASSORD = "æventyr";
 
 (function () {
@@ -17,8 +20,31 @@ var ALIBI_PASSORD = "æventyr";
   var doraAktiv = false;
   var doraPassordAapning = null;
 
+  /* ---------- Tekstene JS skriver ut – per språk, generert inn i <head>
+     som <script id="alibi-tekst" type="application/json"> fra tekst/*.json.
+     Ingen strenger på noe språk skal ligge her i fila. ---------- */
+  var TEKST = {};
+  try {
+    TEKST = JSON.parse(document.getElementById("alibi-tekst").textContent);
+  } catch (e) {
+    /* mangler tekstene, vises nøkkelen – bedre enn feil språk */
+  }
+  function t(nokkel) {
+    return Object.prototype.hasOwnProperty.call(TEKST, nokkel) ? TEKST[nokkel] : nokkel;
+  }
+
+  // æ → ae, ø → oe, å → aa, små bokstaver – brukes på både input og fasit
+  function normaliser(verdi) {
+    return verdi
+      .toLowerCase()
+      .replace(/æ/g, "ae")
+      .replace(/ø/g, "oe")
+      .replace(/å/g, "aa");
+  }
+  var PASSORD_NORM = normaliser(ALIBI_PASSORD);
+
   function riktigPassord(verdi) {
-    return verdi.trim().toLowerCase() === ALIBI_PASSORD.toLowerCase();
+    return normaliser(verdi.trim()) === PASSORD_NORM;
   }
 
   function rist(felt) {
@@ -47,7 +73,7 @@ var ALIBI_PASSORD = "æventyr";
 
     bakromLaas.hidden = true;
     bakromStatus.textContent = "";
-    bakromLinje.textContent = "Du kan passordet. Den skjulte menyen er din.";
+    bakromLinje.textContent = t("bakromAapnet");
 
     bakrommet.hidden = false;
     if (reduserBevegelse) {
@@ -85,7 +111,7 @@ var ALIBI_PASSORD = "æventyr";
         laasOppBakrom(true);
       } else {
         rist(bakromFelt);
-        bakromStatus.textContent = "Det var ikke det.";
+        bakromStatus.textContent = t("feilPassord");
       }
     });
 
@@ -158,7 +184,7 @@ var ALIBI_PASSORD = "æventyr";
     lydKnapp.addEventListener("click", function () {
       lydPaa = !lydPaa;
       lydKnapp.setAttribute("aria-pressed", String(lydPaa));
-      lydKnapp.textContent = lydPaa ? "Lyd: på" : "Lyd: av";
+      lydKnapp.textContent = lydPaa ? t("lydPaa") : t("lydAv");
     });
 
     /* ---------- Å slippe inn ---------- */
@@ -168,6 +194,8 @@ var ALIBI_PASSORD = "æventyr";
       aapnet = true;
       sessionStorage.setItem("alibi-inne", "1");
       scene.setAttribute("data-state", tilstand);
+      // Døra begynner å åpne seg – kammerlys og støv bak den kan starte (pauset av inline-skriptet i <head>)
+      document.documentElement.classList.remove("dor-lukket");
 
       var ferdig = false;
       function ryddOpp() {
@@ -208,19 +236,19 @@ var ALIBI_PASSORD = "æventyr";
         prikk.classList.toggle("tent", i < bank);
       });
 
-      if (bank === 1) status.textContent = "En gang til.";
-      if (bank === 2) status.textContent = "Én til …";
+      if (bank === 1) status.textContent = t("bank1");
+      if (bank === 2) status.textContent = t("bank2");
 
       if (bank >= BANK_MAAL) {
         if (reduserBevegelse) {
-          status.textContent = "Du fant oss.";
+          status.textContent = t("fantOss");
           slippInn("aapner");
           return;
         }
         scene.setAttribute("data-state", "vurderer");
         status.textContent = "…";
         setTimeout(function () {
-          status.textContent = "Du fant oss.";
+          status.textContent = t("fantOss");
         }, 1400);
         setTimeout(function () {
           slippInn("aapner");
@@ -234,7 +262,7 @@ var ALIBI_PASSORD = "æventyr";
 
     hoppLenke.addEventListener("click", function (e) {
       e.preventDefault();
-      status.textContent = "Som du vil.";
+      status.textContent = t("somDuVil");
       slippInn("aapner");
     });
 
@@ -242,7 +270,7 @@ var ALIBI_PASSORD = "æventyr";
 
     function passordAapning() {
       laasOppBakrom(false); // den som kan passordet, får Bakrommet ferdig opplåst
-      status.textContent = "Velkommen tilbake.";
+      status.textContent = t("velkommenTilbake");
       slippInn(reduserBevegelse ? "aapner" : "hemmelig");
     }
     doraPassordAapning = passordAapning;
@@ -264,7 +292,7 @@ var ALIBI_PASSORD = "æventyr";
         passordAapning();
       } else {
         rist(passordFelt);
-        status.textContent = "Det var ikke det.";
+        status.textContent = t("feilPassord");
       }
     });
   })();
@@ -277,17 +305,50 @@ var ALIBI_PASSORD = "æventyr";
 
   var tastebuffer = "";
   document.addEventListener("keydown", function (e) {
-    var t = e.target;
-    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) return;
+    var maal = e.target;
+    if (maal && (maal.tagName === "INPUT" || maal.tagName === "TEXTAREA")) return;
     if (!e.key || e.key.length !== 1) return;
-    tastebuffer = (tastebuffer + e.key.toLowerCase()).slice(-ALIBI_PASSORD.length);
-    if (tastebuffer !== ALIBI_PASSORD.toLowerCase()) return;
+    // Bufferen holdes normalisert (æ → ae), så «æventyr» og «aeventyr» er like
+    tastebuffer = (tastebuffer + normaliser(e.key)).slice(-PASSORD_NORM.length);
+    if (tastebuffer !== PASSORD_NORM) return;
     tastebuffer = "";
     if (doraAktiv && doraPassordAapning) {
       doraPassordAapning();
     } else {
       laasOppBakrom(true);
     }
+  });
+
+  /* ========================================================================
+     SPRÅKVELGEREN
+     <details> virker uten JS; her: lukk på Esc og klikk utenfor, og husk
+     valget i localStorage («alibi-sprak») – leses av inline-skriptet i
+     <head> på /, som sender gjesten til /no/ hvis norsk er valgt. Gjelder
+     også språklenka på døra (data-sprak).
+     ======================================================================== */
+
+  var sprakVelger = document.querySelector(".sprak");
+  if (sprakVelger) {
+    document.addEventListener("click", function (e) {
+      if (sprakVelger.open && !sprakVelger.contains(e.target)) sprakVelger.open = false;
+    });
+    sprakVelger.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && sprakVelger.open) {
+        sprakVelger.open = false;
+        var knapp = sprakVelger.querySelector("summary");
+        if (knapp) knapp.focus();
+      }
+    });
+  }
+
+  document.querySelectorAll("a[data-sprak]").forEach(function (lenke) {
+    lenke.addEventListener("click", function () {
+      try {
+        localStorage.setItem("alibi-sprak", lenke.getAttribute("data-sprak"));
+      } catch (e) {
+        /* privat modus o.l. – valget huskes bare ikke */
+      }
+    });
   });
 
   /* ========================================================================

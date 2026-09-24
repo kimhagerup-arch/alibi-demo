@@ -5,6 +5,164 @@ Format etter [Keep a Changelog](https://keepachangelog.com/): nyeste øverst,
 Runde 1 og 2 er rekonstruert i ettertid (git ble tatt i bruk i runde 3);
 datoene for runde 1–2 er antatt.
 
+## Runde 16 – 2026-09-24 – Rettet engelsk, ytelse 97, Vercel–GitHub bekreftet, slått sammen til `main`
+
+### Endret
+- **Engelske formuleringer** (Kims gjennomgang av runde 15-lista):
+  navigasjonen (topp og bunn) i kort form «Story · House · Menu · Find us ·
+  Practical» (overskriftene beholder «The story» osv.), «Alta · the cellar ·
+  tonight», Æventonic «House special.», Basil Smash «a little cheeky» (norsk
+  kilde er «litt uhøflig» – «cheeky» valgt som nærmeste naturlige med samme
+  glimt; «a little impolite» er det ordrette alternativet), Mezcalita «The
+  lime wedge passes through the flame on its way in.», ordlista «Mannsverk
+  jordbær» → «Mannsverk Farm strawberries». Norsk side er uendret (bekreftet:
+  `no/index.html` ikke i diffen). Headerhøyden på engelsk 375 er nå 85,1 px
+  (nav-raden bryter på to linjer i stedet for tre); norsk uendret 124,8 px.
+- **Ytelse – årsak og tiltak (beslutning #33).** Runde 15-fallet fra 97 til
+  95 var målestøy: under like forhold i dag måler `main` 96/96/95 (median
+  96), `dev` engelsk 96/96/95 og `dev` norsk 95/96/96 – ingen forskjell.
+  Lighthouse sin observerte første paint kommer ~2 s etter `load` på alle
+  varianter (rastrering av de fullskjerms dekorlagene på programvare-GPU),
+  og LCP-elementet er velkomstlinja bak døra. Tiltak, alle tapsfrie:
+  - `css/style.min.css` generert av `tools/bygg-sider.py` (40 → 25 kB),
+    lenket fra malen og `404.html`. Rendringen er pikselidentisk mot
+    `style.css` (dør, forside begge språk, 404; 1440 og 375). Dette var det
+    eneste enkelttiltaket som flyttet scoren (eksperiment: 98/97).
+  - Preload: Cormorant 400 + 400 kursiv i stedet for Limelight + 400
+    (Limelight brukes bare av h1–h4 under folden).
+  - Inline-skriptene i `<head>` står før `<link rel="stylesheet">`.
+  - `html.dor-lukket` (satt av inline-skriptet når døra skal vises, fjernet
+    av `main.js` idet døra åpner) pauser kammerlyset og støvet bak døra.
+  - Forkastet etter måling: uten font-preload (95), fjerne enkeltlag som
+    korn/vignett/dørgradienter/kammerlys (ingen målbar effekt hver for seg,
+    og det er designet).
+- **Vercel–GitHub:** koblingen fantes allerede (`vercel git connect` →
+  «already connected»). Runde 15-antakelsen er rettet i CLAUDE.md,
+  beslutning #32, TODO og changelog. Push til `dev` gir preview med aliaset
+  `alibi-demo-git-dev-kimhagerups-projects.vercel.app` (innloggingsbeskyttet).
+- Dokumentasjon: CLAUDE.md (filkart med `style.min.css`, ytelsesregel om
+  median av tre), README, ONBOARDING, TODO (engelsk tekstkontroll lukket,
+  Vercel-punktene lukket, «Sist verifisert»), DECISIONS #32 oppdatert, #33 ny.
+
+### Verifisert (lokal server, headless Chromium)
+- Lighthouse mobil, **median av tre**: **engelsk 97/97/97** – Performance 97 /
+  Accessibility 100 / Best Practices 100 / SEO 63 (noindex, P14), FCP 1,4 s,
+  LCP 2,18 s, TBT 61 ms, CLS 0, SI 3,5 s. **Norsk 97/97/97** – 97/100/100/63,
+  FCP 1,4 s, LCP 2,18 s, TBT 61 ms, CLS 0, SI 3,4 s. Før tiltakene: 96 på
+  begge (LCP 2,4–2,5 s).
+- Funksjonstestene fra runde 15 (47 sjekker): språkflyt med tom lagring,
+  språkvelger med tastatur/Esc/klikk utenfor/uten JS, skjult meny med
+  «æventyr»/«aeventyr»/«AEVENTYR» via tre veier på begge språk, engelske
+  meldinger, ingen horisontal rulling på 375 – alle OK etter endringene.
+  `dor-lukket` bekreftet: `paused` bak døra, `running` fra døra åpner, ikke
+  satt ved gjenbesøk.
+- `python tools/bygg-sider.py --sjekk` → i synk (inkl. `style.min.css`).
+- Skjermbilder av endrede steder (engelsk topp/hero og meny, 1440 og 375) i
+  `..\alibi-skjermbilder\runde-16\`.
+
+## Runde 15 – 2026-09-24 – Engelsk og norsk, engelsk først (slått sammen til `main` i runde 16)
+
+### Lagt til
+- **Engelsk versjon** på `/` (`index.html`, `<html lang="en">`) og **norsk**
+  på `/no/` (`no/index.html`, `lang="nb"`). Engelsk er standard. All synlig
+  tekst, alt-tekster, `aria-label`, sr-only, `<title>`, description, Open
+  Graph og JSON-LD-beskrivelsen er oversatt; egennavn (Alibi, Raus, Tåkt,
+  Æventyr, Canyon Hotell, Gargia Lodge, drinknavn, adresser) står uendret.
+  Priser på engelsk skrives «NOK 159» (norsk «kr 159»). Drinktekstene er
+  oversatt uten å bli mer selgende (beslutning #30).
+- **Generator** `tools/bygg-sider.py` (kun standard-Python) som bygger begge
+  forsidene og `sitemap.xml` fra `tools/mal.html` + `tekst/nb.json` +
+  `tekst/en.json` + `tekst/meny.json` + `tekst/felles.json`. Menyen ligger
+  ett sted: navn, glass, cl, pris og ingredienser felles, beskrivelse per
+  språk, ordliste for ingrediensoversettelse. `--sjekk` feiler hvis de
+  genererte filene ikke er i synk; generatoren stopper hvis et språk mangler
+  en nøkkel. Norsk utdata er verifisert byte-lik gammel `index.html` bortsett
+  fra de tilsiktede endringene (beslutning #31).
+- **Språkvelger** helt til høyre i topplinja: `<details>`/`<summary>` (virker
+  uten JS), flagg som inline-SVG-symboler (`#flagg-gb`, `#flagg-no`, 16 × 12,
+  dempede farger) alltid sammen med tekst («EN»/«NO», «English»/«Norsk»),
+  `hreflang` + `lang` på lenkene, `aria-current="page"` på gjeldende språk,
+  skjermlesernavn «Language: EN» / «Språk: NO». Knappen er 44 px høy som
+  touch-mål, men ligger med negativ marg i en 1,4 rem layoutboks (samme knep
+  som ordmerket) – topplinja er ikke blitt høyere. JS lukker på Esc (fokus
+  tilbake til knappen) og klikk utenfor, og lagrer valget i `localStorage`
+  («alibi-sprak»).
+- **Språklenke på døra** («Norsk» / «English») sist i raden med «Walk straight
+  in · Got a password? · Sound: off», med samme lagring.
+- **Husket språkvalg:** inline-skript i `<head>` på `/` sender gjester med
+  lagret «nb» til `/no/` (med `location.replace`, før noe tegnes). Ingen
+  gjetting ut fra nettleserspråk, ingen omdirigering uten lagret valg,
+  `localStorage` i try/catch, ikke på `file:`.
+- **SEO per side:** selvrefererende `canonical`, `hreflang` en/nb/x-default,
+  `og:url`, `og:locale` (`en_GB`/`nb_NO`) + `og:locale:alternate`,
+  `inLanguage` og `url` i JSON-LD, og ny `sitemap.xml` med `xhtml:link`.
+  Domenet ligger ett sted (`domene` i `tekst/felles.json`, TODO P2).
+- **Engelske søsterlenker** på den engelske siden – alle verifisert HTTP 200:
+  raussocial.no/en, raussocial.no/en/takt, canyonhotell.no/en,
+  gargialodge.no/en/winter, raussocial.no/en/terms og /en/privacy.
+  aeventyr.no/en/ svarer 308 → /en → 307 → /en/winter (som den norske
+  /nb/-lenka).
+- **Tekstene JS skriver ut** (bank-meldinger, «Du fant oss.», lyd av/på,
+  passordmeldinger) genereres inn som `<script id="alibi-tekst"
+  type="application/json">` i `<head>` fra «js»-blokka i språkfilene;
+  `js/main.js` inneholder ingen strenger på noe språk.
+- **Passordet godtar æ og ae:** input og fasit normaliseres (æ→ae, ø→oe,
+  å→aa, små bokstaver) før sammenligning – i døra, inline-feltet og
+  taste-easter-egget. `ALIBI_PASSORD` er fortsatt ett sted.
+- **`dev`-gren** for alt arbeid; `main` er kundens visning (beslutning #32).
+  `.vercel/` i `.gitignore`.
+
+### Endret
+- `index.html` er nå **generert** (engelsk) – redigeres aldri direkte.
+  Malen `tools/mal.html` bærer strukturen og alle `PLACEHOLDER`-kommentarene
+  (21 stk., mot 22 før: den egne canonical-kommentaren er borte fordi
+  canonical nå genereres; og:image-kommentaren dekker canonical/hreflang/
+  og:url). Begge genererte filer har samme 21 kommentarer.
+- `no/index.html` bruker `../`-stier til css/js/img/assets (prefikset
+  `{{rot}}` i malen), så siden fortsatt kan åpnes rett fra fil.
+- `404.html` er én felles side: engelsk øverst («Wrong door / This door
+  doesn't exist. Ours does. / Back to the door»), norsk under en tynn
+  messinglinje (`.feil-norsk`, `lang="nb"`), lenker til `/` og `/no/`.
+  Stiene er rot-absolutte, siden Vercel serverer fila også under `/no/`.
+  Logosymbolet er fortsatt en kopi (nå av `tools/mal.html`).
+- JSON-LD: `containedInPlace.url` og `parentOrganization.url` følger språket
+  (canyonhotell.no/en, aeventyr.no/en/ på engelsk).
+- `.sprak-pil` er med i reduced-motion-blokka (`transition: none`).
+
+### Verifisert (lokal server, headless Chromium)
+- Tom `localStorage`: `/` viser engelsk → velg norsk → `/no/` (døra vises
+  ikke igjen i samme økt) → gå til `/` → havner på `/no/` → velg engelsk →
+  `/` og blir der. Språklenka på døra gjør det samme.
+- Språkvelgeren: Enter åpner, Tab går til første lenke, Esc lukker med fokus
+  tilbake på knappen, klikk utenfor lukker; knapp 66,7 × 44 px, lenker 44 px
+  høye; uten JS finnes begge lenkene i HTML-en og dørlenka virker.
+- Skjult meny låses opp med «æventyr», «aeventyr» og «AEVENTYR» på begge
+  språk via alle tre veier (dør, inline-felt, tasting – tasting testet med
+  ekte `keydown`-hendelser, siden headless-tastaturet ikke har æ).
+- Feil passord og lyd/bank-meldinger vises på engelsk på `/`.
+- Norske ord på engelsk side (synlig tekst + alt/aria/placeholder/meta,
+  kommentarer unntatt): kun «kjelleren» i `og:image:alt`, som siterer den
+  norske teksten på selve delingsbildet. Ingen andre treff.
+- Headerhøyde **uendret**: 124,8 px på 375 (før: 124,8), 47,0 px på 1440
+  (før: 47,0), begge språk. Ingen horisontal rulling på 375; nedtrekket
+  ligger innenfor skjermen (x 203–355).
+- Lighthouse mobil (lokal server): **engelsk** Performance 95 /
+  Accessibility 100 / Best Practices 100 / SEO 63 (noindex, P14) – FCP 1,5 s,
+  LCP 2,5 s, TBT 100 ms, CLS 0. **Norsk** 95 / 100 / 100 / 63 – FCP 1,4 s,
+  LCP 2,6 s, TBT 60 ms, CLS 0.
+- `python tools/bygg-sider.py --sjekk` → i synk; `git diff` tom etter bygg.
+- Skjermbilder (begge språk, 1440 og 375: dør, topp lukket/åpen, meny,
+  footer, hele siden, samt 404) i `..\alibi-skjermbilder\runde-15\`.
+- `alibi-demo.vercel.app` (main) er uendret: index.html, style.css, main.js
+  og 404.html lastet ned før og etter runden er identiske med `main`;
+  `/no/` gir 404 der, som før.
+- Forhåndsvisning av `dev` deployet med `vercel` (preview):
+  `alibi-demo-eprnl7vq6-kimhagerups-projects.vercel.app`, alias
+  `alibi-demo-git-dev-kimhagerups-projects.vercel.app`. Begge svarer 302 til
+  Vercel-innlogging (Deployment Protection) – testene over er derfor kjørt
+  mot lokal server med samme filer. *(Rettet i runde 16: Vercel var koblet
+  til GitHub hele tiden; pushene til `dev` ga egne previews.)*
+
 ## Runde 14 – 2026-09-24 – Strammere ford-utsnitt, lettere ford-filer, bildekilder
 
 ### Endret

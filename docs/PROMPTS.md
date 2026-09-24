@@ -6,6 +6,78 @@ Nyeste øverst.
 
 ---
 
+## Runde 16 – 2026-09-24 – Rettet engelsk, ytelse, Vercel–GitHub, sammenslåing til `main`
+**Prompt:** [`prompts/runde-16-engelsk-ytelse-vercel-main.md`](prompts/runde-16-engelsk-ytelse-vercel-main.md)
+
+**Bestilt:** (1) Seks engelske rettelser, resten beholdes, lukk
+lanseringskravet. (2) Finn årsaken til 97 → 95, rett uten å fjerne
+funksjonalitet, mål 97+ som median av tre. (3) `vercel git connect`,
+`--sjekk`, push `dev`, kontroller preview, skjermbilder. (4) Kun hvis 3 er
+bestått: tag `runde-15`, merge `--no-ff` til `main`, tag `runde-16`, push,
+kontroller produksjon, `dev` = `main`. (5) Sporbarhet.
+
+**Levert:** Alt. Median 97 på begge språk (fra 96). Vercel var allerede
+koblet. Slått sammen til `main` og publisert.
+
+**Avvik:**
+- **«a little cheeky»:** norsk kilde er «litt uhøflig», ikke «litt frekk».
+  «cheeky» er valgt likevel (nærmeste naturlige engelsk med samme glimt);
+  ordrett alternativ «a little impolite» er notert i CHANGELOG.
+- **Årsaken til fallet var målestøy**, ikke runde 15: `main` måler også 96
+  som median i dag. 97 er nådd med minifisert CSS fra generatoren
+  (beslutning #33) pluss tre mindre, tapsfrie grep – ikke ved å rulle noe
+  tilbake.
+- **Vercel-koblingen fantes**; runde 15-rapporten om manglende kobling var
+  feil og er rettet i alle dokumenter.
+- Headerhøyden på engelsk 375 gikk *ned* (124,8 → 85,1 px) fordi den korte
+  navigasjonen får plass på to linjer; norsk er uendret.
+- Previewen kan ikke testes automatisk (innloggingsbeskyttet); kontrollene i
+  del 3 er kjørt mot lokal server med de samme filene, og deploymenten er
+  bekreftet opprettet.
+
+---
+
+## Runde 15 – 2026-09-24 – Engelsk og norsk, engelsk først (på `dev`)
+**Prompt:** [`prompts/runde-15-engelsk-og-norsk.md`](prompts/runde-15-engelsk-og-norsk.md)
+
+**Bestilt:** (0) `dev`-gren, push, finn forhåndsvisnings-URL, bekreft
+produksjonsgren, regel i CLAUDE.md, kort plan. (1–3) Engelsk på `/`, norsk
+på `/no/`, husket valg i `localStorage` uten gjetting, felles 404, generator
+(anbefalt) med én mal + språkfiler + én menyfil, genererte filer commites,
+ny beslutning som endrer #1. (4) Full oversettelse i samme tone,
+egennavn uoversatt, «NOK 159», alkoholreglene, liste over usikre
+formuleringer. (5) Språkvelger med inline-SVG-flagg, `<details>`, Esc/klikk
+utenfor, 44 px, hreflang/lang/aria-current, uten høyere header; språklenke
+på døra. (6) JS-tekster per språk, passord med æ/ae, delte
+sessionStorage-nøkler. (7) hreflang, og:locale, inLanguage, sitemap,
+selvrefererende canonical, engelske søsterlenker. (8) Skjermbilder,
+språkflyt, tastatur, passord ×3 veier ×2 språk, norske ord på engelsk side,
+375 uten rulling, headerhøyde, Lighthouse begge, generator i synk, main
+uendret. (9) Sporbarhet, push `dev`, ikke main/merge/tag.
+
+**Levert:** Alt, i kode- og docs-commits på `dev`. Generator valgt
+(beslutning #31). Lighthouse 95/100/100/63 på begge språk, CLS 0.
+Headerhøyde uendret (124,8 px på 375). Alle søstre har engelske sider (200).
+
+**Avvik:**
+- **Vercel er ikke koblet til GitHub** – deployene er gjort fra CLI, så
+  push til `dev` ga ingen automatisk forhåndsvisning, og «produksjonsgren»
+  finnes ikke som innstilling. Forhåndsvisning av `dev` er derfor laget med
+  `vercel` (uten `--prod`) fra `dev`-treet; URL-en står i sluttrapporten og
+  i CLAUDE.md. Kim må koble repoet i Vercel (Settings → Git) hvis grenene
+  skal få automatiske previews.
+- Canonical og `og:url` er lagt inn nå (selvrefererende, med
+  previewdomenet fra `tekst/felles.json`) i stedet for å vente på P2 –
+  hreflang krever absolutte URL-er uansett, og P2 blir da ett bytte i én
+  fil. `PLACEHOLDER`-antallet gikk fra 22 til 21 (canonical-kommentaren er
+  slått sammen med og:image-kommentaren).
+- `og:image:alt` på engelsk siterer den norske teksten på delingsbildet
+  (bildet er ikke oversatt) – ført som backlog.
+- «Kim kontrollerer engelsk tekst» er lagt inn som lanseringskrav i TODO
+  med lista over usikre formuleringer.
+
+---
+
 ## Runde 14 – 2026-09-24 – Ford-bildet og bildekilder
 **Prompt:** [`prompts/runde-14-ford-og-bildekilder.md`](prompts/runde-14-ford-og-bildekilder.md)
 

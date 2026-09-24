@@ -1,0 +1,149 @@
+{
+  "_hjelp": [
+    "Menyen – ÉN kilde for begge språk. tools/bygg-sider.py leser denne fila.",
+    "Felles per drink: id, navn, glass (vin/highball/rocks/margarita, eller null),",
+    "cl (null = ikke oppgitt), pris (tall – formatet «kr 159»/«NOK 159» ligger i",
+    "tekst/nb.json og tekst/en.json), ingredienser (liste) og bakrom (true =",
+    "den skjulte menyen). Per språk: tekst.nb og tekst.en.",
+    "Ingrediensene skrives på norsk. Ord som skal oversettes, føres i",
+    "«ordliste» under (norsk → engelsk). Ord som ikke står der, brukes uendret",
+    "på begge språk (merkevarer og drinknavn) – generatoren varsler hvis et",
+    "uoversatt ord begynner med liten bokstav.",
+    "Etter endring: python tools/bygg-sider.py"
+  ],
+  "drinker": [
+    {
+      "id": "aeventonic",
+      "navn": "Æventonic",
+      "glass": "vin",
+      "cl": 30,
+      "pris": 159,
+      "ingredienser": ["Gin Mare", "Fever-Tree Mediterranean Tonic", "rosmarin"],
+      "tekst": {
+        "nb": "Husets egen. Middelhavsgin, tonic med urter, og en rosmarinkvist som lukter av et varmere sted.",
+        "en": "House special. Mediterranean gin, tonic with herbs, and a sprig of rosemary that smells of somewhere warmer."
+      }
+    },
+    {
+      "id": "aurora-fizz",
+      "navn": "Aurora Fizz",
+      "glass": "highball",
+      "cl": 25,
+      "pris": 159,
+      "ingredienser": ["Gin", "blå curaçao", "sitron", "sukkerlake", "soda", "sitronskall"],
+      "tekst": {
+        "nb": "Nordlys i kjelleren. Den lyser blått uten å rope om det.",
+        "en": "Northern lights in the cellar. It glows blue without shouting about it."
+      }
+    },
+    {
+      "id": "basil-smash",
+      "navn": "Basil Smash",
+      "glass": "rocks",
+      "cl": 15,
+      "pris": 159,
+      "ingredienser": ["Gin", "sitron", "sukkerlake", "fersk basilikum"],
+      "tekst": {
+        "nb": "Basilikum knust i bunnen, gin over. Grønn, frisk og litt uhøflig.",
+        "en": "Basil crushed in the bottom, gin on top. Green, fresh and a little cheeky."
+      }
+    },
+    {
+      "id": "manito",
+      "navn": "Manito",
+      "glass": "highball",
+      "cl": 25,
+      "pris": 159,
+      "ingredienser": ["Hvit rom", "Mannsverk jordbær", "mynte", "lime", "sukkerlake", "soda", "jordbær"],
+      "tekst": {
+        "nb": "Mojitoens jordbærglade slektning. Mynten er plukket her inne.",
+        "en": "The mojito's strawberry-loving relative. The mint is picked in here."
+      }
+    },
+    {
+      "id": "mezcalita",
+      "navn": "Mezcalita",
+      "glass": "margarita",
+      "cl": 15,
+      "pris": 159,
+      "ingredienser": ["Mezcal", "triple sec", "lime", "sukkerlake", "salt", "flambert lime"],
+      "tekst": {
+        "nb": "Margarita med røyk i. Limebåten har vært innom flammen på veien.",
+        "en": "A margarita with smoke in it. The lime wedge passes through the flame on its way in."
+      }
+    },
+    {
+      "id": "maltfassioned",
+      "navn": "Maltfassioned",
+      "glass": "rocks",
+      "cl": 10,
+      "pris": 159,
+      "ingredienser": ["Single malt", "Angostura", "sukkerbit", "appelsin"],
+      "tekst": {
+        "nb": "En Old Fashioned som tok feil avkjøring og havnet i Skottland.",
+        "en": "An Old Fashioned that took a wrong turn and ended up in Scotland."
+      }
+    },
+    {
+      "id": "canyon-tea",
+      "navn": "Canyon Tea",
+      "glass": "highball",
+      "cl": 25,
+      "pris": 159,
+      "ingredienser": ["Vodka", "triple sec", "gin", "hvit rom", "mezcal", "sitron", "sukkerlake", "Coca-Cola", "appelsin"],
+      "tekst": {
+        "nb": "Fem flasker og en cola. Vi sier ikke mer.",
+        "en": "Five bottles and a cola. We'll say no more."
+      }
+    },
+    {
+      "id": "mandaquiri",
+      "navn": "Mandaquiri",
+      "glass": null,
+      "cl": null,
+      "pris": 159,
+      "bakrom": true,
+      "ingredienser": ["Hvit rom", "Mannsverk jordbær", "lime"],
+      "tekst": {
+        "nb": "Daiquiri, men rød. Kort, kald og rett på sak.",
+        "en": "A daiquiri, but red. Short, cold and straight to the point."
+      }
+    },
+    {
+      "id": "adventure",
+      "navn": "Adventure",
+      "glass": null,
+      "cl": null,
+      "pris": 159,
+      "bakrom": true,
+      "ingredienser": ["Gin", "triple sec", "lime", "eggehvite"],
+      "tekst": {
+        "nb": "Ristet til skummet legger seg som et lokk. Ser uskyldig ut.",
+        "en": "Shaken until the foam settles like a lid. Looks innocent."
+      }
+    }
+  ],
+  "ordliste": {
+    "rosmarin": "rosemary",
+    "blå curaçao": "blue curaçao",
+    "sitron": "lemon",
+    "sukkerlake": "sugar syrup",
+    "soda": "soda",
+    "sitronskall": "lemon peel",
+    "fersk basilikum": "fresh basil",
+    "Hvit rom": "White rum",
+    "hvit rom": "white rum",
+    "Mannsverk jordbær": "Mannsverk Farm strawberries",
+    "mynte": "mint",
+    "lime": "lime",
+    "jordbær": "strawberry",
+    "triple sec": "triple sec",
+    "salt": "salt",
+    "flambert lime": "flamed lime",
+    "sukkerbit": "sugar cube",
+    "appelsin": "orange",
+    "gin": "gin",
+    "mezcal": "mezcal",
+    "eggehvite": "egg white"
+  }
+}
