@@ -267,10 +267,20 @@
     <h1 class="logotype" tabindex="-1"><svg class="ordmerke" viewBox="0 0 236.88 188.95" role="img" aria-labelledby="ordmerke-hero"><title id="ordmerke-hero">Alibi</title><use href="#alibi-ordmerke"/></svg></h1>
     <p class="velkomst-linje">{{hero_linje}}</p>
 
-    <!-- PLACEHOLDER: hero-video. Erstatt denne flaten med <video> når filen foreligger.
-         Forventet fil: assets/hero.mp4 (se README for spesifikasjoner). -->
-    <div class="medie-slot medie-slot-hero" role="img" aria-label="{{hero_video_aria}}">
-      <span class="medie-slot-tekst">{{hero_video_tekst}}</span>
+    <!-- PLACEHOLDER: eksempelfilm med vannmerke (Envato-forhåndsvisning), lisensieres eller byttes før lansering -->
+    <!-- Hero-filmen: dekor (aria-hidden), lydløs, i loop. Uten autoplay-attributt og
+         med preload="none" med vilje: filmen skal verken lastes eller spille bak lukket
+         dør, ved redusert bevegelse eller i sparemodus – main.js starter den når det
+         passer. Uten JS: plakat + nettleserens egne kontroller (controls fjernes av JS,
+         som viser sin egen pauseknapp). Filer og bytte: tools/lag-hero-film.py. -->
+    <div class="medie-slot medie-slot-hero medie-slot-film">
+      <video class="hero-film" id="hero-film" muted loop playsinline preload="none" controls width="960" height="540" poster="{{rot}}assets/video/alibi-hero-poster.webp" aria-hidden="true" tabindex="-1">
+        <source src="{{rot}}assets/video/alibi-hero.mp4" type="video/mp4">
+      </video>
+      <button type="button" class="film-knapp" id="film-knapp" data-tilstand="pauset" aria-label="{{film_spill}}" hidden>
+        <svg class="film-ikon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2.5" width="3.4" height="11" fill="currentColor"/><rect x="9.6" y="2.5" width="3.4" height="11" fill="currentColor"/></svg>
+        <svg class="film-ikon-spill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.5,2.5 L13,8 L4.5,13.5 Z" fill="currentColor"/></svg>
+      </button>
     </div>
   </section>
 
